@@ -347,6 +347,31 @@ const products = [
     { id: 3, title: "עגילי חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "018", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-hishuk.jpg.png", desc: "עגילי חישוק מרהיבים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", stoneSize: "1.6 ס\"מ", totalLength: "כ-4 ס\"מ" },
     { id: 19, title: "תליון חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "019", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-hishuk.png", desc: "תליון חישוק מרהיב המשלב קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", size: "קוטר החישוק: כ-2.2 ס\"מ" },
     { id: 20, title: "סט תליון ועגילי חישוק - קשת הצבעים", price: 144, originalPrice: 180, sku: "020", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-hishuk.png", desc: "סט תליון ועגילי חישוק מרהיבים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", size: "קוטר חישוק תליון: כ-2.2 ס\"מ | קוטר חישוק עגילים: כ-1.6 ס\"מ" }
+{ 
+        id: 21, 
+        title: "תליון יער הצבעים", 
+        price: 96, 
+        originalPrice: 120, 
+        sku: "021", 
+        type: "תליון", 
+        img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/forest-colors-pendant.jpg", 
+        desc: "תליון מהפנט בעל שילוב גוונים ייחודי המזכיר יער מלבלב, עטוף בעבודת יד מוקפדת בחוט זהוב יוקרתי.", 
+        material: "אבן טבעית ייחודית, חוט נחושת זהוב", 
+        size: "3.5*2.2 ס\"מ" 
+    },
+    { 
+        id: 22, 
+        title: "עגילי זברה (קוורץ טורמלין)", 
+        price: 64, 
+        originalPrice: 80, 
+        sku: "022", 
+        type: "עגילים", 
+        img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/zebra-quartz-earrings.jpg", 
+        desc: "עגילים ייחודיים מאבני קוורץ שקופות עם מחטי טורמלין שחורות המעניקות מראה 'זברה' טבעי ומשגע, מלופפים בחוט נחושת כסוף ועמיד.", 
+        material: "אבני קוורץ טורמלין (רוטיל) טבעיות, חוט נחושת כסוף", 
+        stoneSize: "כ-1.5 ס\"מ", 
+        totalLength: "כ-3.8 ס\"מ" 
+    }
 ];
         
         let cart = [];
@@ -541,9 +566,9 @@ let upgradeSectionHtml = '';
             original925 = 80; originalGold = 100;
         } else if (p.type === "סט תכשיטים") {
             original925 = 130; originalGold = 170;
-        } else if (p.sku === "001" || p.sku === "002") {
-            original925 = 130; originalGold = 150;
-        }
+       } else if (p.sku === "001" || p.sku === "002" || p.sku === "021") {
+    original925 = 130; originalGold = 150;
+}
 
         let sale925 = Math.round(original925 * 0.8);
         let saleGold = Math.round(originalGold * 0.8);
