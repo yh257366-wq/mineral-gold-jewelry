@@ -383,7 +383,7 @@ const products = [
         desc: "עגילים מרהיבים בצורת טיפה עדינה, המשלבים חרוזים צבעוניים קטנים בגוונים יוקרתיים ומנצנצים השזורים לאורך הטיפה. עיצוב ייחודי, בעל נוכחות ואלגנטיות.", 
         material: "חרוזים בגוונים שנים, מבנה טיפה וחוט ליפוף עשויים מנחושת זהובה", 
         stoneSize: "גודל הטיפה: כ-1.7*2.8 ס\"מ", 
-        totalLength: "אורך כולל של העגיל: כ-4.7 ס\"מ" 
+        totalLength: "כ-4.7 ס\"מ" 
     }
 ];
         
@@ -525,7 +525,7 @@ function openProductPage(id) {
         } else if (type === "עגילים") {
             dimensionsHtml = `
                 <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>גודל האבן:</strong> ${p.stoneSize || "כ-1.3 ס\"מ"}</p>
+                <p><strong>${p.sku === "023" ? "גודל הטיפה:" : "גודל האבן:"}</strong> ${p.stoneSize || "כ-1.3 ס\"מ"}</p>
                 <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
             `;
         } else if (type === "תליון") {
