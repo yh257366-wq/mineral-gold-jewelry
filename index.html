@@ -977,11 +977,12 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
      async function triggerPdfSave() {
     const element = document.querySelector('#view-summary .max-w-3xl');
     if (!element) {
-        alert("אלמנט הסיכום לא נמצא.");
+        window.print();
         return;
     }
-    const orderId = document.getElementById('summary-order-id').innerText || "order";
+    const orderId = document.getElementById('summary-order-id')?.innerText || "order";
     
+    // בדיקה וטעינה דינמית במידת הצורך
     if (typeof html2pdf === 'undefined') {
         const btn = document.querySelector('button[onclick="triggerPdfSave()"]');
         const originalText = btn ? btn.innerText : "";
@@ -996,8 +997,8 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
                 document.head.appendChild(script);
             });
         } catch (e) {
-            alert("לא ניתן לטעון את רכיב ה-PDF. אנא השתמש באפשרות ההדפסה הרגילה.");
             if(btn) btn.innerText = originalText;
+            window.print();
             return;
         }
         if(btn) btn.innerText = originalText;
@@ -1006,23 +1007,21 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
     const opt = {
         margin:       [10, 10, 10, 10],
         filename:     `order-${orderId}.pdf`,
-        image:        { type: 'jpeg', quality: 0.95 },
+        image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { 
             scale: 2, 
-            useCORS: false, 
+            useCORS: true, // מאפשר טעינת תמונות בצורה תקינה
             logging: false,
-            letterRendering: true,
             scrollY: 0
         }, 
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     try {
-        // יצירה והורדה ישירה של הקובץ למחשב/לנייד ללא פתיחת דיאלוג הדפסה
         await html2pdf().set(opt).from(element).save();
     } catch (error) {
         console.error("PDF Generation error:", error);
-        alert("אירעה שגיאה ביצירת ה-PDF, מעביר להדפסה דפדפן...");
+        // מעבר ישיר להדפסת דפדפן ללא פתיחת alert שמקפיא את המסך
         window.print();
     }
 }
