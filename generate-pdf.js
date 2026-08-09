@@ -6,31 +6,21 @@ const puppeteer = require('puppeteer');
   });
   const page = await browser.newPage();
 
-  // טעינת השרת המקומי
-  await page.goto('http://localhost:8080/index.html', { waitUntil: 'networkidle0' });
-
-  // המתנה לטעינת אלמנט המוצרים
-  try {
-    await page.waitForSelector('#products-grid > *', { timeout: 15000 });
-  } catch (error) {
-    console.log('Warning: products grid did not populate in time');
-  }
-
-  // טעינת כל התמונות במלואן לפני הנפקת ה-PDF
-  await page.evaluate(async () => {
-    const selectors = Array.from(document.querySelectorAll('img'));
-    await Promise.all(
-      selectors.map(img => {
-        if (img.complete) return;
-        return new Promise((resolve) => {
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      })
-    );
+  // טעינת הדף המקומי
+  await page.goto('http://localhost:8080/index.html', { 
+    waitUntil: 'networkidle2', 
+    timeout: 30000 
   });
 
-  // יצירת קובץ ה-PDF
+  // המתנה לטעינת רשת המוצרים
+  await page.waitForSelector('#products-grid', { timeout: 10000 }).catch(() => {
+    console.log('Notice: products-grid element not found or took too long');
+  });
+
+  // השהייה קצרה לרינדור תמונות וגופנים
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
+  // הנפקת ה-PDF
   await page.pdf({
     path: 'catalog.pdf',
     format: 'A4',
