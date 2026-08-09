@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   convert_to_pdf:
     runs-on: ubuntu-latest
@@ -15,8 +18,8 @@ jobs:
       - name: HTML to PDF
         uses: fifsky/html-to-pdf-action@master
         with:
-          html_path: 'index.html'
-          output_path: 'catalog.pdf'
+          htmlFile: './index.html'
+          outputFile: './catalog.pdf'
 
       - name: Commit and Push PDF
         run: |
