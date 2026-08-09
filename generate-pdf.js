@@ -6,17 +6,31 @@ const puppeteer = require('puppeteer');
   });
   const page = await browser.newPage();
 
-  // Open the local site
+  // טעינת השרת המקומי
   await page.goto('http://localhost:8080/index.html', { waitUntil: 'networkidle0' });
 
-  // Wait for the products grid to actually contain the jewelry items
-  await page.waitForSelector('#products-grid > *', { timeout: 20000 }).catch(() => {
+  // המתנה לטעינת אלמנט המוצרים
+  try {
+    await page.waitForSelector('#products-grid > *', { timeout: 15000 });
+  } catch (error) {
     console.log('Warning: products grid did not populate in time');
+  }
+
+  // טעינת כל התמונות במלואן לפני הנפקת ה-PDF
+  await page.evaluate(async () => {
+    const selectors = Array.from(document.querySelectorAll('img'));
+    await Promise.all(
+      selectors.map(img => {
+        if (img.complete) return;
+        return new Promise((resolve) => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      })
+    );
   });
 
-  // Small extra buffer to let images finish rendering
-  await new Promise(resolve => setTimeout(resolve, 2000));
-
+  // יצירת קובץ ה-PDF
   await page.pdf({
     path: 'catalog.pdf',
     format: 'A4',
