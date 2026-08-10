@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const path = require('path');
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -6,34 +8,39 @@ const puppeteer = require('puppeteer');
   });
   const page = await browser.newPage();
 
-  // 1. טעינת הדף
-  await page.goto('http://localhost:8080/index.html#gallery', { 
-    waitUntil: 'networkidle0', 
-    timeout: 30000 
-  });
+  // 1. קריאת קובץ ה-HTML או הנתונים ישירות מהתיקייה
+  const htmlPath = path.join(__dirname, 'index.html');
+  
+  // טעינת הקובץ הישיר כ-File URL
+  await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
 
-  // 2. הזרקת CSS מפורש שמסתיר את כל האזורים האחרים ומציג רק את הגלריה
+  // 2. הזרקת CSS שכופה הצגה אך ורק של הגלריה והסרת כל השאר
   await page.addStyleTag({
     content: `
-      .view-section { display: none !important; }
-      #view-gallery { display: block !important; }
+      body * { visibility: hidden !important; }
+      #view-gallery, #view-gallery * { visibility: visible !important; }
+      #view-gallery { 
+        position: absolute !important; 
+        left: 0 !important; 
+        top: 0 !important; 
+        width: 100% !important; 
+        display: block !important; 
+      }
+      .view-section:not(#view-gallery) { display: none !important; }
     `
   });
 
-  // 3. הפעלת הניווט והטעינה בתוך הדף
+  // 3. הרצת רינדור הגלריה ישירות
   await page.evaluate(() => {
-    if (typeof showView === 'function') {
-      showView('gallery');
-    }
     if (typeof renderGallery === 'function') {
       renderGallery();
     }
   });
 
-  // 4. השהייה קצרה לוודא שהאלמנטים והתמונות נטענו
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  // השהייה של 2 שניות לטעינת התמונות
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
-  // 5. הנפקת ה-PDF
+  // 4. הנפקת ה-PDF
   await page.pdf({
     path: 'catalog.pdf',
     format: 'A4',
