@@ -6,9 +6,8 @@ const puppeteer = require('puppeteer');
   });
   const page = await browser.newPage();
 
-  // טעינת הדף והפנייה ישירה לתצוגת הגלריה
   await page.goto('http://localhost:8080/index.html#gallery', { 
-    waitUntil: 'networkidle2', 
+    waitUntil: 'networkidle0', 
     timeout: 30000 
   });
 
@@ -19,10 +18,8 @@ const puppeteer = require('puppeteer');
     }
   });
 
-  // המתנה לטעינת רשת המוצרים
-  await page.waitForSelector('#products-grid', { timeout: 10000 }).catch(() => {
-    console.log('Notice: products-grid element not found');
-  });
+  // המתנה לטעינה מלאה של כרטיסי המוצרים בתוך הגלריה
+  await page.waitForSelector('#products-grid .product-card', { timeout: 10000 });
 
   // השהייה קצרה לטעינת התמונות והעיצוב
   await new Promise(resolve => setTimeout(resolve, 3000));
