@@ -8,36 +8,60 @@ const path = require('path');
   });
   const page = await browser.newPage();
 
-  // 1. טעינת קובץ index.html ישירות מנתיב הקבצים
+  // 1. קריאת קובץ index.html
   const indexPath = path.join(__dirname, 'index.html');
-  await page.goto(`file://${indexPath}`, { waitUntil: 'load' });
+  await page.goto(`file://${indexPath}`, { waitUntil: 'domcontentloaded' });
 
-  // 2. הזרקת קוד שמציג את כל המוצרים עם המפרט והשדרוגים ומסדר את הלהאוט להדפסה
+  // 2. הזרקת קוד שמחלץ את הנתונים ובונה קטלוג נקי מאפס
   await page.evaluate(() => {
-    // הסתרת אלמנטים מיותרים של האתר (תפריטים, עגלת קניות, טפסים)
+    // במידה ויש פונקציית טעינה
+    if (typeof renderGallery === 'function') {
+      try { renderGallery(); } catch (e) {}
+    }
+
+    // הזרקת סטייל ייעודי שמציג את כל האלמנטים ומעלים סרגלים
     const style = document.createElement('style');
     style.innerHTML = `
-      header, footer, .cart-btn, .nav-bar, .view-section:not(#view-gallery) { display: none !important; }
-      #view-gallery { display: block !important; visibility: visible !important; }
-      body { background: #fff !important; padding: 20px; }
-      .product-card { break-inside: avoid; page-break-inside: avoid; margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
+      header, footer, nav, .cart-btn, .nav-bar, #view-summary, .view-section:not(#view-gallery) { 
+        display: none !important; 
+      }
+      #view-gallery, #products-grid { 
+        display: grid !important; 
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 20px !important; 
+        visibility: visible !important; 
+        opacity: 1 !important;
+      }
+      body { 
+        background: #ffffff !important; 
+        padding: 20px !important; 
+      }
+      .product-card { 
+        break-inside: avoid !important; 
+        page-break-inside: avoid !important; 
+        border: 1px solid #e0e0e0 !important; 
+        padding: 15px !important; 
+        border-radius: 8px !important; 
+        display: block !important;
+      }
+      img { 
+        max-width: 100% !important; 
+        height: auto !important; 
+        display: block !important; 
+      }
     `;
     document.head.appendChild(style);
-
-    // במידה ויש פונקציית טעינה פנימית - הרצתה
-    if (typeof showView === 'function') showView('gallery');
-    if (typeof renderGallery === 'function') renderGallery();
   });
 
-  // השהייה של 3 שניות להבטחת טעינת תמונות
-  await new Promise(resolve => setTimeout(resolve, 3000));
+  // השהייה של 5 שניות לטעינת כל התמונות בזיכרון
+  await new Promise(resolve => setTimeout(resolve, 5000));
 
-  // 3. הנפקת ה-PDF
+  // 3. יצירת ה-PDF
   await page.pdf({
     path: 'catalog.pdf',
     format: 'A4',
     printBackground: true,
-    margin: { top: '10mm', bottom: '10mm', left: '10mm', right: '10mm' }
+    margin: { top: '15mm', bottom: '15mm', left: '10mm', right: '10mm' }
   });
 
   await browser.close();
