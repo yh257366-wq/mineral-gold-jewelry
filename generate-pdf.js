@@ -13,22 +13,6 @@ const path = require('path');
   try {
     const page = await browser.newPage();
 
-    page.on('console', msg => {
-      console.log('BROWSER:', msg.text());
-    });
-
-    page.on('pageerror', error => {
-      console.error('PAGE ERROR:', error.message);
-    });
-
-    page.on('requestfailed', request => {
-      console.error(
-        'REQUEST FAILED:',
-        request.url(),
-        request.failure()?.errorText
-      );
-    });
-
     await page.setViewport({
       width: 1280,
       height: 1000
@@ -37,11 +21,13 @@ const path = require('path');
     const indexPath = path.join(__dirname, 'index.html');
 
     await page.goto(`file://${indexPath}`, {
-      waitUntil: 'domcontentloaded',
+      waitUntil: 'networkidle0',
       timeout: 30000
     });
 
-    // הצגת הגלריה
+    // להשתמש ב-CSS הרגיל של האתר ולא ב-@media print
+    await page.emulateMediaType('screen');
+
     await page.evaluate(() => {
       showView('gallery');
       renderGallery();
@@ -73,12 +59,12 @@ const path = require('path');
       document.head.appendChild(style);
     });
 
-    // המתנה לכך שהמוצרים באמת נוצרו
+    // לוודא שהמוצרים אכן קיימים
     await page.waitForSelector('#products-grid .product-card', {
       timeout: 15000
     });
 
-    // המתנה לטעינת התמונות
+    // להמתין לטעינת התמונות
     await page.evaluate(async () => {
       const images = Array.from(document.images);
 
@@ -94,10 +80,8 @@ const path = require('path');
       );
     });
 
-    // המתנה קצרה נוספת לרינדור
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // יצירת PDF
     await page.pdf({
       path: 'catalog.pdf',
       format: 'A4',
