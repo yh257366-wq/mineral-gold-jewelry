@@ -26,13 +26,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install puppeteer serve wait-on
-
-      - name: Start local server
-        run: npx serve -l 8080 . &
-
-      - name: Wait for server to be ready
-        run: npx wait-on http://localhost:8080 -t 30000
+        run: npm install puppeteer
 
       - name: Generate PDF
         run: node generate-pdf.js
