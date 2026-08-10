@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const path = require('path');
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -7,23 +6,35 @@ const path = require('path');
   });
   const page = await browser.newPage();
 
-  // 1. הגדרת גודל מסך מספק להצגה מלאה
-  await page.setViewport({ width: 1200, height: 800 });
+  // 1. טעינת הדף דרך השרת המקומי עם ה-hash של הגלריה
+  await page.goto('http://localhost:8080/index.html#gallery', { 
+    waitUntil: 'networkidle0', 
+    timeout: 30000 
+  });
 
-  // 2. טעינת דף האתר דרך קובץ ה-HTML
-  const htmlPath = path.join(__dirname, 'index.html');
-  await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
+  // 2. הפעלת פונקציות הרינדור של האפליקציה באופן מפורש
+  await page.evaluate(() => {
+    if (typeof showView === 'function') {
+      showView('gallery');
+    }
+    if (typeof renderGallery === 'function') {
+      renderGallery();
+    }
+  });
 
-  // 3. הזרקת CSS בסיסי בלבד שמבטיח שרק תצוגת הגלריה גלויה
+  // 3. המתנה אקטיבית להופעת כרטיס מוצר ראשון ב-DOM
+  await page.waitForSelector('#products-grid .product-card', { timeout: 15000 });
+
+  // 4. הזרקת CSS להסתרת שאר התצוגות והצגת הגלריה בלבד
   await page.addStyleTag({
     content: `
-      .view-section { display: none !important; }
+      .view-section:not(#view-gallery) { display: none !important; }
       #view-gallery { display: block !important; }
     `
   });
 
-  // 4. השהייה קצרה לוודא שכל התמונות והעיצובים נטענו כראוי
-  await new Promise(resolve => setTimeout(resolve, 4000));
+  // השהייה קצרה לוודא טעינת תמונות
+  await new Promise(resolve => setTimeout(resolve, 2000));
 
   // 5. הנפקת ה-PDF
   await page.pdf({
