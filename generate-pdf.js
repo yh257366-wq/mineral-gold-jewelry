@@ -6,18 +6,25 @@ const puppeteer = require('puppeteer');
   });
   const page = await browser.newPage();
 
-  // טעינת הדף המקומי
-  await page.goto('http://localhost:8080/index.html', { 
+  // טעינת הדף והפנייה ישירה לתצוגת הגלריה
+  await page.goto('http://localhost:8080/index.html#gallery', { 
     waitUntil: 'networkidle2', 
     timeout: 30000 
   });
 
-  // המתנה לטעינת רשת המוצרים
-  await page.waitForSelector('#products-grid', { timeout: 10000 }).catch(() => {
-    console.log('Notice: products-grid element not found or took too long');
+  // הפעלת פונקציית הצגת הגלריה בתוך הדף במידה ויש צורך
+  await page.evaluate(() => {
+    if (typeof showView === 'function') {
+      showView('gallery');
+    }
   });
 
-  // השהייה קצרה לרינדור תמונות וגופנים
+  // המתנה לטעינת רשת המוצרים
+  await page.waitForSelector('#products-grid', { timeout: 10000 }).catch(() => {
+    console.log('Notice: products-grid element not found');
+  });
+
+  // השהייה קצרה לטעינת התמונות והעיצוב
   await new Promise(resolve => setTimeout(resolve, 3000));
 
   // הנפקת ה-PDF
