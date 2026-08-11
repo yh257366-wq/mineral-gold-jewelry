@@ -26,47 +26,26 @@
         .btn-animate { transition: transform 0.1s ease; }
         .btn-animate:active { transform: scale(0.96); }
         
-        /* ביטול מוחלט של אנימציות ורעידות בדף הסיכום */
-        #view-summary * { animation: none !important; transition: none !important; transform: none !important; }
-
-        /* הגדרות הדפסה / שמירה ל-PDF נקיות לחלוטין */
-        @media print {
-            body { background: white; color: black; min-height: auto; }
-            nav, footer, button, .no-print, .btn-animate { display: none !important; }
-            .view-section { display: none !important; }
-            #view-summary { display: block !important; pt: 0 !important; }
-            main { pt: 10px !important; pb: 10px !important; }
-            .border { border-color: #ccc !important; }
-        }
-        /* פתרון מוחלט לרעידות והבהובים בדף סיכום ההזמנה */
+       /* ביטול אנימציות ורעידות בדף הסיכום */
 #view-summary, #view-summary * {
     animation: none !important;
     transition: none !important;
     transform: none !important;
     will-change: auto !important;
 }
-#view-summary .product-card, 
-#view-summary .product-card:hover {
-    transform: none !important;
-    box-shadow: none !important;
-}
-/* התאמת הדפסה טבעית - מציג את כותרת ההדפסה הייעודית רק בעת הדפסה ומעלים אלמנטים מיותרים */
+
+/* הגדרות הדפסה גמישות - תומך גם בקולקציה וגם בסיכום הזמנה */
 @media print {
-    body * {
-        visibility: hidden;
-    }
-    #view-summary, #view-summary .max-w-3xl, #view-summary .max-w-3xl * {
-        visibility: visible;
-    }
-    #view-summary {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    .no-print {
-        display: none !important;
-    }
+    body { background: white; color: black; min-height: auto; }
+    nav, footer, button, .no-print, .btn-animate { display: none !important; }
+    
+    /* ברירת מחדל בהדפסה: הצגת הקולקציה/גלריה בלבד */
+    .view-section { display: none !important; }
+    #view-gallery { display: block !important; visibility: visible !important; }
+
+    /* רק כאשר מדפיסים סיכום הזמנה (נוסף קלאס print-summary ב-body) */
+    body.print-summary #view-gallery { display: none !important; }
+    body.print-summary #view-summary { display: block !important; visibility: visible !important; }
 }
     </style>
 </head>
@@ -1014,7 +993,9 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
      async function triggerPdfSave() {
     const element = document.querySelector('#view-summary .max-w-3xl');
     if (!element) {
+        document.body.classList.add('print-summary');
         window.print();
+        document.body.classList.remove('print-summary');
         return;
     }
     const orderId = document.getElementById('summary-order-id')?.innerText || "order";
@@ -1035,19 +1016,23 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
             });
         } catch (e) {
             if(btn) btn.innerText = originalText;
+            document.body.classList.add('print-summary');
             window.print();
+            document.body.classList.remove('print-summary');
             return;
         }
         if(btn) btn.innerText = originalText;
     }
 
+    document.body.classList.add('print-summary');
+    
     const opt = {
         margin:       [10, 10, 10, 10],
         filename:     `order-${orderId}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { 
             scale: 2, 
-            useCORS: true, // מאפשר טעינת תמונות בצורה תקינה
+            useCORS: true,
             logging: false,
             scrollY: 0
         }, 
@@ -1058,8 +1043,11 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
         await html2pdf().set(opt).from(element).save();
     } catch (error) {
         console.error("PDF Generation error:", error);
-        // מעבר ישיר להדפסת דפדפן ללא פתיחת alert שמקפיא את המסך
+        document.body.classList.add('print-summary');
         window.print();
+        document.body.classList.remove('print-summary');
+    } finally {
+        document.body.classList.remove('print-summary');
     }
 }
        
