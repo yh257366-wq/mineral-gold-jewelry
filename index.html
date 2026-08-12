@@ -734,13 +734,13 @@ function openProductPage(id) {
         if (type === "סט תכשיטים" || type === "עגילים") {
             dimensionsHtml = `
                 <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>גודל הקבושון (קוטר):</strong> ${p.stoneSize || "כ-1.4 ס\"מ"}</p>
+                <p><strong>גודל הקבושון:</strong> ${p.stoneSize || "כ-1.4 ס\"מ"}</p>
                 <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
             `;
         } else if (type === "תליון") {
             dimensionsHtml = `
                 <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>גודל הקבושון (קוטר):</strong> ${p.size || "1.8*1.3 ס\"מ"}</p>
+                <p><strong>גודל הקבושון:</strong> ${p.size || "1.8*1.3 ס\"מ"}</p>
             `;
         }
     } else if (isPearl) {
