@@ -606,7 +606,7 @@ const products = [
         img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/spiral-pink-pendant.png", 
         desc: "תליון מרהיב במבנה ספירלה ייחודי, המשלב חרוזי אבני טורמלין בגווני ורוד השזורים לאורך ההיקף. עיצוב צבעוני, יפהפה ובעל נוכחות.", 
         material: "חרוזי צ'יפס מטורמלין ורוד טבעי, מבנה ספירלה וחוט ליפוף עשויים מנחושת זהובה", 
-        size: "קוטר החישוק: כ-3.2 ס\"מ" 
+        size: "גודל התליון (קוטר): כ-3.3 ס\"מ" 
     },
     { 
         id: 27, 
@@ -618,7 +618,7 @@ const products = [
         img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/evergreen-drop-pendant.png", 
         desc: "תליון ייחודי בצורת טיפה אלגנטית, משולב באבני טורמלין טבעיות בגווני ירוק שונים. עיצוב טבעי, רענן ומרהיב.", 
         material: "אבני טורמלין גולמיות בגווני ירוק, מבנה טיפה וחוט ליפוף עשויים מנחושת זהובה", 
-        size: "כ-1.6*3.2 ס\"מ" 
+        size: "גודל התליון: כ-1.6*3.2 ס\"מ" 
     }
 ];
         
@@ -705,7 +705,7 @@ function openProductPage(id) {
     const material = p.material || 'לא צוין';
     // בדיקה האם מדובר במוצרים מיוחדים
     const isKabushon = ["007", "015", "016", "017"].includes(sku);
-    const isHishuk = ["018", "019", "020", "026"].includes(sku);
+    const isHishuk = ["018", "019", "020"].includes(sku);
     const isPearl = ["024", "025"].includes(sku);
 
     if (isHishuk) {
@@ -758,31 +758,27 @@ function openProductPage(id) {
             `;
         }
 
-        // הוספת הסבר על פנינת מיורקה עבור מק"ט 025 (לפני שורת הגימור)
+       // הסבר על פנינת מיורקה
         if (sku === "025") {
             dimensionsHtml += `<p><strong>מה זה פנינת מיורקה?</strong> פנינה איכותית המורכבת מליבת זכוכית בעלת ציפוי מרובה שכבות. בניגוד לפניני פלסטיק פשוטות, היא בעלת משקל, ברק עמוק ועמידות גבוהה, המעניקים לה מראה יוקרתי הקרוב ביותר לפניני ים טבעיות.</p>`;
         }
+    } else if (type === "עגילים") {
+        dimensionsHtml = `
+            <p><strong>חומרים:</strong> ${material}</p>
+            <p><strong>${p.sku === "023" ? "גודל הטיפה:" : "גודל האבן:"}</strong> ${p.stoneSize || "כ-1.3 ס\"מ"}</p>
+            <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
+        `;
+    } else if (type === "תליון") {
+        dimensionsHtml = `
+            <p><strong>חומרים:</strong> ${material}</p>
+            <p><strong>${p.size || "כ-2 ס\"מ"}</strong></p>
+        `;
     } else {
-        // אבנים רגילות
-        if (type === "סט תכשיטים") {
-            dimensionsHtml = `
-                <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>גודל האבן של התליון:</strong> כ-2 ס\"מ</p>
-                <p><strong>גודל האבן של העגילים:</strong> כ-1.3 ס\"מ</p>
-                <p><strong>אורך כולל של העגילים:</strong> כ-3.5 ס\"מ</p>
-            `;
-        } else if (type === "עגילים") {
-            dimensionsHtml = `
-                <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>${p.sku === "023" ? "גודל הטיפה:" : "גודל האבן:"}</strong> ${p.stoneSize || "כ-1.3 ס\"מ"}</p>
-                <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
-            `;
-        } else if (type === "תליון") {
-            dimensionsHtml = `
-                <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>גודל האבן:</strong> ${p.size || "כ-2 ס\"מ"}</p>
-            `;
-        }
+        // ברירת מחדל לכל שאר המוצרים (כולל 026 ו-027)
+        dimensionsHtml = `
+            <p><strong>חומרים:</strong> ${material}</p>
+            ${p.size ? `<p>${p.size}</p>` : ''}
+        `;
     }
 
     // הוספת שורת גימור קבועה לכל סוגי המוצרים באופן אוטומטי
