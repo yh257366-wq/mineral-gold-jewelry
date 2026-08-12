@@ -606,7 +606,7 @@ const products = [
         img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/spiral-pink-pendant.png", 
         desc: "תליון מרהיב במבנה ספירלה ייחודי, המשלב חרוזי אבני טורמלין בגווני ורוד השזורים לאורך ההיקף. עיצוב צבעוני, יפהפה ובעל נוכחות.", 
         material: "חרוזי צ'יפס מטורמלין ורוד טבעי, מבנה ספירלה וחוט ליפוף עשויים מנחושת זהובה", 
-        size: "גודל התליון (קוטר): כ-3.3 ס\"מ" 
+        size: "כ-3.3 ס\"מ" 
     },
     { 
         id: 27, 
@@ -618,7 +618,7 @@ const products = [
         img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/evergreen-drop-pendant.png", 
         desc: "תליון ייחודי בצורת טיפה אלגנטית, משולב באבני טורמלין טבעיות בגווני ירוק שונים. עיצוב טבעי, רענן ומרהיב.", 
         material: "אבני טורמלין גולמיות בגווני ירוק, מבנה טיפה וחוט ליפוף עשויים מנחושת זהובה", 
-        size: "גודל התליון: כ-1.6*3.2 ס\"מ" 
+        size: "כ-1.6*3.2 ס\"מ" 
     }
 ];
         
@@ -778,13 +778,13 @@ function openProductPage(id) {
     } else if (type === "תליון") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
-            <p><strong>גודל האבן:</strong> ${p.size || "כ-2 ס\"מ"}</p>
+            <p><strong>${sku === "026" ? "גודל התליון (קוטר):" : sku === "027" ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size || "כ-2 ס\"מ"}</p>
         `;
     } else {
-        // ברירת מחדל למוצרים מיוחדים (כמו 026 ו-027)
+        // ברירת מחדל לכל מוצר אחר
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
-            ${p.size ? `<p><strong>${sku === "026" ? "גודל התליון (קוטר):" : sku === "027" ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size}</p>` : ''}
+            ${p.size ? `<p><strong>גודל:</strong> ${p.size}</p>` : ''}
         `;
     }
 
