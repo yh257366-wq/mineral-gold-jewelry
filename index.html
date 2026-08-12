@@ -595,6 +595,30 @@ const products = [
         desc: "תליון יוקרתי ומרשים עם פנינת מיורקה איכותית בעלת ברק מושלם, עטופה באמנות בחוט ליפוף זהוב, ויוצרת מראה ייחודי ואלגנטי.", 
         material: "פנינת מיורקה, חוט נחושת זהוב", 
         size: "12.5 מ\"מ" 
+    },
+    { 
+        id: 26, 
+        title: "תליון ספירלת גווני הוורוד", 
+        price: 80, 
+        originalPrice: 100, 
+        sku: "026", 
+        type: "תליון", 
+        img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/spiral-pink-pendant.png", 
+        desc: "תליון מרהיב במבנה ספירלה ייחודי, המשלב חרוזי אבני טורמלין בגווני ורוד השזורים לאורך ההיקף. עיצוב צבעוני, יפהפה ובעל נוכחות.", 
+        material: "חרוזי צ'יפס מטורמלין ורוד טבעי, מבנה ספירלה וחוט ליפוף עשויים מנחושת זהובה", 
+        size: "קוטר החישוק: כ-3.2 ס\"מ" 
+    },
+    { 
+        id: 27, 
+        title: "תליון טיפת ירוק־עד", 
+        price: 80, 
+        originalPrice: 100, 
+        sku: "027", 
+        type: "תליון", 
+        img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/evergreen-drop-pendant.png", 
+        desc: "תליון ייחודי בצורת טיפה אלגנטית, משולב באבני טורמלין טבעיות בגווני ירוק שונים. עיצוב טבעי, רענן ומרהיב.", 
+        material: "אבני טורמלין גולמיות בגווני ירוק, מבנה טיפה וחוט ליפוף עשויים מנחושת זהובה", 
+        size: "כ-1.6*3.2 ס\"מ" 
     }
 ];
         
@@ -681,7 +705,7 @@ function openProductPage(id) {
     const material = p.material || 'לא צוין';
     // בדיקה האם מדובר במוצרים מיוחדים
     const isKabushon = ["007", "015", "016", "017"].includes(sku);
-    const isHishuk = ["018", "019", "020"].includes(sku);
+    const isHishuk = ["018", "019", "020", "026"].includes(sku);
     const isPearl = ["024", "025"].includes(sku);
 
     if (isHishuk) {
@@ -798,8 +822,8 @@ let upgradeSectionHtml = '';
         if (p.sku === "020") { 
             // סט תליון ועגילי חישוק קשת הצבעים (חדש)
             original925 = 145; originalGold = 180;
-        } else if (p.sku === "019" || p.sku === "018" || p.sku === "023") { 
-    // תליון ועגילי חישוק קשת הצבעים, ועגילי נצנוץ הטיפה
+        } else if (p.sku === "019" || p.sku === "018" || p.sku === "023" || p.sku === "026" || p.sku === "027") { 
+    // תליון ועגילי חישוק קשת הצבעים, עגילי נצנוץ הטיפה, ספירלת גווני הוורוד וטיפת ירוק-עד
     original925 = 80; originalGold = 100;
         } else if (p.type === "סט תכשיטים") {
             original925 = 130; originalGold = 170;
