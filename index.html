@@ -771,13 +771,13 @@ function openProductPage(id) {
     } else if (type === "תליון") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
-            <p><strong>${p.size || "כ-2 ס\"מ"}</strong></p>
+            <p><strong>גודל האבן:</strong> ${p.size || "כ-2 ס\"מ"}</p>
         `;
     } else {
-        // ברירת מחדל לכל שאר המוצרים (כולל 026 ו-027)
+        // ברירת מחדל למוצרים מיוחדים (כמו 026 ו-027)
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
-            ${p.size ? `<p>${p.size}</p>` : ''}
+            ${p.size ? `<p><strong>${sku === "026" ? "גודל התליון (קוטר):" : sku === "027" ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size}</p>` : ''}
         `;
     }
 
