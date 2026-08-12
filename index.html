@@ -731,10 +731,17 @@ function openProductPage(id) {
         }
     } else if (isKabushon) {
         // קבושונים
-        if (type === "סט תכשיטים" || type === "עגילים") {
+        if (type === "סט תכשיטים") {
             dimensionsHtml = `
                 <p><strong>חומרים:</strong> ${material}</p>
-                <p><strong>גודל הקבושון:</strong> ${p.stoneSize || "כ-1.4 ס\"מ"}</p>
+                <p><strong>גודל הקבושון של התליון:</strong> ${p.pendantStoneSize || p.size || "1.8*1.3 ס\"מ"}</p>
+                <p><strong>גודל הקבושון של העגילים:</strong> ${p.earringStoneSize || p.stoneSize || "כ-1.4 ס\"מ"}</p>
+                <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
+            `;
+        } else if (type === "עגילים") {
+            dimensionsHtml = `
+                <p><strong>חומרים:</strong> ${material}</p>
+                <p><strong>גודל הקבושון:</strong> ${p.stoneSize || p.size || "1.8*1.3 ס\"מ"}</p>
                 <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
             `;
         } else if (type === "תליון") {
