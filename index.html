@@ -762,6 +762,13 @@ function openProductPage(id) {
         if (sku === "025") {
             dimensionsHtml += `<p><strong>מה זה פנינת מיורקה?</strong> פנינה איכותית המורכבת מליבת זכוכית בעלת ציפוי מרובה שכבות. בניגוד לפניני פלסטיק פשוטות, היא בעלת משקל, ברק עמוק ועמידות גבוהה, המעניקים לה מראה יוקרתי הקרוב ביותר לפניני ים טבעיות.</p>`;
         }
+    } else if (type === "סט תכשיטים") {
+        dimensionsHtml = `
+            <p><strong>חומרים:</strong> ${material}</p>
+            <p><strong>גודל האבן של התליון:</strong> ${p.pendantStoneSize || "כ-2 ס\"מ"}</p>
+            <p><strong>גודל האבן של העגילים:</strong> ${p.earringStoneSize || "כ-1.3 ס\"מ"}</p>
+            <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
+        `;
     } else if (type === "עגילים") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
