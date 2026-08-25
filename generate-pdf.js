@@ -40,7 +40,14 @@ const { pathToFileURL } = require('url');
 
     console.log('pdf-template.html loaded successfully.');
 
-    // המתנה קצרה לוודא שכל התמונות והפונטים רונדרו במלואם
+    // ==========================================
+    // המתנה לטעינת כרטיסי המוצרים מתוך index.html
+    // ==========================================
+    await page.waitForSelector('.product-card', { timeout: 10000 }).catch(() => {
+      console.log('לא נמצאו מוצרים בזמן הקצוב, מפיק PDF לפי המצב הקיים.');
+    });
+
+    // המתנה קצרה נוספת לוודא שכל התמונות והפונטים רונדרו במלואם
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log('Generating PDF...');
