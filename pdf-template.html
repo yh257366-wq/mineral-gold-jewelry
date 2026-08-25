@@ -6,7 +6,7 @@
   <style>
     @page {
       size: A4;
-      margin: 12mm;
+      margin: 10mm;
     }
     body {
       font-family: 'Noto Sans Hebrew', system-ui, sans-serif;
@@ -17,118 +17,198 @@
     }
     .catalog-header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       border-bottom: 2px solid #d4af37;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
     .catalog-header h1 {
       margin: 0;
       color: #1c1917;
-      font-size: 24px;
+      font-size: 22px;
     }
     .catalog-header p {
-      margin: 5px 0 0;
+      margin: 3px 0 0;
       color: #666;
-      font-size: 14px;
+      font-size: 13px;
     }
     .products-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      gap: 12px;
     }
     .product-card {
       border: 1px solid #e5e5e5;
       border-radius: 8px;
-      padding: 12px;
+      padding: 10px;
       box-sizing: border-box;
       page-break-inside: avoid;
       break-inside: avoid;
-      text-align: center;
+      background: #fafafa;
+    }
+    .card-content {
+      display: flex;
+      gap: 10px;
     }
     .product-card img {
-      max-width: 100%;
-      height: 160px;
+      width: 110px;
+      height: 110px;
       object-fit: cover;
       border-radius: 6px;
-      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+    .details {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-sku {
+      font-size: 10px;
+      color: #78716c;
     }
     .product-title {
       font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 4px;
+      font-size: 14px;
+      margin: 2px 0 4px 0;
+      color: #1c1917;
     }
-    .product-price {
-      color: #d4af37;
-      font-weight: bold;
-      font-size: 15px;
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
     }
-    .product-desc {
+    .original-price {
+      text-decoration: line-through;
+      color: #dc2626;
       font-size: 12px;
-      color: #555;
-      margin-top: 4px;
+    }
+    .sale-price {
+      color: #dc2626;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .upgrades-box {
+      background: #fff;
+      border: 1px solid #e7e5e4;
+      border-radius: 4px;
+      padding: 5px;
+      font-size: 10.5px;
+      color: #444;
+      line-height: 1.3;
+    }
+    .upgrades-title {
+      font-weight: bold;
+      color: #78350f;
+      margin-bottom: 2px;
     }
   </style>
 </head>
 <body>
 
   <div class="catalog-header">
-    <h1>תכשיטי מינרל גולד - קטלוג מלא</h1>
-    <p>קולקציית תכשיטים ייחודיים בעבודת יד</p>
+    <h1>תכשיטי מינרל גולד - קטלוג מלא ומחירון שדרוגים</h1>
+    <p>מבצע השקה: 20% הנחה על כל התכשיטים והשדרוגים</p>
   </div>
 
-  <div id="catalog-container" class="products-grid">
-    <!-- המוצרים ייטענו לכאן אוטומטית מתוך index.html -->
-  </div>
+  <div id="catalog-container" class="products-grid"></div>
 
   <script>
-    async function syncFromIndex() {
-      try {
-        // טעינת התוכן המלא של index.html
-        const res = await fetch('index.html');
-        const htmlText = await res.text();
-        
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, 'text/html');
-        
-        const container = document.getElementById('catalog-container');
-        
-        // שליפת המוצרים מתוך האלמנטים המוגדרים ב-index.html
-        const items = doc.querySelectorAll('.product-card, [data-product-id], .gallery-item');
-        
-        if (items.length > 0) {
-          items.forEach(item => {
-            const clone = item.cloneNode(true);
-            container.appendChild(clone);
-          });
-        } else {
-          // במידה ו-index.html טוען את המוצרים דרך מערך JavaScript
-          const scripts = doc.querySelectorAll('script');
-          scripts.forEach(script => {
-            if (script.textContent.includes('products') || script.src.includes('products')) {
-              eval(script.textContent);
-            }
-          });
-          
-          if (typeof products !== 'undefined' && Array.isArray(products)) {
-            products.forEach(p => {
-              const card = document.createElement('div');
-              card.className = 'product-card';
-              card.innerHTML = `
-                <img src="${p.image || p.img}" alt="${p.title || p.name}">
-                <div class="product-title">${p.title || p.name}</div>
-                <div class="product-price">${p.price} ₪</div>
-                ${p.description ? `<div class="product-desc">${p.description}</div>` : ''}
-              `;
-              container.appendChild(card);
-            });
-          }
-        }
-      } catch (err) {
-        console.error('שגיאה בסינכרון הנתונים מ-index.html:', err);
+    const products = [
+        { id: 4, title: "תליון אמטיסט סגול בוהק", price: 96, originalPrice: 120, sku: "001", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-amethyst.jpg.JPG", desc: "תליון יפהפה ומיוחד עם אבן אמטיסט סגולה.", material: "אבן אמטיסט סגולה בוהקת, חוט נחושת זהוב" },
+        { id: 5, title: "תליון אמטיסט סגול טבעי", price: 96, originalPrice: 120, sku: "002", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-amethyst-natural.jpg.png", desc: "תליון מאבן אמטיסט סגולה טבעית.", material: "אבן אמטיסט סגול טבעי, חוט נחושת זהוב" },
+        { id: 6, title: "תליון סיטרין - כסף 925", price: 120, originalPrice: 150, sku: "003", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-sitrin.jpg.png", desc: "תליון מאבן סיטרין טבעית גולמית.", material: "אבן סיטרין טבעית, חוט כסף 925" },
+        { id: 7, title: "תליון סודליט כחול-לבן", price: 64, originalPrice: 80, sku: "004", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-sodalite.jpg.png", desc: "תליון מרשים מאבן סודליט טבעית.", material: "אבן סודליט כחולה טבעית, חוט נחושת זהוב" },
+        { id: 8, title: "עגילי סודליט כחול-לבן", price: 64, originalPrice: 80, sku: "005", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-sodalite.jpg.png", desc: "עגילים מאבן סודליט במראה אלגנטי.", material: "אבני סודליט כחולות, חוט נחושת זהוב" },
+        { id: 9, title: "סט תליון ועגילים סודליט", price: 112, originalPrice: 140, sku: "006", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-sodalite.jpg.png", desc: "סט מושלם של תליון ועגילים מאבני סודליט.", material: "אבני סודליט כחולות, חוט נחושת זהוב" },
+        { id: 10, title: "עגילי קבושון ורודות", price: 64, originalPrice: 80, sku: "007", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-kabushon.jpg.JPG", desc: "עגילים עם קבושונים עגולים בגוון ורוד-סגול.", material: "קבושונים אקריליים, חוט נחושת זהוב" },
+        { id: 2, title: "עגילי קוורץ ורוד", price: 64, originalPrice: 80, sku: "008", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-kuartz.jpg.png", desc: "עגילים מלאי חן עם אבני קוורץ ורודות.", material: "אבן קוורץ ורוד, חוט נחושת זהוב" },
+        { id: 1, title: "תליון קוורץ ורוד", price: 64, originalPrice: 80, sku: "009", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-kuartz-varod.jpg.png", desc: "תליון עדין עם אבן קוורץ ורודה טבעית.", material: "אבן קוורץ ורוד טבעית, חוט נחושת זהוב" },
+        { id: 18, title: "סט תליון ועגילים קוורץ ורוד", price: 112, originalPrice: 140, sku: "010", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-kuartz.png", desc: "סט תליון ועגילים מאבני קוורץ ורוד.", material: "אבן קוורץ טבעית, חוט נחושת זהוב" },
+        { id: 16, title: "תליון אפטיט כחול", price: 64, originalPrice: 80, sku: "011", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-apatite.png.png", desc: "תליון מאבן אפטיט כחול טבעי.", material: "אבן אפטיט כחול טבעי, חוט נחושת זהוב" },
+        { id: 14, title: "עגילי אפטיט כחול", price: 64, originalPrice: 80, sku: "012", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-apatite-blue.jpg.png", desc: "עגילים מאבני אפטיט טבעיות בגוון כחול.", material: "אבני אפטיט כחולות, חוט נחושת זהוב" },
+        { id: 17, title: "סט תליון ועגילים אפטיט כחול", price: 112, originalPrice: 140, sku: "013", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-apatite.png.png", desc: "סט תליון ועגילים מאבן אפטיט כחול.", material: "אבן אפטיט כחול, חוט נחושת זהוב" },
+        { id: 15, title: "תליון מלכיט ירוק", price: 64, originalPrice: 80, sku: "014", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-malachite-green.jpg.png", desc: "תליון מאבן מלכיט ירוקה טבעית.", material: "אבן מלכיט ירוקה, חוט נחושת זהוב" },
+        { id: 11, title: "עגילי קבושון ורדים", price: 64, originalPrice: 80, sku: "015", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-roses.jpg.png", desc: "עגילים בדוגמת ורדים בתוך הקבושון.", material: "קבושון אקרילי, חוט נחושת זהוב" },
+        { id: 12, title: "תליון קבושון ורדים", price: 64, originalPrice: 80, sku: "016", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-kabushon-vradim.jpg.png", desc: "תליון עם קבושון בדוגמת ורדים.", material: "קבושון אקרילי, חוט נחושת זהוב" },
+        { id: 13, title: "סט תליון ועגילים קבושון ורדים", price: 112, originalPrice: 140, sku: "017", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-kabushon-vradim.jpg.png", desc: "סט תליון ועגילים בדוגמת ורדים.", material: "קבושונים אקריליים, חוט נחושת זהוב" },
+        { id: 3, title: "עגילי חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "018", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-hishuk.jpg.png", desc: "עגילי חישוק עם קשת צבעים.", material: "חרוזי צ'יפס, חישוק נחושת זהובה" },
+        { id: 19, title: "תליון חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "019", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-hishuk.png", desc: "תליון חישוק עם קשת צבעים.", material: "חרוזי צ'יפס, חישוק נחושת זהובה" },
+        { id: 20, title: "סט תליון ועגילי חישוק - קשת הצבעים", price: 144, originalPrice: 180, sku: "020", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-hishuk.png", desc: "סט תליון ועגילי חישוק.", material: "חרוזי צ'יפס, חישוק נחושת זהובה" },
+        { id: 21, title: "תליון יער הצבעים", price: 96, originalPrice: 120, sku: "021", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/forest-colors-pendant.png", desc: "תליון שילוב גוונים ייחודי.", material: "קבושון רובי בזואיסיט, חוט נחושת זהוב" },
+        { id: 22, title: "עגילי זברה (קוורץ טורמלין)", price: 64, originalPrice: 80, sku: "022", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/zebra-quartz-earrings.png", desc: "עגילים מאבני קוורץ שקופות.", material: "קוורץ טורמלין טבעי, חוט נחושת כסוף" },
+        { id: 23, title: "עגילי נצנוץ הטיפה", price: 80, originalPrice: 100, sku: "023", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/drop-glimmer-earrings.png", desc: "עגילים בצורת טיפה עדינה.", material: "חרוזים צבעוניים, חוט נחושת זהובה" },
+        { id: 24, title: "עגילי פנינה טבעית", price: 64, originalPrice: 80, sku: "024", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-natural-pearl.png", desc: "עגילים אלגנטיים עם פנינים טבעיות.", material: "פנינה טבעית, חוט נחושת זהוב" },
+        { id: 25, title: "תליון פנינת מיורקה", price: 64, originalPrice: 80, sku: "025", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/pendant-majorca-pearl.png", desc: "תליון יוקרתי עם פנינת מיורקה.", material: "פנינת מיורקה, חוט נחושת זהוב" },
+        { id: 26, title: "תליון ספירלת גווני הוורוד", price: 80, originalPrice: 100, sku: "026", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/spiral-pink-pendant.png", desc: "תליון במבנה ספירלה ייחודי.", material: "טורמלין ורוד טבעי, חוט נחושת זהובה" },
+        { id: 27, title: "תליון טיפת ירוק־עד", price: 80, originalPrice: 100, sku: "027", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/evergreen-drop-pendant.png", desc: "תליון בצורת טיפה אלגנטית.", material: "טורמלין ירוק, חוט נחושת זהובה" }
+    ];
+
+    function getUpgradeHtml(p) {
+      if (p.sku === "003") {
+        return `
+          <div class="upgrades-title">אפשרויות מתכת:</div>
+          <div>• כסף 925: כלול במחיר</div>
+          <div>• חוט נחושת זהוב: 64 ₪ (במקום 80 ₪)</div>
+          <div>• גולדפילד: +16 ₪ (במקום +20 ₪)</div>
+        `;
       }
+
+      let original925 = 70, originalGold = 90;
+      if (p.sku === "020") {
+        original925 = 145; originalGold = 180;
+      } else if (["018", "019", "023", "026", "027"].includes(p.sku)) {
+        original925 = 80; originalGold = 100;
+      } else if (p.type === "סט תכשיטים") {
+        original925 = 130; originalGold = 170;
+      } else if (["001", "002", "021"].includes(p.sku)) {
+        original925 = 130; originalGold = 150;
+      }
+
+      const sale925 = Math.round(original925 * 0.8);
+      const saleGold = Math.round(originalGold * 0.8);
+
+      return `
+        <div class="upgrades-title">אפשרויות שדרוג מתכת:</div>
+        <div>• כסף 925: +${sale925} ₪ <span style="text-decoration:line-through; color:#888;">(+${original925} ₪)</span></div>
+        <div>• גולדפילד: +${saleGold} ₪ <span style="text-decoration:line-through; color:#888;">(+${originalGold} ₪)</span></div>
+      `;
     }
 
-    document.addEventListener('DOMContentLoaded', syncFromIndex);
+    function renderCatalog() {
+      const container = document.getElementById('catalog-container');
+      products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        const lengthInfo = (p.type === "תליון" || p.type === "סט תכשיטים") 
+          ? `<div style="font-size:10px; color:#555; margin-top:3px;">אורך שרשרת לבחירה: 45, 50, 55, 60 ס"מ</div>` 
+          : '';
+
+        card.innerHTML = `
+          <div class="card-content">
+            <img src="${p.img}" alt="${p.title}">
+            <div class="details">
+              <div>
+                <div class="product-sku">מק"ט: ${p.sku} | ${p.type}</div>
+                <div class="product-title">${p.title}</div>
+                <div class="price-row">
+                  <span class="original-price">${p.originalPrice} ₪</span>
+                  <span class="sale-price">מבצע: ${p.price} ₪</span>
+                </div>
+                ${lengthInfo}
+              </div>
+              <div class="upgrades-box">
+                ${getUpgradeHtml(p)}
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCatalog);
   </script>
 </body>
 </html>
