@@ -32,7 +32,6 @@
       padding: 10px;
     }
 
-    /* כותרת הקטלוג */
     .catalog-header {
       text-align: center;
       margin-bottom: 24px;
@@ -60,14 +59,12 @@
       border: 1px solid #fde68a;
     }
 
-    /* רשת מוצרים - טור אחד */
     .products-grid {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    /* כרטיס מוצר */
     .product-card {
       border: 1px solid #e7e5e4;
       border-radius: 12px;
@@ -175,7 +172,6 @@
       margin-bottom: 8px;
     }
 
-    /* תיבת שדרוגים */
     .upgrades-box {
       background: #fffbeb;
       border: 1px solid #fef3c7;
@@ -191,19 +187,13 @@
       color: #78350f;
       margin-bottom: 3px;
     }
-
-    .price-tag {
-      direction: ltr;
-      display: inline-block;
-      font-weight: 600;
-    }
   </style>
 </head>
 <body>
 
   <div class="catalog-container">
     <div class="catalog-header">
-      <h1>תכשיטי מינרל גולד - הקטלוג מלא</h1>
+      <h1>תכשיטי מינרל גולד - קטלוג מלא ומחירון שדרוגים</h1>
       <p>מבצע השקה: 20% הנחה על כל התכשיטים והשדרוגים</p>
     </div>
 
@@ -247,7 +237,7 @@
           <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
           <div>• שדרוג לכסף 925: כלול במחיר</div>
           <div>• חוט נחושת זהוב: 64 ₪ <span style="text-decoration:line-through; color:#888;">(במקום 80 ₪)</span></div>
-          <div>• גולדפילד: <span class="price-tag">+16 ₪</span> <span style="text-decoration:line-through; color:#888;">(<span class="price-tag">+20 ₪</span>)</span></div>
+          <div>• שדרוג לגולדפילד: +16 ₪ <span style="text-decoration:line-through; color:#888;">(במקום +20 ₪)</span></div>
         `;
       }
 
@@ -267,8 +257,8 @@
 
       return `
         <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
-        <div>• שדרוג לכסף 925: <span class="price-tag">+${sale925} ₪</span> <span style="text-decoration:line-through; color:#888;">(<span class="price-tag">+${original925} ₪</span>)</span></div>
-        <div>• גולדפילד: <span class="price-tag">+${saleGold} ₪</span> <span style="text-decoration:line-through; color:#888;">(<span class="price-tag">+${originalGold} ₪</span>)</span></div>
+        <div>• שדרוג לכסף 925: +${sale925} ₪ <span style="text-decoration:line-through; color:#888;">(במקום +${original925} ₪)</span></div>
+        <div>• שדרוג לגולדפילד: +${saleGold} ₪ <span style="text-decoration:line-through; color:#888;">(במקום +${originalGold} ₪)</span></div>
       `;
     }
 
