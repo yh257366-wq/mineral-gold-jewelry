@@ -82,8 +82,8 @@
     }
 
     .product-card img {
-      width: 160px;
-      height: 160px;
+      width: 240px;
+      height: 240px;
       object-fit: cover;
       border-radius: 10px;
       flex-shrink: 0;
@@ -236,8 +236,8 @@
         return `
           <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
           <div>• שדרוג לכסף 925: כלול במחיר</div>
-          <div>• חוט נחושת זהוב: 64 ₪ <span style="text-decoration:line-through; color:#888;">(במקום 80 ₪)</span></div>
-          <div>• שדרוג לגולדפילד: +16 ₪ <span style="text-decoration:line-through; color:#888;">(במקום +20 ₪)</span></div>
+          <div>• חוט נחושת זהוב: 64 ₪ (במקום <span style="text-decoration:line-through; color:#888;">80</span> ₪)</div>
+          <div>• שדרוג לגולדפילד: +16 ₪ (במקום +<span style="text-decoration:line-through; color:#888;">20</span> ₪)</div>
         `;
       }
 
@@ -257,8 +257,8 @@
 
       return `
         <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
-        <div>• שדרוג לכסף 925: +${sale925} ₪ <span style="text-decoration:line-through; color:#888;">(במקום +${original925} ₪)</span></div>
-        <div>• שדרוג לגולדפילד: +${saleGold} ₪ <span style="text-decoration:line-through; color:#888;">(במקום +${originalGold} ₪)</span></div>
+        <div>• שדרוג לכסף 925: +${sale925} ₪ (במקום +<span style="text-decoration:line-through; color:#888;">${original925}</span> ₪)</div>
+        <div>• שדרוג לגולדפילד: +${saleGold} ₪ (במקום +<span style="text-decoration:line-through; color:#888;">${originalGold}</span> ₪)</div>
       `;
     }
 
