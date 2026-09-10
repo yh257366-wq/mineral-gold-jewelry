@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>קטלוג תכשיטים - תכשיטי מינרל גולד</title>
+  <title>תכשיטי מינרל גולד - קטלוג התכשיטים המלא</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
 
@@ -45,6 +45,13 @@
       font-size: 26px;
       font-weight: 700;
       letter-spacing: -0.5px;
+    }
+
+    .catalog-logo {
+      max-width: 180px;
+      height: auto;
+      margin: 12px auto;
+      display: block;
     }
 
     .catalog-header p {
@@ -187,17 +194,142 @@
       color: #78350f;
       margin-bottom: 3px;
     }
+
+    /* עיצוב ואנימציות לריבוע יצירת קשר */
+    .contact-card {
+      margin-top: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #fffdfa 100%);
+      border: 2px solid #d4af37;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+      animation: fadeInUp 0.8s ease-out forwards;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      transform: rotate(45deg);
+      animation: shimmer 4s infinite linear;
+    }
+
+    .contact-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1c1917;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .contact-subtitle {
+      font-size: 14px;
+      color: #78716c;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .contact-btn.email {
+      background-color: #1c1917;
+      color: #ffffff;
+      border: 1px solid #1c1917;
+    }
+
+    .contact-btn.website {
+      background-color: #d4af37;
+      color: #ffffff;
+      border: 1px solid #d4af37;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .contact-btn.email:hover {
+      background-color: #332d29;
+    }
+
+    .contact-btn.website:hover {
+      background-color: #b89528;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="catalog-container">
     <div class="catalog-header">
-      <h1>תכשיטי מינרל גולד - קטלוג מלא ומחירון שדרוגים</h1>
+      <h1>תכשיטי מינרל גולד - קטלוג התכשיטים המלא</h1>
+      <img src="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/logo.png" alt="לוגו תכשיטי מינרל גולד" class="catalog-logo">
       <p>מבצע השקה: 20% הנחה על כל התכשיטים והשדרוגים</p>
     </div>
 
     <div id="catalog-container" class="products-grid"></div>
+
+    <!-- ריבוע יצירת קשר -->
+    <div class="contact-card">
+      <div class="contact-title">מעוניינים לבצע הזמנה?</div>
+      <div class="contact-subtitle">נשמח לעמוד לשירותכם בכל שאלה או בקשה מיוחדת</div>
+      <div class="contact-buttons">
+        <a href="mailto:yh257366@gmail.com" class="contact-btn email">
+          ✉️ פנייה במייל: yh257366@gmail.com
+        </a>
+        <a href="https://mineral-gold.co.il/" target="_blank" class="contact-btn website">
+          🌐 לביקור והזמנה באתר
+        </a>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -216,7 +348,7 @@
         { id: 14, title: "עגילי אפטיט כחול", price: 64, originalPrice: 80, sku: "012", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-apatite-blue.jpg.png", desc: "עגילים מרשימים וייחודיים מאבני אפטיט טבעיות בגווני כחול יפהפה ומהפנט, עטופים בעדינות בחוט זהוב, ויוצרים מראה מעורר השראה.", material: "אבני אפטיט כחולות טבעיות, חוט נחושת זהוב", size: "גודל אבן: כ-1.3 ס\"מ | אורך כולל: כ-3.5 ס\"מ" },
         { id: 17, title: "סט תליון ועגילים אפטיט כחול", price: 112, originalPrice: 140, sku: "013", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-apatite.png.png", desc: "סט תליון ועגילים מרשימים במיוחד מאבן אפטיט כחול טבעי, בגווני כחול יפהפה, עטופים בעדינות בחוט זהוב, ויוצרים מראה מעורר השראה.", material: "אבן אפטיט כחול טבעי גולמי, חוט ליפוף מנחושת זהובה", size: "תליון כ-2 ס\"מ, עגילים כ-1.3 ס\"מ" },
         { id: 15, title: "תליון מלכיט ירוק", price: 64, originalPrice: 80, sku: "014", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-malachite-green.jpg.png", desc: "תליון מרשים במיוחד מאבן מלכיט ירוקה טבעית בגווני ירוק שונים, האבן עטופה בעדינות בחוט זהוב, ויוצרת מראה ססגוני ויוקרתי.", material: "אבן מלכיט ירוקה טבעית, חוט ליפוף מנחושת זהובה", size: "כ-3.2*2.2 ס\"מ" },
-        { id: 11, title: "עגילי קבושון ורדים", price: 64, originalPrice: 80, sku: "015", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-roses.jpg.png", desc: "עגילים צבעוניים ומלאי חיים עם דוגמה מרהיבה של ורדים בתוך אבני הקבושון. מעניקים מראה פורח ומלא חיים.", material: "קבושון אקרילי מעוצב, ליפוף נחושת מצופה זהב", size: "גודל אבן: 1.8*1.3 ס\"מ | אורך כולל: כ-4 ס\"מ" },
+        { id: 11, title: "עגילי קבושון ורדים", price: 64, originalPrice: 80, sku: "015", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-roses.jpg.png", desc: "עגילים צבעוניים ומלאי חיים עם דוגמה מרהיבה של וורדים בתוך אבני הקבושון. מעניקים מראה פורח ומלא חיים.", material: "קבושון אקרילי מעוצב, ליפוף נחושת מצופה זהב", size: "גודל אבן: 1.8*1.3 ס\"מ | אורך כולל: כ-4 ס\"מ" },
         { id: 12, title: "תליון קבושון ורדים", price: 64, originalPrice: 80, sku: "016", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-kabushon-vradim.jpg.png", desc: "תליון צבעוני ויפהפה עם קבושון אליפסי מבריק בעל דוגמת ורדים מרהיבה. הקבושון עטוף בעדינות בחוט ליפוף מוזהב, ויוצר מראה עדין ומלא חיים.", material: "קבושון אקרילי צבוע, חוט ליפוף נחושת מוזהב", size: "1.8*1.3 ס\"מ" },
         { id: 13, title: "סט תליון ועגילים קבושון ורדים", price: 112, originalPrice: 140, sku: "017", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/set-kabushon-vradim.jpg.png", desc: "סט תליון ועגילים צבעוניים יפהפיים עם קבושונים אליפסיים מבריקים בדוגמת ורדים מרהיבה. הקבושונים עטופים בעדינות בחוט ליפוף זהוב, ויוצרים מראה פורח ומלא חיים.", material: "קבושונים אקריליים מצויירים, חוט ליפוף מנחושת זהובה", size: "1.8*1.3 ס\"מ" },
         { id: 3, title: "עגילי חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "018", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/earrings-hishuk.jpg.png", desc: "עגילי חישוק מרהיבים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", size: "גודל אבן: 1.6 ס\"מ | אורך כולל: כ-4 ס\"מ" },
