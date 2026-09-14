@@ -711,7 +711,18 @@ function renderGallery() {
 
 // פונקציית דף מוצר מעודכנת
 function openProductPage(id) {
-    const p = products.find(prod => prod.id === id);
+    const currentIndex = products.findIndex(prod => prod.id === id);
+    if (currentIndex === -1) return;
+    
+    const p = products[currentIndex];
+    
+    // הגדרת המוצרים השכנים לחיצי הניווט
+    const prevIndex = (currentIndex - 1 + products.length) % products.length;
+    const nextIndex = (currentIndex + 1) % products.length;
+    
+    const prevProduct = products[prevIndex];
+    const nextProduct = products[nextIndex];
+
     const container = document.getElementById('product-detail-container');
     
   let dimensionsHtml = '';
