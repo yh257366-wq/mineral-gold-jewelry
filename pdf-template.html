@@ -195,6 +195,7 @@
       margin-bottom: 3px;
     }
 
+    /* עיצוב ואנימציות לריבוע יצירת קשר */
     .contact-card {
       margin-top: 30px;
       background: linear-gradient(135deg, #ffffff 0%, #fffdfa 100%);
@@ -333,7 +334,7 @@
 
   <script>
     const products = [
-        { id: 4, title: "תליון אמטיסט סגול בוהק", price: 96, originalPrice: 120, sku: "001", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-amethyst.jpg.JPG", desc: "תליון יפהפה ומיוחד עם אבן אמטיסט (אחלמה) סגולה מבריקה מלוטשת קלות. האבן עטופה באמנות בחוט ליפוף זהוב, ויוצרת מראה יוקרתי ומיוחד.", material: "אבן אמטיסט סגולה בוהקת, חוט נחושת זהוב", size: "גודל האבן: כ-2 ס\"מ<br><strong>אורך כולל של התליון:</strong> כ-4.5 ס\"מ" },
+        { id: 4, title: "תליון אמטיסט סגול בוהק", price: 96, originalPrice: 120, sku: "001", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-amethyst.jpg.JPG", desc: "תליון יפהפה ומיוחד עם אבן אמטיסט (אחלמה) סגולה מבריקה מלוטשת קלות. האבן עטופה באמנות בחוט ליפוף זהוב, ויוצרת מראה יוקרתי ומיוחד.", material: "אבן אמטיסט סגולה בוהקת, חוט נחושת זהוב", size: "כ-2 ס\"מ" },
         { id: 5, title: "תליון אמטיסט סגול טבעי", price: 96, originalPrice: 120, sku: "002", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-amethyst-natural.jpg.png", desc: "תליון יפהפה ומיוחד מאבן אמטיסט סגולה טבעית. האבן עטופה בעדינות ובאמנות בחוט ליפוף זהוב, ויוצרת שילוב של יוקרה וטבע.", material: "אבן אמטיסט סגול טבעי, חוט נחושת זהוב", size: "כ-2*3.5 ס\"מ" },
         { id: 6, title: "תליון סיטרין - כסף 925", price: 120, originalPrice: 150, sku: "003", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-sitrin.jpg.png", desc: "תליון ייחודי בעל נוכחות קורנת, מאבן סיטרין (Citrine) טבעית גולמית. האבן עטופה בעדינות בחוט ליפוף כסף 925, ויוצרת מראה בוהק ומרהיב במיוחד.", material: "אבן סיטרין טבעית, חוט ליפוף כסף 925, שרשרת כסף 925", size: "כ-1.8 ס\"מ" },
         { id: 7, title: "תליון סודליט כחול-לבן", price: 64, originalPrice: 80, sku: "004", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-silver-shop/main/images/taliyon-sodalite.jpg.png", desc: "תליון מרשים מאבן סודליט טבעית המציגה טקסטורות עמוקות של כחול עמוק משולב בעורקי לבן ייחודיים. האבן עטופה בעדינות בחוט זהוב, ויוצרת מראה מלכותי, מיוחד ומרשים.", material: "אבן סודליט כחולה טבעית, חוט נחושת זהוב", size: "כ-1.8 ס\"מ" },
@@ -366,9 +367,10 @@
     function getUpgradeHtml(p) {
       if (p.sku === "003") {
         return `
-          <div class="upgrades-title">וריאציות נוספות:</div>
-          <div>• חוט נחושת זהוב: מחיר סופי 64 ₪ (במקום 80 ₪)</div>
-          <div>• שדרוג לגולדפילד איכותי: מחיר סופי 136 ₪ (במקום 170 ₪)</div>
+          <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
+          <div>• שדרוג לכסף 925: כלול במחיר</div>
+          <div>• חוט נחושת זהוב: 64 ₪ (במקום <span style="text-decoration:line-through; color:#888;">80</span> ₪)</div>
+          <div>• שדרוג לגולדפילד: +16 ₪ (במקום +<span style="text-decoration:line-through; color:#888;">20</span> ₪)</div>
         `;
       }
 
@@ -388,8 +390,8 @@
 
       return `
         <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
-        <div>• שדרוג לכסף 925: <span dir="ltr">+${sale925}</span> ₪ (במקום <span dir="ltr">+${original925}</span> ₪)</div>
-        <div>• שדרוג לגולדפילד איכותי: <span dir="ltr">+${saleGold}</span> ₪ (במקום <span dir="ltr">+${originalGold}</span> ₪)</div>
+        <div>• שדרוג לכסף 925: +${sale925} ₪ (במקום +<span style="text-decoration:line-through; color:#888;">${original925}</span> ₪)</div>
+        <div>• שדרוג לגולדפילד: +${saleGold} ₪ (במקום +<span style="text-decoration:line-through; color:#888;">${originalGold}</span> ₪)</div>
       `;
     }
 
@@ -423,7 +425,7 @@
                 <div class="product-specs">
                   <strong>חומרים:</strong> ${p.material}<br>
                   <strong>גודל:</strong> ${p.size}<br>
-                  <strong>גימור:</strong> התכשיט מצופה בציפוי שקוף (היפואלרגני) לשימור מראה התכשיט לאורך זמן.
+                  <strong>גימור:</strong> מצופה בציפוי שקוף (היפואלרגני) לשימור הברק.
                 </div>
                 ${lengthInfo}
               </div>
