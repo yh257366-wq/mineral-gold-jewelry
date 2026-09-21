@@ -993,31 +993,42 @@ let upgradeSectionHtml = '';
 }
         
         function addToCartFromPage(event, id) {
-            if(event) event.preventDefault();
-            const product = products.find(p => p.id === id);
-            const lengthEl = document.getElementById('detail-length');
-            const length = lengthEl ? lengthEl.value : "לא רלוונטי";
-            
-            const upgradeSelect = document.getElementById('detail-upgrade');
-            const upgradeVal = parseInt(upgradeSelect.value);
-            const upgradeText = upgradeSelect.options[upgradeSelect.selectedIndex].text;
-            
-            const rowId = Date.now() + Math.floor(Math.random() * 1000);
+    if(event) event.preventDefault();
+    const product = products.find(p => p.id === id);
+    const lengthEl = document.getElementById('detail-length');
+    const length = lengthEl ? lengthEl.value : "לא רלוונטי";
+    
+    const upgradeSelect = document.getElementById('detail-upgrade');
+    const upgradeVal = parseInt(upgradeSelect.value);
+    const upgradeText = upgradeSelect.options[upgradeSelect.selectedIndex].text;
+    
+    // בדיקה האם המוצר כבר קיים בעגלה עם אותם מאפיינים exactement
+    const existingIndex = cart.findIndex(item => 
+        item.id === id && 
+        item.length === length && 
+        item.upgradeVal === upgradeVal
+    );
 
-            cart.push({ 
-                ...product, 
-                rowId: rowId, 
-                length: length, 
-                upgradeVal: upgradeVal, 
-                upgradeText: upgradeText, 
-                quantity: 1 
-            });
-            
-            saveCart();
-            updateNavCount();
-            openCartModal();
-        }
-
+    if (existingIndex > -1) {
+        // אם קיים - מעלים רק את הכמות
+        cart[existingIndex].quantity += 1;
+    } else {
+        // אם חדש - יוצרים שורה חדשה
+        const rowId = Date.now() + Math.floor(Math.random() * 1000);
+        cart.push({ 
+            ...product, 
+            rowId: rowId, 
+            length: length, 
+            upgradeVal: upgradeVal, 
+            upgradeText: upgradeText, 
+            quantity: 1 
+        });
+    }
+    
+    saveCart();
+    updateNavCount();
+    openCartModal();
+}
         function updateNavCount() {
             document.getElementById('nav-cart-count').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
         }
