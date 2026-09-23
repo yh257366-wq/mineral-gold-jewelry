@@ -452,45 +452,51 @@
 </style>
         </div>
 
-        <div id="view-contact" class="view-section">
-            <div class="max-w-xl mx-auto bg-white p-8 border border-stone-200 rounded-2xl shadow-sm">
-                <h1 class="text-2xl font-serif text-stone-900 mb-4 border-b border-stone-100 pb-3">צור קשר</h1>
-                <div class="mb-8 p-4 bg-stone-50 rounded-xl border border-stone-100 text-sm text-stone-700 leading-relaxed space-y-2">
-                    <p class="font-medium text-stone-900 text-base mb-1">נשמח לשמוע אתכם!</p>
-                    <p>ניתן ליצור קשר עם החנות באופנים הבאים:</p>
-                    <p><strong>📞 טלפון:</strong> 0583257366</p>
-                    <p><strong>✉️ אימייל:</strong> yh257366@gmail.com</p>
-                </div>
-                
-                <h2 class="text-lg font-serif text-stone-900 mb-4">מילוי טופס יצירת קשר</h2>
-                <form id="contact-form" class="space-y-4" onsubmit="handleContactSubmit(event)">
-                    <div class="hidden-honey">
-                        <input type="text" id="contact-honey-website" name="website" tabindex="-1" autocomplete="nope">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-xs font-bold text-stone-600 mb-1">שם מלא *</label>
-                        <input type="text" id="contact-name" required minlength="2" maxlength="40" class="w-full border border-stone-300 p-3 rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-600 mb-1">מספר טלפון *</label>
-                        <input type="tel" id="contact-phone" required pattern="05[0-9]{8}" title="אנא הזן מספר טלפון נייד תקין בן 10 ספרות המשתמש בקידומת 05" class="w-full border border-stone-300 p-3 rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-600 mb-1">כתובת אימייל *</label>
-                        <input type="email" id="contact-email" required class="w-full border border-stone-300 p-3 rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-600 mb-1">תוכן הפנייה *</label>
-                        <textarea id="contact-message" rows="4" required maxlength="1000" class="w-full border border-stone-300 p-3 rounded-xl text-sm" placeholder="איך נוכל לעזור לך?"></textarea>
-                    </div>
-                    <button type="submit" id="contact-btn" class="w-full bg-stone-900 hover:bg-black text-white font-medium py-3 rounded-xl text-sm transition-colors btn-animate">
-                        שליחת פנייה
-                    </button>
-                </form>
-            </div>
+</style>
         </div>
 
+        <div id="view-contact" class="view-section">
+    <div class="max-w-xl mx-auto bg-white p-8 border border-stone-200 rounded-2xl shadow-sm">
+        <h1 class="text-2xl font-serif text-stone-900 mb-4 border-b border-stone-100 pb-3">צור קשר</h1>
+        <div class="mb-8 p-4 bg-stone-50 rounded-xl border border-stone-100 text-sm text-stone-700 leading-relaxed space-y-2">
+            <p class="font-medium text-stone-900 text-base mb-1">נשמח לשמוע אתכם!</p>
+            <p>ניתן ליצור קשר עם החנות באופנים הבאים:</p>
+            <p><strong>📞 טלפון:</strong> 0583257366</p>
+            <p><strong>✉️ אימייל:</strong> yh257366@gmail.com</p>
+        </div>
+        
+        <h2 class="text-lg font-serif text-stone-900 mb-4">מילוי טופס יצירת קשר</h2>
+        <form id="contact-form" class="space-y-4" onsubmit="handleContactSubmit(event)">
+            <div class="hidden-honey">
+                <input type="text" id="contact-honey-website" name="website" tabindex="-1" autocomplete="nope">
+            </div>
+
+            <!-- מפתח הגישה של Web3Forms -->
+            <input type="hidden" name="access_key" value="86d2a9c9-f465-4356-bc13-f22178090fa6">
+            
+            <div>
+                <label class="block text-xs font-bold text-stone-600 mb-1">שם מלא *</label>
+                <input type="text" id="contact-name" name="name" required minlength="2" maxlength="40" class="w-full border border-stone-300 p-3 rounded-xl text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-stone-600 mb-1">מספר טלפון *</label>
+                <input type="tel" id="contact-phone" name="phone" required pattern="05[0-9]{8}" title="אנא הזן מספר טלפון נייד תקין בן 10 ספרות המשתמש בקידומת 05" class="w-full border border-stone-300 p-3 rounded-xl text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-stone-600 mb-1">כתובת אימייל *</label>
+                <input type="email" id="contact-email" name="email" required class="w-full border border-stone-300 p-3 rounded-xl text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-stone-600 mb-1">תוכן הפנייה *</label>
+                <textarea id="contact-message" name="message" rows="4" required maxlength="1000" class="w-full border border-stone-300 p-3 rounded-xl text-sm" placeholder="איך נוכל לעזור לך?"></textarea>
+            </div>
+            <button type="submit" id="contact-btn" class="w-full bg-stone-900 hover:bg-black text-white font-medium py-3 rounded-xl text-sm transition-colors btn-animate">
+                שליחת פנייה
+            </button>
+        </form>
+    </div>
+</div>
+        
         <div id="view-summary" class="view-section">
             <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 border border-stone-200 rounded-2xl shadow-sm">
                 <div class="text-center mb-8 border-b border-stone-200 pb-6 no-print">
@@ -1194,42 +1200,57 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
             window.print();
         }
 
-        function handleContactSubmit(e) {
-            e.preventDefault();
-            if(document.getElementById('contact-honey-website').value !== "") return;
+        async function handleContactSubmit(e) {
+    e.preventDefault();
 
-            const contactBtn = document.getElementById('contact-btn');
-            contactBtn.innerText = "שולח פנייה...";
-            contactBtn.disabled = true;
+    // בדיקת מלכודת ספאם (Honeypot)
+    if (document.getElementById('contact-honey-website').value !== "") return;
 
-            const name = document.getElementById('contact-name').value;
-            const phone = document.getElementById('contact-phone').value;
-            const email = document.getElementById('contact-email').value;
-            const msg = document.getElementById('contact-message').value;
+    const contactBtn = document.getElementById('contact-btn');
+    contactBtn.innerText = "שולח פנייה...";
+    contactBtn.disabled = true;
 
-            const contactData = new FormData();
-            contactData.append("type", "פנייה כללית");
-            contactData.append("name", name);
-            contactData.append("phone", phone);
-            contactData.append("email", email);
-            contactData.append("notes", msg);
+    // 1. הכנת נתונים ל-Google Sheets
+    const contactData = new FormData();
+    contactData.append("type", "פנייה כללית");
+    contactData.append("name", document.getElementById('contact-name').value);
+    contactData.append("phone", document.getElementById('contact-phone').value);
+    contactData.append("email", document.getElementById('contact-email').value);
+    contactData.append("notes", document.getElementById('contact-message').value);
 
+    // 2. הכנת נתונים ל-Web3Forms
+    const web3FormData = new FormData(e.target);
+
+    try {
+        // שליחה במקביל גם לגוגל שיטס וגם ל-Web3Forms
+        const [web3Res] = await Promise.all([
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: web3FormData
+            }),
             fetch(CORRECT_GOOGLE_URL, {
                 method: "POST",
                 body: contactData,
                 mode: "no-cors"
-            }).then(() => {
-                alert("תודה! פנייתך התקבלה ונציגנו יחזור אליך בהקדם.");
-                e.target.reset();
-            }).catch(err => {
-                console.error(err);
-                alert("חל שיבוש זמני בשליחת הפנייה, אנא נסה שנית בעוד מספר רגעים.");
-            }).finally(() => {
-                contactBtn.innerText = "שליחת פנייה";
-                contactBtn.disabled = false;
-            });
-        }
+            })
+        ]);
 
+        const result = await web3Res.json();
+
+        if (result.success) {
+            alert("תודה! פנייתך התקבלה ונחזור אליך בהקדם.");
+            e.target.reset();
+        } else {
+            throw new Error(result.message || "שגיאה בשליחה");
+        }
+    } catch (err) {
+        console.error(err);
+        alert("חל שיבוש זמני בשליחת הפנייה, אנא נסה שנית בעוד מספר רגעים.");
+    } finally {
+        contactBtn.innerText = "שליחת פנייה";
+        contactBtn.disabled = false;
+    }
+}
             async function handleFormSubmit(e) {
             e.preventDefault();
             if(document.getElementById('order-honey-website').value !== "" || document.getElementById('order-honey-nickname').value !== "") return;
