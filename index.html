@@ -555,12 +555,9 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center no-print">
-                    <button onclick="triggerPdfSave()" class="bg-stone-900 hover:bg-black text-white px-6 py-3 rounded-xl text-xs font-medium transition-colors shadow-sm flex-1 sm:flex-none btn-animate">
-                        💾 שמירה והורדת PDF ישירה
-                    </button>
-                    <button onclick="triggerPrintWithHeader()" class="bg-stone-600 hover:bg-stone-700 text-white px-6 py-3 rounded-xl text-xs font-medium transition-colors shadow-sm flex-1 sm:flex-none btn-animate">
-                        🖨 הדפסה רגילה
-                    </button>
+                    <button onclick="printSummaryPage()" class="bg-stone-900 hover:bg-black text-white px-6 py-3 rounded-xl text-xs font-medium transition-colors shadow-sm flex-1 sm:flex-none btn-animate">
+    🖨️ שמירה / הדפסה
+</button>
                     <button onclick="showView('gallery')" class="bg-emerald-800 hover:bg-emerald-900 text-white px-6 py-3 rounded-xl text-xs font-medium transition-colors shadow-sm flex-1 sm:flex-none btn-animate">
                         חזרה לחנות
                     </button>
@@ -1158,72 +1155,11 @@ const shippingVal = shippingSelector.value !== "" ? parseInt(shippingSelector.va
             document.getElementById('checkout-total').innerText = (subtotal + shippingVal) + " ₪";
         }
 
-     async function triggerPdfSave() {
-    const element = document.querySelector('#view-summary .max-w-3xl');
-    if (!element) {
-        document.body.classList.add('print-summary');
-        window.print();
-        document.body.classList.remove('print-summary');
-        return;
-    }
-    const orderId = document.getElementById('summary-order-id')?.innerText || "order";
-    
-    // בדיקה וטעינה דינמית במידת הצורך
-    if (typeof html2pdf === 'undefined') {
-        const btn = document.querySelector('button[onclick="triggerPdfSave()"]');
-        const originalText = btn ? btn.innerText : "";
-        if(btn) btn.innerText = "טוען רכיב PDF...";
-        
-        try {
-            await new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-                script.onload = resolve;
-                script.onerror = reject;
-                document.head.appendChild(script);
-            });
-        } catch (e) {
-            if(btn) btn.innerText = originalText;
-            document.body.classList.add('print-summary');
-            window.print();
-            document.body.classList.remove('print-summary');
-            return;
-        }
-        if(btn) btn.innerText = originalText;
-    }
-
+     function printSummaryPage() {
     document.body.classList.add('print-summary');
-    
-    const opt = {
-        margin:       [10, 10, 10, 10],
-        filename:     `order-${orderId}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { 
-            scale: 2, 
-            useCORS: true,
-            logging: false,
-            scrollY: 0
-        }, 
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    try {
-        await html2pdf().set(opt).from(element).save();
-    } catch (error) {
-        console.error("PDF Generation error:", error);
-        document.body.classList.add('print-summary');
-        window.print();
-        document.body.classList.remove('print-summary');
-    } finally {
-        document.body.classList.remove('print-summary');
-    }
+    window.print();
+    document.body.classList.remove('print-summary');
 }
-       
-        // הפעלת חלונית הדפסה נקייה המנוהלת באמצעות ה-CSS Print Media Query
-        function triggerPrintWithHeader() {
-            window.print();
-        }
-
         async function handleContactSubmit(e) {
     e.preventDefault();
 
