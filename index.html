@@ -40,18 +40,41 @@
     will-change: auto !important;
 }
 
-/* הגדרות הדפסה גמישות - תומך גם בקולקציה וגם בסיכום הזמנה */
+/* הגדרות הדפסה דינמיות - מדפיס בדיוק את העמוד/המוצר שבו נמצא הגולש */
 @media print {
-    body { background: white; color: black; min-height: auto; }
-    nav, footer, button, .no-print, .btn-animate { display: none !important; }
-    
-    /* ברירת מחדל בהדפסה: הצגת הקולקציה/גלריה בלבד */
-    .view-section { display: none !important; }
-    #view-gallery { display: block !important; visibility: visible !important; }
+    body { 
+        background: white !important; 
+        color: black !important; 
+        min-height: auto !important; 
+    }
 
-    /* רק כאשר מדפיסים סיכום הזמנה (נוסף קלאס print-summary ב-body) */
-    body.print-summary #view-gallery { display: none !important; }
-    body.print-summary #view-summary { display: block !important; visibility: visible !important; }
+    /* הסתרת אלמנטים שלא אמורים להופיע בהדפסה (תפריט, פוטר, לחצנים וחיצים) */
+    nav, footer, button, .no-print, .btn-animate, .nav-arrow { 
+        display: none !important; 
+    }
+
+    /* הסתרת כל הסקשנים שלא פעילים ברגע זה */
+    .view-section { 
+        display: none !important; 
+    }
+
+    /* הצגת הסקשן הפעיל בלבד (זה שמוצג כעת במסך של הגולש) */
+    .view-section.active { 
+        display: block !important; 
+        visibility: visible !important; 
+    }
+
+    /* התאמות מיוחדות עבור הדפסת דף מפרט מוצר */
+    #view-product.active #product-detail-container > div {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    #view-product.active img {
+        max-height: 400px !important;
+        object-fit: contain !important;
+    }
 }
         /* עיצוב חיצי ניווט בתוך עיגול בשני צידי התצוגה */
         .nav-arrow {
