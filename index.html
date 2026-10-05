@@ -629,7 +629,7 @@ const products = [
         type: "עגילים", 
         img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/earrings-ruby-zoisite.png", 
         desc: "עגילים אלגנטיים מאבני רובי בזואיזיט עגולות ומלוטשות, המציגות שילוב גוונים ייחודי של ירוק וורוד-ארגמן, מלופפות בחוט זהוב.", 
-        material: "אבני רובי בזואיזיט טבעיות, חוט נחושת זהוב", 
+        material: "אבני רובי בזואיזיט טבעיות (בחיזוק צבע), חוט נחושת זהוב", 
         stoneSize: "12.5 מ\"מ", 
         totalLength: "כ-3.8 ס\"מ" 
     }, 
@@ -931,9 +931,15 @@ function openProductPage(id) {
         `;
     }
 
-    // הוספת שורת גימור קבועה לכל סוגי המוצרים באופן אוטומטי
-    dimensionsHtml += `<p><strong>גימור:</strong> התכשיט מצופה בציפוי שקוף (היפולרגני) לשימור מראה התכשיט והברק שלו לאורך זמן.</p>`;
-       let lengthSelectorHtml = '';
+    // בדיקה אם מדובר במוצר הספציפי (לפי id או sku)
+    if (p.sku === "031" || p.id === 31) {
+        dimensionsHtml += `<p><strong>הנחיות שימוש:</strong> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</p>`;
+    } else {
+        // הוספת שורת גימור קבועה לכל שאר המוצרים
+        dimensionsHtml += `<p><strong>גימור:</strong> התכשיט מצופה בציפוי שקוף (היפולרגני) לשימור מראה התכשיט והברק שלו לאורך זמן.</p>`;
+    }
+
+    let lengthSelectorHtml = '';
     if (p.type === "תליון" || p.type === "סט תכשיטים") {
         lengthSelectorHtml = `
             <div>
@@ -947,7 +953,7 @@ function openProductPage(id) {
             </div>
         `;
     }
-
+    
 let upgradeSectionHtml = '';
     if (p.sku === "003") {
         upgradeSectionHtml = `
