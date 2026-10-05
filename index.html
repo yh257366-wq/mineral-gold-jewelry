@@ -1029,8 +1029,7 @@ let upgradeSectionHtml = '';
 `;
     }
     
-    const isContainProduct = (p.sku === "030" || p.id === 30 || p.sku === "001");
-const imgClass = isContainProduct ? "w-full h-full object-contain bg-stone-50" : "w-full h-full object-cover";
+const imgClass = "w-full h-full object-contain bg-stone-50";  
     
     container.innerHTML = `
         <div class="relative">
