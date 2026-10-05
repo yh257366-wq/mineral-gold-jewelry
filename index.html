@@ -940,13 +940,13 @@ function openProductPage(id) {
     } else if (type === "עגילים") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
-            <p><strong>${p.sku === "023" ? "גודל הטיפה:" : "גודל האבן:"}</strong> ${p.stoneSize || "כ-1.3 ס\"מ"}</p>
+            <p><strong>${p.sku === "033" ? "גודל הריבוע:" : p.sku === "023" ? "גודל הטיפה:" : "גודל האבן:"}</strong> ${p.stoneSize || "כ-1.3 ס\"מ"}</p>
             <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength || "כ-3.5 ס\"מ"}</p>
         `;
     } else if (type === "תליון") {
     dimensionsHtml = `
         <p><strong>חומרים:</strong> ${material}</p>
-        <p><strong>${sku === "033" ? "גודל הריבוע:" : sku === "026" ? "גודל התליון (קוטר):" : (sku === "027" || sku === "028" || sku === "029") ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size || "כ-2 ס\"מ"}</p>
+        <p><strong>${sku === "026" ? "גודל התליון (קוטר):" : (sku === "027" || sku === "028" || sku === "029") ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size || "כ-2 ס\"מ"}</p>
         ${p.totalLength ? `<p><strong>אורך כולל של התליון:</strong> ${p.totalLength}</p>` : ''}
     `;
     } else {
