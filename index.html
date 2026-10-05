@@ -946,7 +946,7 @@ function openProductPage(id) {
     } else if (type === "תליון") {
     dimensionsHtml = `
         <p><strong>חומרים:</strong> ${material}</p>
-        <p><strong>${sku === "026" ? "גודל התליון (קוטר):" : (sku === "027" || sku === "028"|| sku === "029") ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size || "כ-2 ס\"מ"}</p>
+        <p><strong>${sku === "033" ? "גודל הריבוע:" : sku === "026" ? "גודל התליון (קוטר):" : (sku === "027" || sku === "028" || sku === "029") ? "גודל התליון:" : "גודל האבן:"}</strong> ${p.size || "כ-2 ס\"מ"}</p>
         ${p.totalLength ? `<p><strong>אורך כולל של התליון:</strong> ${p.totalLength}</p>` : ''}
     `;
     } else {
@@ -1000,7 +1000,7 @@ let upgradeSectionHtml = '';
         if (p.sku === "020") { 
             // סט תליון ועגילי חישוק קשת הצבעים (חדש)
             original925 = 145; originalGold = 180;
-        } else if (p.sku === "019" || p.sku === "018" || p.sku === "023" || p.sku === "026" || p.sku === "027" || p.sku === "028" || p.sku === "029") { 
+        } else if (p.sku === "019" || p.sku === "018" || p.sku === "023" || p.sku === "026" || p.sku === "027" || p.sku === "028" || p.sku === "029" || p.sku === "033") { 
     // תליון ועגילי חישוק קשת הצבעים, עגילי נצנוץ הטיפה, ספירלת גווני הוורוד וטיפת ירוק-עד
     original925 = 80; originalGold = 100;
         } else if (p.type === "סט תכשיטים") {
