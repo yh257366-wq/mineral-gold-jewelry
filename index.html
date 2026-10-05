@@ -1003,8 +1003,9 @@ let upgradeSectionHtml = '';
 `;
     }
     
-    const imgClass = (p.sku === "001") ? "w-full h-full object-contain bg-stone-900" : "w-full h-full object-cover";
-
+    const isContainProduct = (p.sku === "030" || p.id === 30 || p.sku === "001");
+const imgClass = isContainProduct ? "w-full h-full object-contain bg-stone-50" : "w-full h-full object-cover";
+    
     container.innerHTML = `
         <div class="relative">
             <!-- חץ ניווט למוצר הקודם (מימין) -->
