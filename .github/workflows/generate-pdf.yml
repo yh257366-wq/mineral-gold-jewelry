@@ -6,9 +6,9 @@ on:
       - main
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
-
+  group: generate-pdf
+  cancel-in-progress: true
+  
 permissions:
   contents: write
 
