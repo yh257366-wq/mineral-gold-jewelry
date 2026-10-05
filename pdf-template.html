@@ -410,9 +410,18 @@
           ? `<div class="chain-length-info">✦ אורך שרשרת לבחירה: 45-60 ס"מ</div>` 
           : '';
 
+        // הגדרת תנאי הגימור והמחלקה לתמונה
+        const isContainProduct = (p.sku === "030" || p.id === 30 || p.sku === "001");
+        const imgClass = isContainProduct ? "w-full h-full object-contain bg-stone-50" : "w-full h-full object-cover";
+
+        // בודק אם מדובר במק"ט 30 להצגת אזהרת טיפול נכון
+        const finishText = (p.sku === "030" || p.id === 30)
+          ? `<strong style="color: #b91c1c;">טיפול נכון במוצר:</strong> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוים.`
+          : `<strong>גימור:</strong> מצופה בציפוי שקוף (היפואלרגני) לשימור הברק.`;
+
         card.innerHTML = `
           <div class="card-content">
-            <img src="${p.img}" alt="${p.title}">
+            <img src="${p.img}" alt="${p.title}" class="${imgClass}">
             <div class="details">
               <div>
                 <div class="top-meta">
@@ -427,9 +436,10 @@
                 <div class="product-description">${p.desc}</div>
                 <div class="product-specs">
                   <strong>חומרים:</strong> ${p.material}<br>
-                  <strong>גודל:</strong> ${p.size}<br>
-                  <strong>גימור:</strong> מצופה בציפוי שקוף (היפואלרגני) לשימור הברק.
+                  <strong>גודל:</strong> ${p.size || (p.stoneSize ? p.stoneSize + ' | ' + p.totalLength : '')}<br>
+                  ${finishText}
                 </div>
+                
                 ${lengthInfo}
               </div>
               <div class="upgrades-box">
