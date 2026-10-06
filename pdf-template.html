@@ -106,15 +106,15 @@ function getUpgrades(p){
   if(p.sku==="003") return [
     {t:"שדרוג לכסף 925: כלול במחיר"},
     {t:"חוט נחושת זהוב: 64 ₪",old:"80"},
-    {t:"שדרוג לגולדפילד: +16 ₪",old:"+20"}];
+    {t:"שדרוג לגולדפילד: \u200E+16 ₪",old:"\u200E+20"}];
   let o925=70,oGold=90;
   if(p.sku==="020"){o925=145;oGold=180}
   else if(["018","019","023","026","027","028","029","033"].includes(p.sku)){o925=80;oGold=100}
   else if(p.type==="סט תכשיטים"){o925=130;oGold=170}
   else if(["001","002","021"].includes(p.sku)){o925=130;oGold=150}
   return [
-    {t:"כסף 925: +"+Math.round(o925*0.8)+" ₪",old:"+"+o925},
-    {t:"גולדפילד: +"+Math.round(oGold*0.8)+" ₪",old:"+"+oGold}];
+    {t:"כסף 925: \u200E+"+Math.round(o925*0.8)+" ₪",old:"\u200E+"+o925},
+    {t:"גולדפילד: \u200E+"+Math.round(oGold*0.8)+" ₪",old:"\u200E+"+oGold}];
 }
 
 function itemHtml(p,i){
@@ -124,7 +124,7 @@ function itemHtml(p,i){
     ? '<div class="care"><b>טיפול נכון במוצר:</b> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</div>'
     : '<div><b>גימור:</b> ציפוי שקוף היפואלרגני לשימור הברק.</div>';
   const size=p.size||(p.stoneSize?p.stoneSize+" | "+p.totalLength:"");
-  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' <s>(במקום '+u.old+' ₪)</s>':'')+'</span>').join("");
+  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' (במקום <s>'+u.old+' ₪</s>)':'')+'</span>').join("");
   return `<div class="item ${i%2?'alt':''}">
     <div class="pic"><img class="${contain?'contain':''}" src="${p.img}" alt="${p.title}"></div>
     <div class="info">
