@@ -24,6 +24,7 @@ body{font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl}
 .cover .sub{font-family:'Frank Ruhl Libre',serif;font-weight:300;font-size:17px;color:#d8cdb6;margin-bottom:14mm}
 .cover .rule{width:70mm;margin:0 auto 12mm}
 .cover .badge{display:inline-block;border:1px solid var(--gold2);color:var(--gold2);padding:3mm 9mm;font-size:14px;letter-spacing:.06em}
+        .cover .badge-date{margin-top:5mm;font-size:12px;font-weight:300;letter-spacing:.12em;color:#d8cdb6}
 
 /* product pages */
 .head{position:absolute;top:11mm;right:16mm;left:16mm;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.3em;color:var(--mute)}
@@ -105,7 +106,7 @@ const products = [
 
 function getUpgrades(p){
   if(p.sku==="003") return [
-    {t:"שדרוג לכסף 925: כלול במחיר"},
+    {t:"כסף 925: כלול במחיר"},
     {t:"חוט נחושת זהוב: 64 ₪",old:"80"},
     {t:"שדרוג לגולדפילד: \u200E+16 ₪",old:"\u200E+20"}];
   let o925=70,oGold=90;
@@ -148,7 +149,8 @@ function render(){
     <h1 class="gold-text">קטלוג התכשיטים</h1>
     <div class="sub">אבני חן טבעיות · עבודת יד</div>
     <div class="rule"></div>
-    <div class="badge">מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים</div></section>`;
+    <div class="badge">מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים</div>
+    <div class="badge-date">המבצע בתוקף עד 01/12/2026</div></section>`;
   for(let pg=0;pg<pages;pg++){
     const chunk=products.slice(pg*per,pg*per+per);
     h+=`<section class="page"><div class="head"><b>מינרל גולד</b><span>MINERAL GOLD</span></div>
