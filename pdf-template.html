@@ -17,7 +17,7 @@
 
     body {
       font-family: 'David Libre', serif;
-      color: #000000;
+      color: #1c1917;
       margin: 0;
       padding: 0;
       background: #f4efe6;
@@ -41,7 +41,7 @@
 
     .catalog-header h1 {
       margin: 0;
-      color: #000000;
+      color: #1c1917;
       font-size: 26px;
       font-weight: 800;
       letter-spacing: -0.5px;
@@ -57,7 +57,7 @@
     .catalog-header p {
       margin: 6px 0 0;
       color: #78350f;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       background: #fef3c7;
       display: inline-block;
@@ -113,16 +113,16 @@
     }
 
     .product-sku {
-      font-size: 12.5px;
-      color: #44403c;
-      font-weight: 700;
+      font-size: 12px;
+      color: #78716c;
+      font-weight: 600;
       letter-spacing: 0.5px;
     }
 
     .product-type-badge {
-      font-size: 12.5px;
-      background: #e7e5e4;
-      color: #000000;
+      font-size: 12px;
+      background: #f5f5f4;
+      color: #44403c;
       padding: 2px 8px;
       border-radius: 4px;
       font-weight: 700;
@@ -144,59 +144,69 @@
 
     .original-price {
       text-decoration: line-through;
-      color: #78716c;
-      font-size: 13.5px;
-      font-weight: 600;
+      color: #a8a29e;
+      font-size: 13px;
+      font-weight: 500;
     }
 
     .sale-price {
       color: #b91c1c;
       font-weight: 800;
-      font-size: 18px;
+      font-size: 17px;
     }
     
     .product-description {
-      font-size: 14px;
-      color: #000000;
-      font-weight: 600;
+      font-size: 13.5px;
+      color: #27272a;
+      font-weight: 400; /* גופן רגיל וקריא לתיאור */
       line-height: 1.5;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .product-specs {
-      font-size: 13px;
-      color: #000000;
-      font-weight: 700;
-      line-height: 1.5;
-      margin-bottom: 8px;
-      background: #f7f5f0;
+      font-size: 12.5px;
+      color: #1c1917;
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      background: #fafaf9;
       padding: 8px 12px;
       border-radius: 6px;
       border-right: 3px solid #d4af37;
     }
 
-    .chain-length-info {
-      font-size: 13px;
-      color: #14532d;
+    /* כותרות הנושא בתוך המפרט */
+    .product-specs .spec-label {
       font-weight: 800;
+      color: #854d0e; /* צבע חרדל/זהב כהה מובלט */
+      margin-left: 2px;
+    }
+
+    .chain-length-info {
+      font-size: 12px;
+      color: #15803d;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
     .upgrades-box {
-      background: #fdfbf7;
-      border: 1px solid #e7dfd3;
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
       border-radius: 8px;
       padding: 8px 12px;
-      font-size: 13px;
-      color: #000000;
-      font-weight: 700;
+      font-size: 12px;
+      color: #27272a;
+      font-weight: 500;
       line-height: 1.5;
     }
 
     .upgrades-title {
       font-weight: 800;
-      color: #000000;
-      margin-bottom: 3px;
+      color: #78350f; /* חום יוקרתי לכותרת השדרוגים */
+      font-size: 12.5px;
+      margin-bottom: 4px;
+      border-bottom: 1px dashed #fde68a;
+      padding-bottom: 2px;
     }
 
     /* עיצוב ואנימציות לריבוע יצירת קשר */
@@ -228,7 +238,7 @@
     }
 
     .contact-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 800;
       color: #000000;
       margin-bottom: 8px;
@@ -236,9 +246,9 @@
     }
 
     .contact-subtitle {
-      font-size: 14.5px;
-      color: #44403c;
-      font-weight: 700;
+      font-size: 13.5px;
+      color: #57534e;
+      font-weight: 500;
       margin-bottom: 20px;
       position: relative;
     }
@@ -260,15 +270,15 @@
       border-radius: 30px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 14.5px;
+      font-size: 13.5px;
       transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
     .contact-btn.email {
-      background-color: #000000;
+      background-color: #1c1917;
       color: #ffffff;
-      border: 1px solid #000000;
+      border: 1px solid #1c1917;
     }
 
     .contact-btn.website {
@@ -379,8 +389,8 @@
         return `
           <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
           <div>• שדרוג לכסף 925: כלול במחיר</div>
-          <div>• חוט נחושת זהוב: 64 ₪ (במקום <span style="text-decoration:line-through; color:#44403c; font-weight:600;">80</span> ₪)</div>
-          <div>• שדרוג לגולדפילד: +16 ₪ (במקום +<span style="text-decoration:line-through; color:#44403c; font-weight:600;">20</span> ₪)</div>
+          <div>• חוט נחושת זהוב: 64 ₪ (במקום <span style="text-decoration:line-through; color:#a8a29e;">80</span> ₪)</div>
+          <div>• שדרוג לגולדפילד: +16 ₪ (במקום +<span style="text-decoration:line-through; color:#a8a29e;">20</span> ₪)</div>
         `;
       }
 
@@ -400,8 +410,8 @@
 
       return `
         <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
-        <div>• שדרוג לכסף 925: +${sale925} ₪ (במקום +<span style="text-decoration:line-through; color:#44403c; font-weight:600;">${original925}</span> ₪)</div>
-        <div>• שדרוג לגולדפילד: +${saleGold} ₪ (במקום +<span style="text-decoration:line-through; color:#44403c; font-weight:600;">${originalGold}</span> ₪)</div>
+        <div>• שדרוג לכסף 925: +${sale925} ₪ (במקום +<span style="text-decoration:line-through; color:#a8a29e;">${original925}</span> ₪)</div>
+        <div>• שדרוג לגולדפילד: +${saleGold} ₪ (במקום +<span style="text-decoration:line-through; color:#a8a29e;">${originalGold}</span> ₪)</div>
       `;
     }
 
@@ -423,8 +433,8 @@
 
         // בודק אם מדובר במק"ט 31 להצגת אזהרת טיפול נכון
         const finishText = (p.sku === "031" || p.id === 31)
-          ? `<strong style="color: #b91c1c; font-weight: 800;">טיפול נכון במוצר:</strong> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.`
-          : `<strong style="font-weight: 800; color: #000000;">גימור:</strong> מצופה בציפוי שקוף (היפואלרגני) לשימור הברק.`;
+          ? `<span class="spec-label" style="color: #b91c1c;">טיפול נכון במוצר:</span> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.`
+          : `<span class="spec-label">גימור:</span> מצופה בציפוי שקוף (היפואלרגני) לשימור הברק.`;
 
         card.innerHTML = `
           <div class="card-content">
@@ -442,8 +452,8 @@
                 </div>
                 <div class="product-description">${p.desc}</div>
                 <div class="product-specs">
-                  <strong style="font-weight: 800; color: #000000;">חומרים:</strong> ${p.material}<br>
-                  <strong style="font-weight: 800; color: #000000;">גודל:</strong> ${p.size || (p.stoneSize ? p.stoneSize + ' | ' + p.totalLength : '')}<br>
+                  <span class="spec-label">חומרים:</span> ${p.material}<br>
+                  <span class="spec-label">גודל:</span> ${p.size || (p.stoneSize ? p.stoneSize + ' | ' + p.totalLength : '')}<br>
                   ${finishText}
                 </div>
                 
