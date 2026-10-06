@@ -1,353 +1,72 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <title>תכשיטי מינרל גולד - קטלוג התכשיטים המלא</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700;800&display=swap');
+<html lang="he" dir="rtl"><head><meta charset="UTF-8">
+<title>מינרל גולד - קטלוג התכשיטים</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap');
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#16120f;--ivory:#faf6ee;--gold:#b08a2e;--gold2:#d9bb62;--wine:#8a2b2b;--mute:#6f675d}
+html,body{background:#e9e4da;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl}
+.page{width:210mm;height:297mm;margin:8mm auto;background:var(--ivory);position:relative;overflow:hidden;page-break-after:always;break-after:page;box-shadow:0 4px 24px rgba(0,0,0,.15)}
+.page:last-child{page-break-after:auto;break-after:auto}
+@media print{html,body{background:none}.page{margin:0;box-shadow:none}}
+.gold-text{background:linear-gradient(135deg,#8f6d1c,#e3c870 45%,#9c7620);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 
-    @page {
-      size: A4;
-      margin: 10mm;
-    }
+/* cover */
+.cover{background:radial-gradient(ellipse at 50% 38%,#2a221b 0%,#120e0b 70%);color:#f3ead7;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22mm}
+.cover .frame{position:absolute;inset:10mm;border:1px solid rgba(217,187,98,.55)}
+.cover .frame::after{content:'';position:absolute;inset:3mm;border:1px solid rgba(217,187,98,.22)}
+.cover img{width:62mm;margin-bottom:14mm;border-radius:4px}
+.cover .eyebrow{letter-spacing:.5em;font-size:11px;color:var(--gold2);margin-bottom:6mm;font-weight:300}
+.cover h1{font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:46px;line-height:1.2;margin-bottom:6mm}
+.cover .sub{font-family:'Frank Ruhl Libre',serif;font-weight:300;font-size:17px;color:#d8cdb6;margin-bottom:14mm}
+.cover .rule{width:70mm;margin:0 auto 12mm}
+.cover .badge{display:inline-block;border:1px solid var(--gold2);color:var(--gold2);padding:3mm 9mm;font-size:14px;letter-spacing:.06em}
 
-    * {
-      box-sizing: border-box;
-    }
+/* product pages */
+.head{position:absolute;top:11mm;right:16mm;left:16mm;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.3em;color:var(--mute)}
+.head b{font-family:'Frank Ruhl Libre',serif;letter-spacing:.12em;font-size:13px;font-weight:700}
+.foot{position:absolute;bottom:9mm;right:16mm;left:16mm;display:flex;justify-content:space-between;font-size:10px;color:var(--mute);letter-spacing:.12em}
+.list{position:absolute;top:21mm;bottom:17mm;right:16mm;left:16mm;display:grid;grid-template-rows:repeat(3,1fr);gap:0}
+.item{display:flex;gap:9mm;align-items:center;border-top:1px solid rgba(176,138,46,.4);padding:4.5mm 0}
+.item:first-child{border-top:none}
+.item.alt{flex-direction:row-reverse}
+.pic{flex:0 0 62mm;height:62mm;position:relative}
+.pic::before{content:'';position:absolute;inset:2.5mm -2.5mm -2.5mm 2.5mm;border:1px solid var(--gold);z-index:0}
+.item.alt .pic::before{inset:2.5mm 2.5mm -2.5mm -2.5mm}
+.pic img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;display:block;background:#f0eadd}
+.pic img.contain{object-fit:contain}
+.info{flex:1;min-width:0}
+.meta{font-size:10px;letter-spacing:.22em;color:var(--gold);font-weight:500;margin-bottom:1.5mm}
+.title{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:21px;line-height:1.2;margin-bottom:2mm}
+.price{display:flex;align-items:baseline;gap:3mm;margin-bottom:2.5mm}
+.price .now{font-family:'Frank Ruhl Libre',serif;font-size:21px;font-weight:700;color:var(--wine)}
+.price .old{font-size:12px;color:#a59c8e;text-decoration:line-through}
+.desc{font-size:11px;line-height:1.55;color:#2c2620;font-weight:300;margin-bottom:2.5mm}
+.specs{font-size:10px;line-height:1.55;color:#3a342c;border-right:2px solid var(--gold);padding-right:3mm;margin-bottom:2.5mm}
+.specs b{font-weight:700;color:#7a5a12}
+.specs .care b{color:var(--wine)}
+.chain{font-size:10px;color:#3f6b4a;font-weight:500;margin-bottom:2.5mm}
+.ups{display:flex;gap:2mm;flex-wrap:wrap;align-items:center;font-size:9.5px}
+.ups .lbl{color:var(--mute);letter-spacing:.08em;margin-left:1mm}
+.chip{border:1px solid rgba(176,138,46,.6);padding:.8mm 2.6mm;color:#3a342c;background:rgba(255,255,255,.5)}
+.chip s{color:#a59c8e}
 
-    body {
-      font-family: 'David Libre', serif;
-      color: #1c1917;
-      margin: 0;
-      padding: 0;
-      background: #f4efe6;
-      direction: rtl;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-
-    .catalog-container {
-      max-width: 750px;
-      margin: 0 auto;
-      padding: 5px;
-    }
-
-    .catalog-header {
-      text-align: center;
-      margin-bottom: 22px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #d4af37;
-    }
-
-    .catalog-header h1 {
-      margin: 0;
-      color: #1c1917;
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
-
-    .catalog-logo {
-      max-width: 160px;
-      height: auto;
-      margin: 12px auto;
-      display: block;
-    }
-
-    .catalog-header p {
-      margin: 6px 0 0;
-      color: #78350f;
-      font-size: 13.5px;
-      font-weight: 700;
-      background: #fef3c7;
-      display: inline-block;
-      padding: 4px 16px;
-      border-radius: 20px;
-      border: 1px solid #fde68a;
-    }
-
-    .products-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 20px; /* הוגדל המרווח בין כרטיסי המוצרים */
-    }
-
-    .product-card {
-      border: 1px solid #e7e5e4;
-      border-radius: 10px;
-      padding: 16px 18px; /* הוגדלו השוליים הפנימיים של הכרטיס */
-      page-break-inside: avoid;
-      break-inside: avoid;
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-    }
-
-    .card-content {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .product-card img {
-      width: 210px;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 8px;
-      flex-shrink: 0;
-      border: 1px solid #f3f4f6;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .details {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .top-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .product-sku {
-      font-size: 12px;
-      color: #78716c;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .product-type-badge {
-      font-size: 12px;
-      background: #f5f5f4;
-      color: #44403c;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 700;
-    }
-
-    .product-title {
-      font-weight: 800;
-      font-size: 17.5px;
-      margin: 3px 0 6px 0;
-      color: #000000;
-    }
-
-    .price-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px; /* מרווח מוגדל תחת המחיר */
-    }
-
-    .original-price {
-      text-decoration: line-through;
-      color: #a8a29e;
-      font-size: 12.5px;
-      font-weight: 500;
-    }
-
-    .sale-price {
-      color: #b91c1c;
-      font-weight: 800;
-      font-size: 16.5px;
-    }
-    
-    .product-description {
-      font-size: 13px;
-      color: #27272a;
-      font-weight: 400;
-      line-height: 1.45;
-      margin-bottom: 12px; /* מרווח מוגדל תחת התיאור */
-    }
-
-    .product-specs {
-      font-size: 12px;
-      color: #1c1917;
-      font-weight: 500;
-      line-height: 1.5;
-      margin-bottom: 12px; /* מרווח מוגדל תחת המפרט */
-      background: #fafaf9;
-      padding: 9px 12px;
-      border-radius: 6px;
-      border-right: 3px solid #d4af37;
-    }
-
-    .product-specs .spec-label {
-      font-weight: 800;
-      color: #854d0e;
-      margin-left: 2px;
-    }
-
-    .chain-length-info {
-      font-size: 12px;
-      color: #15803d;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .upgrades-box {
-      background: #fffbeb;
-      border: 1px solid #fef3c7;
-      border-radius: 6px;
-      padding: 9px 12px;
-      font-size: 12px;
-      color: #27272a;
-      font-weight: 500;
-      line-height: 1.45;
-    }
-
-    .upgrades-title {
-      font-weight: 800;
-      color: #78350f;
-      font-size: 12px;
-      margin-bottom: 4px;
-      border-bottom: 1px dashed #fde68a;
-      padding-bottom: 3px;
-    }
-
-    /* עיצוב ואנימציות לריבוע יצירת קשר */
-    .contact-card {
-      margin-top: 30px;
-      background: linear-gradient(135deg, #ffffff 0%, #fffdfa 100%);
-      border: 2px solid #d4af37;
-      border-radius: 14px;
-      padding: 24px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.12);
-      animation: fadeInUp 0.8s ease-out forwards;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    .contact-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-      transform: rotate(45deg);
-      animation: shimmer 4s infinite linear;
-    }
-
-    .contact-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #000000;
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .contact-subtitle {
-      font-size: 13px;
-      color: #57534e;
-      font-weight: 500;
-      margin-bottom: 18px;
-      position: relative;
-    }
-
-    .contact-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 26px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      transition: all 0.3s ease;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-    }
-
-    .contact-btn.email {
-      background-color: #1c1917;
-      color: #ffffff;
-      border: 1px solid #1c1917;
-    }
-
-    .contact-btn.website {
-      background-color: #d4af37;
-      color: #ffffff;
-      border: 1px solid #d4af37;
-    }
-
-    .contact-btn:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 15px rgba(212, 175, 55, 0.25);
-    }
-
-    .contact-btn.email:hover {
-      background-color: #332d29;
-    }
-
-    .contact-btn.website:hover {
-      background-color: #b89528;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes shimmer {
-      0% {
-        transform: translateX(-100%) rotate(45deg);
-      }
-      100% {
-        transform: translateX(100%) rotate(45deg);
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="catalog-container">
-    <div class="catalog-header">
-      <h1>תכשיטי מינרל גולד - קטלוג התכשיטים המלא</h1>
-      <img src="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/logo.png" alt="לוגו תכשיטי מינרל גולד" class="catalog-logo">
-      <p>מבצע השקה: 20% הנחה על כל התכשיטים והשדרוגים</p>
-    </div>
-
-    <div id="catalog-container" class="products-grid"></div>
-
-    <!-- ריבוע יצירת קשר -->
-    <div class="contact-card">
-      <div class="contact-title">מעוניינים לבצע הזמנה?</div>
-      <div class="contact-subtitle">נשמח לעמוד לשירותכם בכל שאלה או בקשה מיוחדת</div>
-      <div class="contact-buttons">
-        <a href="mailto:yh257366@gmail.com" class="contact-btn email">
-          ✉️ פנייה במייל: yh257366@gmail.com
-        </a>
-        <a href="https://mineral-gold.co.il/" target="_blank" class="contact-btn website">
-          🌐 לביקור והזמנה באתר
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const products = [
+/* contact */
+.contact{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 40%,#2a221b 0%,#120e0b 72%);color:#f3ead7}
+.contact .frame{position:absolute;inset:10mm;border:1px solid rgba(217,187,98,.55)}
+.contact img{width:42mm;margin-bottom:10mm;border-radius:3px}
+.contact h2{font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:34px;margin-bottom:4mm}
+.contact p{font-weight:300;font-size:14px;color:#d8cdb6;margin-bottom:10mm}
+.contact .rule{width:60mm;margin:0 auto 10mm}
+.contact a{display:block;color:var(--gold2);text-decoration:none;font-size:15px;letter-spacing:.06em;margin:2.5mm 0;direction:ltr}
+</style></head>
+<body><div id="root"></div>
+<script>
+const LOGO="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/logo.png";
+const products = [
         { id: 4, title: "תליון אמטיסט סגול בוהק", price: 96, originalPrice: 120, sku: "001", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-amethyst.png", desc: "תליון יפהפה ומיוחד עם אבן אמטיסט (אחלמה) סגולה מבריקה מלוטשת קלות. האבן עטופה באמנות בחוט ליפוף זהוב, ויוצרת מראה יוקרתי ומיוחד.", material: "אבן אמטיסט סגולה בוהקת, חוט נחושת זהוב", size: "כ-2 ס\"מ" },
         { id: 5, title: "תליון אמטיסט סגול טבעי", price: 96, originalPrice: 120, sku: "002", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-amethyst-natural.jpg.png", desc: "תליון יפהפה ומיוחד מאבן אמטיסט סגולה טבעית. האבן עטופה בעדינות ובאמנות בחוט ליפוף זהוב, ויוצרת שילוב של יוקרה וטבע.", material: "אבן אמטיסט סגול טבעי, חוט נחושת זהוב", size: "כ-2*3.5 ס\"מ" },
         { id: 6, title: "תליון סיטרין - כסף 925", price: 120, originalPrice: 150, sku: "003", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-sitrin.jpg.png", desc: "תליון ייחודי בעל נוכחות קורנת, מאבן סיטרין (Citrine) טבעית גולמית. האבן עטופה בעדינות בחוט ליפוף כסף 925, ויוצרת מראה בוהק ומרהיב במיוחד.", material: "אבן סיטרין טבעית, חוט ליפוף כסף 925, שרשרת כסף 925", size: "כ-1.8 ס\"מ" },
@@ -383,92 +102,66 @@
         { id: 29, title: "תליון נגינת המינרלים", price: 80, originalPrice: 100, sku: "029", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/mineral-melody-pendant.jpg", desc: "תליון ייחודי במבנה מלבני המזכיר כלי נגינה, משולב בשורות של אבני טורמלין טבעיות בגווני מדרג מרהיבים. עיצוב הרמוני ויוצא דופן.", material: "אבני טורמלין גולמיות, מבנה מלבני וחוט ליפוף מנחושת זהובה", size: "כ-1.9*2.3 ס\"מ" }
     ];
 
-    function getUpgradeHtml(p) {
-      if (p.sku === "003") {
-        return `
-          <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
-          <div>• שדרוג לכסף 925: כלול במחיר</div>
-          <div>• חוט נחושת זהוב: 64 ₪ (במקום <span style="text-decoration:line-through; color:#a8a29e;">80</span> ₪)</div>
-          <div>• שדרוג לגולדפילד: +16 ₪ (במקום +<span style="text-decoration:line-through; color:#a8a29e;">20</span> ₪)</div>
-        `;
-      }
+function getUpgrades(p){
+  if(p.sku==="003") return [
+    {t:"שדרוג לכסף 925: כלול במחיר"},
+    {t:"חוט נחושת זהוב: 64 ₪",old:"80"},
+    {t:"שדרוג לגולדפילד: +16 ₪",old:"+20"}];
+  let o925=70,oGold=90;
+  if(p.sku==="020"){o925=145;oGold=180}
+  else if(["018","019","023","026","027","028","029","033"].includes(p.sku)){o925=80;oGold=100}
+  else if(p.type==="סט תכשיטים"){o925=130;oGold=170}
+  else if(["001","002","021"].includes(p.sku)){o925=130;oGold=150}
+  return [
+    {t:"כסף 925: +"+Math.round(o925*0.8)+" ₪",old:"+"+o925},
+    {t:"גולדפילד: +"+Math.round(oGold*0.8)+" ₪",old:"+"+oGold}];
+}
 
-      let original925 = 70, originalGold = 90;
-      if (p.sku === "020") {
-        original925 = 145; originalGold = 180;
-      } else if (["018", "019", "023", "026", "027", "028", "029", "033"].includes(p.sku)) {
-        original925 = 80; originalGold = 100;
-      } else if (p.type === "סט תכשיטים") {
-        original925 = 130; originalGold = 170;
-      } else if (["001", "002", "021"].includes(p.sku)) {
-        original925 = 130; originalGold = 150;
-      }
+function itemHtml(p,i){
+  const isPendant=(p.type==="תליון"||p.type==="סט תכשיטים");
+  const contain=(p.sku==="030"||p.id===30||p.sku==="001");
+  const care=(p.sku==="031"||p.id===31)
+    ? '<div class="care"><b>טיפול נכון במוצר:</b> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</div>'
+    : '<div><b>גימור:</b> ציפוי שקוף היפואלרגני לשימור הברק.</div>';
+  const size=p.size||(p.stoneSize?p.stoneSize+" | "+p.totalLength:"");
+  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' <s>(במקום '+u.old+' ₪)</s>':'')+'</span>').join("");
+  return `<div class="item ${i%2?'alt':''}">
+    <div class="pic"><img class="${contain?'contain':''}" src="${p.img}" alt="${p.title}"></div>
+    <div class="info">
+      <div class="meta">מק"ט ${p.sku} · ${p.type}</div>
+      <div class="title">${p.title}</div>
+      <div class="price"><span class="now">${p.price} ₪</span><span class="old">${p.originalPrice} ₪</span></div>
+      <div class="desc">${p.desc}</div>
+      <div class="specs"><div><b>חומרים:</b> ${p.material}</div><div><b>גודל:</b> ${size}</div>${care}</div>
+      ${isPendant?'<div class="chain">✦ אורך שרשרת לבחירה: 45-60 ס"מ</div>':''}
+      <div class="ups"><span class="lbl">שדרוג מתכת</span>${ups}</div>
+    </div></div>`;
+}
 
-      const sale925 = Math.round(original925 * 0.8);
-      const saleGold = Math.round(originalGold * 0.8);
-
-      return `
-        <div class="upgrades-title">אפשרויות לשדרוג המתכת:</div>
-        <div>• שדרוג לכסף 925: +${sale925} ₪ (במקום +<span style="text-decoration:line-through; color:#a8a29e;">${original925}</span> ₪)</div>
-        <div>• שדרוג לגולדפילד: +${saleGold} ₪ (במקום +<span style="text-decoration:line-through; color:#a8a29e;">${originalGold}</span> ₪)</div>
-      `;
-    }
-
-    function renderCatalog() {
-      const container = document.getElementById('catalog-container');
-      if (!container) return;
-      container.innerHTML = '';
-      products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        
-        const lengthInfo = (p.type === "תליון" || p.type === "סט תכשיטים") 
-          ? `<div class="chain-length-info">✦ אורך שרשרת לבחירה: 45-60 ס"מ</div>` 
-          : '';
-
-        // הגדרת תנאי הגימור והמחלקה לתמונה
-        const isContainProduct = (p.sku === "030" || p.id === 30 || p.sku === "001");
-        const imgClass = isContainProduct ? "w-full h-full object-contain bg-stone-50" : "w-full h-full object-cover";
-
-        // בודק אם מדובר במק"ט 31 להצגת אזהרת טיפול נכון
-        const finishText = (p.sku === "031" || p.id === 31)
-          ? `<span class="spec-label" style="color: #b91c1c;">טיפול נכון במוצר:</span> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.`
-          : `<span class="spec-label">גימור:</span> מצופה בציפוי שקוף (היפואלרגני) לשימור הברק.`;
-
-        card.innerHTML = `
-          <div class="card-content">
-            <img src="${p.img}" alt="${p.title}" class="${imgClass}">
-            <div class="details">
-              <div>
-                <div class="top-meta">
-                  <span class="product-sku">מק"ט: ${p.sku}</span>
-                  <span class="product-type-badge">${p.type}</span>
-                </div>
-                <div class="product-title">${p.title}</div>
-                <div class="price-row">
-                  <span class="original-price">${p.originalPrice} ₪</span>
-                  <span class="sale-price">מחיר מבצע: ${p.price} ₪</span>
-                </div>
-                <div class="product-description">${p.desc}</div>
-                <div class="product-specs">
-                  <span class="spec-label">חומרים:</span> ${p.material}<br>
-                  <span class="spec-label">גודל:</span> ${p.size || (p.stoneSize ? p.stoneSize + ' | ' + p.totalLength : '')}<br>
-                  ${finishText}
-                </div>
-                
-                ${lengthInfo}
-              </div>
-              <div class="upgrades-box">
-                ${getUpgradeHtml(p)}
-              </div>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    renderCatalog();
-  </script>
-</body>
-</html>
+function render(){
+  const root=document.getElementById("root");
+  const per=3, pages=Math.ceil(products.length/per), total=pages+2;
+  let h=`<section class="page cover"><div class="frame"></div>
+    <img src="${LOGO}" alt="מינרל גולד">
+    <div class="eyebrow">MINERAL GOLD</div>
+    <h1 class="gold-text">קטלוג התכשיטים</h1>
+    <div class="sub">אבני חן טבעיות · עבודת יד</div>
+    <div class="rule"></div>
+    <div class="badge">מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים</div></section>`;
+  for(let pg=0;pg<pages;pg++){
+    const chunk=products.slice(pg*per,pg*per+per);
+    h+=`<section class="page"><div class="head"><b>מינרל גולד</b><span>MINERAL GOLD</span></div>
+      <div class="list">${chunk.map((p,i)=>itemHtml(p,pg*per+i)).join("")}</div>
+      <div class="foot"><span>mineral-gold.co.il</span><span>${pg+2} / ${total}</span></div></section>`;
+  }
+  h+=`<section class="page contact"><div class="frame"></div>
+    <img src="${LOGO}" alt="מינרל גולד">
+    <h2 class="gold-text">מעוניינים להזמין?</h2>
+    <p>נשמח לעמוד לשירותכם בכל שאלה או בקשה מיוחדת</p>
+    <div class="rule"></div>
+    <a href="mailto:yh257366@gmail.com">yh257366@gmail.com</a>
+    <a href="https://mineral-gold.co.il/">mineral-gold.co.il</a></section>`;
+  root.innerHTML=h;
+}
+render();
+</script></body></html>
