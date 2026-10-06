@@ -53,6 +53,7 @@ body{font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl}
 .ups .lbl{color:var(--mute);letter-spacing:.08em;margin-left:1mm}
 .chip{border:1px solid rgba(176,138,46,.6);padding:.8mm 2.6mm;color:#3a342c;background:rgba(255,255,255,.5)}
 .chip s{color:#a59c8e}
+.chip .old-label{color:#a59c8e;text-decoration:none}
 
 /* contact */
 .contact{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 40%,#2a221b 0%,#120e0b 72%);color:#f3ead7}
@@ -124,7 +125,7 @@ function itemHtml(p,i){
     ? '<div class="care"><b>טיפול נכון במוצר:</b> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</div>'
     : '<div><b>גימור:</b> ציפוי שקוף היפואלרגני לשימור הברק.</div>';
   const size=p.size||(p.stoneSize?p.stoneSize+" | "+p.totalLength:"");
-  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' <s><span style="display:inline-block">במקום</span> '+u.old+' ₪</s>':'')+'</span>').join("");
+  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' (<span class="old-label">במקום</span> <s>'+u.old+' ₪</s>)':'')+'</span>').join("");
   return `<div class="item ${i%2?'alt':''}">
     <div class="pic"><img class="${contain?'contain':''}" src="${p.img}" alt="${p.title}"></div>
     <div class="info">
