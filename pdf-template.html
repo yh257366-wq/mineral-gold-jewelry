@@ -124,7 +124,7 @@ function itemHtml(p,i){
     ? '<div class="care"><b>טיפול נכון במוצר:</b> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</div>'
     : '<div><b>גימור:</b> ציפוי שקוף היפואלרגני לשימור הברק.</div>';
   const size=p.size||(p.stoneSize?p.stoneSize+" | "+p.totalLength:"");
-  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' (במקום <s>'+u.old+' ₪</s>)':'')+'</span>').join("");
+  const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' <s><span style="display:inline-block">במקום</span> '+u.old+' ₪</s>':'')+'</span>').join("");
   return `<div class="item ${i%2?'alt':''}">
     <div class="pic"><img class="${contain?'contain':''}" src="${p.img}" alt="${p.title}"></div>
     <div class="info">
