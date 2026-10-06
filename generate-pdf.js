@@ -19,6 +19,7 @@ const { pathToFileURL } = require('url');
 
     const page = await browser.newPage();
 
+    // הגדרת תצוגה מותאמת לפריסת A4
     await page.setViewport({
       width: 1280,
       height: 1000,
@@ -37,58 +38,28 @@ const { pathToFileURL } = require('url');
 
     console.log('pdf-template.html loaded successfully.');
 
-    await page.waitForSelector('.product-card', { timeout: 10000 }).catch(() => {
-      console.log('לא נמצאו מוצרים בזמן הקצוב, מפיק PDF לפי המצב הקיים.');
+    // המתנה לטעינת אלמנט האלמנטים המעודכנים (.item) של התבנית החדשה
+    await page.waitForSelector('.item', { timeout: 10000 }).catch(() => {
+      console.log('לא נמצאו פריטי מוצרים בזמן הקצוב, מפיק PDF לפי המצב הקיים.');
     });
 
-    await page.evaluate(() => {
-      const headerTitle = document.querySelector('.catalog-header h1');
-      if (headerTitle) {
-        headerTitle.textContent = 'תכשיטי מינרל גולד - קטלוג התכשיטים המלא';
-      }
-    });
-
-    // הזרקת CSS מתוקנת השומרת על זרימת התוכן וללא דריסת גבהים
-    await page.addStyleTag({
-      content: `
-        .products-grid {
-          display: flex !important;
-          flex-direction: column !important;
-          gap: 16px !important;
-        }
-
-        .product-card {
-          box-sizing: border-box !important;
-          height: auto !important;
-          max-height: none !important;
-          margin-bottom: 12px !important;
-          page-break-inside: avoid !important;
-          break-inside: avoid !important;
-        }
-
-        .product-card img {
-          width: 180px !important;
-          height: 180px !important;
-          object-fit: cover !important;
-        }
-      `
-    });
-
+    // המתנה קצרה להבטחת טעינת תמונות מלאה
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log('Generating PDF...');
 
     const pdfPath = path.join(__dirname, 'catalog.pdf');
 
+    // הפקת ה-PDF ללא שוליים חיצוניים (השוליים מוגדרים פנימית ב-CSS של העמודים)
     await page.pdf({
       path: pdfPath,
       format: 'A4',
       printBackground: true,
       margin: {
-        top: '10mm',
-        bottom: '10mm',
-        left: '10mm',
-        right: '10mm'
+        top: '0mm',
+        bottom: '0mm',
+        left: '0mm',
+        right: '0mm'
       }
     });
 
