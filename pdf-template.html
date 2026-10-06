@@ -123,7 +123,7 @@ function itemHtml(p,i){
   const contain=(p.sku==="030"||p.id===30||p.sku==="001");
   const care=(p.sku==="031"||p.id===31)
     ? '<div class="care"><b>טיפול נכון במוצר:</b> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</div>'
-    : '<div><b>גימור:</b> ציפוי שקוף היפואלרגני לשימור הברק.</div>';
+    : '<div><b>גימור:</b> ציפוי שקוף איכותי לשימור הברק.</div>';
   const size=p.size||(p.stoneSize?p.stoneSize+" | "+p.totalLength:"");
   const ups=getUpgrades(p).map(u=>'<span class="chip">'+u.t+(u.old?' (<span class="old-label">במקום</span> <s>'+u.old+' ₪</s>)':'')+'</span>').join("");
   return `<div class="item ${i%2?'alt':''}">
