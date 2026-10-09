@@ -28,8 +28,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background-color: #fcfbfa; color: #1c1917; }
+    :root { --ink:#1c1917; --cream:#fcfbfa; --gold:#b8935a; }
+body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream); color:var(--ink); }
+.font-serif { font-family:'Frank Ruhl Libre', serif; }
+
+/* סרגל מבצע וניווט */
+.nav-link { color:#e7e0d4; font-size:14px; letter-spacing:.03em; transition:color .2s; }
+.nav-link:hover { color:var(--gold); }
+.filter-btn { padding:6px 18px; border:1px solid #d6d3d1; border-radius:999px; font-size:13px; color:#44403c; background:transparent; transition:all .2s; }
+.filter-btn:hover { border-color:var(--gold); color:var(--gold); }
+.filter-btn.active { background:var(--ink); border-color:var(--ink); color:#e6cfa3; }
         .product-card { transition: all 0.2s; cursor: pointer; }
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.08); }
         .view-section { display: none; }
@@ -133,42 +145,64 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <nav class="fixed top-0 left-0 right-0 bg-[#fcfbfa]/95 backdrop-blur-sm border-b border-stone-200 z-50 no-print" aria-label="ניווט ראשי">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+    <header class="fixed top-0 left-0 right-0 z-50 no-print">
+    <!-- פס מבצע דק -->
+    <div class="h-9 flex items-center justify-center bg-[#b8935a] text-[#1c1917] text-xs md:text-[13px] font-medium tracking-wide px-4 text-center">
+        ✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦
+    </div>
+
+    <!-- ניווט כהה -->
+    <nav class="bg-[#0b0a09] border-b border-[#b8935a]/60" aria-label="ניווט ראשי">
+        <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
             <a class="cursor-pointer flex items-center" onclick="showView('gallery')" aria-label="דף הבית של מינרל גולד">
-                <img src="./images/logo.png" alt="תכשיטי מינרל גולד" class="h-20 md:h-24 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-serif tracking-tight font-bold\'>מינרל גולד</span>'">
+                <img src="./images/logo.png" alt="תכשיטי מינרל גולד" class="h-14 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-serif tracking-tight font-bold text-[#e6cfa3]\'>מינרל גולד</span>'">
             </a>
-            <div class="hidden md:flex items-center gap-8 text-sm tracking-wide">
-                <a onclick="showView('gallery')" class="cursor-pointer font-medium text-stone-900 hover:text-stone-600">הקולקציה</a>
-                <a onclick="showView('about')" class="cursor-pointer font-medium text-stone-900 hover:text-stone-600">אודות</a>
-                <a onclick="showView('contact')" class="cursor-pointer font-medium text-stone-900 hover:text-stone-600">צור קשר</a>
+
+            <div class="hidden md:flex items-center gap-10">
+                <a onclick="showView('gallery')" class="nav-link cursor-pointer">הקולקציה</a>
+                <a onclick="showView('about')" class="nav-link cursor-pointer">אודות</a>
+                <a onclick="showView('contact')" class="nav-link cursor-pointer">צור קשר</a>
             </div>
-            <button onclick="showView('checkout')" class="flex items-center gap-2 bg-stone-950 text-white hover:bg-stone-800 px-5 py-2 rounded-full text-sm font-medium transition-colors btn-animate" aria-label="צפייה בעגלת הקניות">
-                <span>🛒 עגלת קניות</span>
-                <span id="nav-cart-count" class="bg-white text-stone-950 text-xs font-bold px-2 py-0.5 rounded-full">0</span>
+
+            <button onclick="showView('checkout')" class="relative p-2 text-[#e7e0d4] hover:text-[#b8935a] transition-colors btn-animate" aria-label="צפייה בעגלת הקניות">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12l1 13H5L6 7z"/><path stroke-linecap="round" d="M9 7a3 3 0 016 0"/></svg>
+                <span id="nav-cart-count" class="absolute -top-0.5 -right-0.5 bg-[#b8935a] text-black text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
             </button>
         </div>
     </nav>
+</header>
 
     <main class="max-w-7xl mx-auto px-6 pt-32 pb-24 flex-grow w-full">
         
      <div id="view-gallery" class="view-section active">
-            <!-- באנר מבצע השקה בולט -->
-            <div class="mb-8 p-6 bg-red-50 border-2 border-red-500 rounded-2xl text-center shadow-xs">
-                <h2 class="text-2xl md:text-3xl font-bold text-red-600">✨ מבצע השקה: 20% הנחה על כל התכשיטים והשדרוגים! ✨</h2>
-            </div>
-
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+        <!-- כותרת + קטלוג -->
+<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 gap-4">
     <div>
-        <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-800">הקולקציה שלנו</h2>
-        <p class="text-stone-600 text-sm mt-1 leading-relaxed">
+        <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">הקולקציה שלנו</h2>
+        <p class="text-stone-600 text-sm mt-2 leading-relaxed max-w-xl">
             תכשיטים ייחודיים בעבודת יד, המשלבים אבנים גולמיות וטבעיות עם חוט ליפוף עדין, בייצור מיוחד עבורכם.
         </p>
     </div>
-    <a href="catalog.pdf" target="_blank" class="bg-emerald-700 hover:bg-emerald-800 text-white font-medium px-5 py-2.5 rounded-xl text-sm transition-colors duration-200 inline-flex items-center justify-center gap-2 shadow-sm self-start sm:self-auto shrink-0 no-print">
+    <a href="catalog.pdf" target="_blank" class="border border-[#b8935a] text-[#8a6a3a] hover:bg-[#b8935a] hover:text-white font-medium px-5 py-2.5 rounded-full text-sm transition-colors duration-200 inline-flex items-center justify-center gap-2 self-start sm:self-auto shrink-0 no-print">
         <span>📄</span>
-        <span>לקטלוג התכשיטים המלא (PDF)</span>
+        <span>לקטלוג המלא (PDF)</span>
     </a>
+</div>
+
+<!-- פס אמון -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-5 mb-8 border-y border-stone-200 text-center text-sm text-stone-700">
+    <div><span class="block text-[#b8935a] text-lg mb-0.5">✋</span>עבודת יד</div>
+    <div><span class="block text-[#b8935a] text-lg mb-0.5">💎</span>אבנים טבעיות</div>
+    <div><span class="block text-[#b8935a] text-lg mb-0.5">🚚</span>משלוח לכל הארץ</div>
+    <div><span class="block text-[#b8935a] text-lg mb-0.5">✨</span>ייצור בהתאמה אישית</div>
+</div>
+
+<!-- סינון -->
+<div class="flex flex-wrap gap-2 mb-8 no-print" id="filter-bar">
+    <button class="filter-btn active" onclick="setFilter('הכל', this)">הכל</button>
+    <button class="filter-btn" onclick="setFilter('עגילים', this)">עגילים</button>
+    <button class="filter-btn" onclick="setFilter('תליון', this)">תליונים</button>
+    <button class="filter-btn" onclick="setFilter('סט תכשיטים', this)">סטים</button>
 </div>        
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
             </div>
@@ -811,16 +845,26 @@ function showView(viewName, isPopState = false) {
         function closeCartModal() { document.getElementById('cart-modal').classList.add('hidden'); }
 
 // פונקציית רינדור הגלריה המעודכנת
+let currentFilter = 'הכל';
+
+function setFilter(type, btn) {
+    currentFilter = type;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery();
+}
+
 function renderGallery() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
-    products.forEach(p => {
+    const list = currentFilter === 'הכל' ? products : products.filter(p => p.type === currentFilter);
+    list.forEach(p => {
         grid.innerHTML += `
             <div onclick="openProductPage(${p.id})" class="product-card bg-white border border-stone-200 rounded-2xl overflow-hidden flex flex-col justify-between" role="button" aria-label="צפייה במוצר ${p.title}">
                 <div class="relative bg-stone-100 h-64">
                     <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300/eee/666?text=${encodeURIComponent(p.title)}'">
                     <span class="absolute top-3 right-3 text-[10px] uppercase bg-white/90 px-2.5 py-1 rounded-md font-medium tracking-wider shadow-sm text-stone-700">${p.type}</span>
-                    <span class="absolute top-3 left-3 text-[10px] font-bold bg-red-600 text-white px-2.5 py-1 rounded-md shadow-sm">מבצע השקה!</span>
+                    <span class="absolute top-3 left-3 text-[10px] font-bold bg-stone-900/85 text-[#e6cfa3] px-2 py-1 rounded-md" dir="ltr">-20%</span>
                 </div>
                 <div class="p-5 flex-grow flex flex-col justify-between">
                     <div>
