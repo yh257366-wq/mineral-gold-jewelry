@@ -146,16 +146,12 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
 <body class="min-h-screen flex flex-col">
 
     <header class="fixed top-0 left-0 right-0 z-50 no-print">
-    <!-- פס מבצע דק -->
-    <div class="h-9 flex items-center justify-center bg-[#b8935a] text-[#1c1917] text-xs md:text-[13px] font-medium tracking-wide px-4 text-center">
-        ✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦
-    </div>
-
+    
     <!-- ניווט כהה -->
     <nav class="bg-[#0b0a09] border-b border-[#b8935a]/60" aria-label="ניווט ראשי">
-        <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 h-[92px] flex items-center justify-between">
             <a class="cursor-pointer flex items-center" onclick="showView('gallery')" aria-label="דף הבית של מינרל גולד">
-                <img src="./images/logo.png" alt="תכשיטי מינרל גולד" class="h-14 object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-serif tracking-tight font-bold text-[#e6cfa3]\'>מינרל גולד</span>'">
+                <img src="./images/logo.png" alt="תכשיטי מינרל גולד" class="h-[76px] object-contain" onerror="this.outerHTML='<span class=\'text-2xl font-serif tracking-tight font-bold text-[#e6cfa3]\'>מינרל גולד</span>'">
             </a>
 
             <div class="hidden md:flex items-center gap-10">
@@ -172,23 +168,23 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     </nav>
 </header>
 
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-24 flex-grow w-full">
+    <main class="max-w-7xl mx-auto px-6 pt-28 pb-24 flex-grow w-full">
         
      <div id="view-gallery" class="view-section active">
-        <!-- כותרת + קטלוג -->
-<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 gap-4">
-    <div>
-        <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">הקולקציה שלנו</h2>
-        <p class="text-stone-600 text-sm mt-2 leading-relaxed max-w-xl">
-            תכשיטים ייחודיים בעבודת יד, המשלבים אבנים גולמיות וטבעיות עם חוט ליפוף עדין, בייצור מיוחד עבורכם.
-        </p>
-    </div>
-    <a href="catalog.pdf" target="_blank" class="border border-[#b8935a] text-[#8a6a3a] hover:bg-[#b8935a] hover:text-white font-medium px-5 py-2.5 rounded-full text-sm transition-colors duration-200 inline-flex items-center justify-center gap-2 self-start sm:self-auto shrink-0 no-print">
+     <!-- באנר מבצע -->
+<div id="sale-banner" class="relative mb-8 rounded-2xl bg-gradient-to-l from-[#b8935a] to-[#d4b27a] text-[#1c1917] text-center py-4 px-12 shadow-sm">
+    <p class="font-serif text-lg md:text-xl font-bold">✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦</p>
+    <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-1/2 -translate-y-1/2 left-4 text-xl leading-none text-[#1c1917]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
+</div>   
+         <!-- כותרת + קטלוג -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+    <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">הקולקציה שלנו</h2>
+    <a href="catalog.pdf" target="_blank" class="bg-[#b8935a] hover:bg-[#a07f48] text-[#1c1917] font-bold px-7 py-3 rounded-full text-base shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center justify-center gap-2 self-start sm:self-auto shrink-0 no-print btn-animate">
         <span>📄</span>
         <span>לקטלוג המלא (PDF)</span>
     </a>
 </div>
-
+         
 <!-- פס אמון -->
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-5 mb-8 border-y border-stone-200 text-center text-sm text-stone-700">
     <div><span class="block text-[#b8935a] text-lg mb-0.5">✋</span>עבודת יד</div>
