@@ -171,15 +171,11 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     <main class="max-w-7xl mx-auto px-6 pt-28 pb-24 flex-grow w-full">
         
      <div id="view-gallery" class="view-section active">
-     <!-- באנר מבצע -->
-<div id="sale-banner" class="relative mb-8 rounded-2xl bg-gradient-to-l from-[#b8935a] to-[#d4b27a] text-[#1c1917] text-center py-4 px-12 shadow-sm">
-    <p class="font-serif text-lg md:text-xl font-bold">✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦</p>
-    <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-1/2 -translate-y-1/2 left-4 text-xl leading-none text-[#1c1917]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
-</div>   
+     
          <!-- כותרת + קטלוג -->
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
     <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">הקולקציה שלנו</h2>
-    <a href="catalog.pdf" target="_blank" class="bg-[#b8935a] hover:bg-[#a07f48] text-[#1c1917] font-bold px-7 py-3 rounded-full text-base shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center justify-center gap-2 self-start sm:self-auto shrink-0 no-print btn-animate">
+    <a href="catalog.pdf" target="_blank" class="bg-stone-900 hover:bg-black text-[#e6cfa3] font-bold px-7 py-3 rounded-full text-base shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center justify-center gap-2 self-start sm:self-auto shrink-0 no-print btn-animate">
         <span>📄</span>
         <span>לקטלוג המלא (PDF)</span>
     </a>
@@ -193,6 +189,12 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     <div><span class="block text-[#b8935a] text-lg mb-0.5">✨</span>ייצור בהתאמה אישית</div>
 </div>
 
+         <!-- באנר מבצע -->
+<div id="sale-banner" class="relative mb-8 rounded-2xl bg-gradient-to-l from-[#b8935a] to-[#d4b27a] text-[#1c1917] text-center py-4 px-12 shadow-sm">
+    <p class="font-serif text-lg md:text-xl font-bold">✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦</p>
+    <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-1/2 -translate-y-1/2 left-4 text-xl leading-none text-[#1c1917]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
+</div>
+         
 <!-- סינון -->
 <div class="flex flex-wrap gap-2 mb-8 no-print" id="filter-bar">
     <button class="filter-btn active" onclick="setFilter('הכל', this)">הכל</button>
