@@ -201,6 +201,7 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     <button class="filter-btn" onclick="setFilter('עגילים', this)">עגילים</button>
     <button class="filter-btn" onclick="setFilter('תליון', this)">תליונים</button>
     <button class="filter-btn" onclick="setFilter('סט תכשיטים', this)">סטים</button>
+    <button class="filter-btn" onclick="setFilter('צמיד', this)">צמידים</button>
 </div>        
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="products-grid">
             </div>
@@ -800,6 +801,18 @@ const products = [
     desc: "תליון ייחודי במבנה מלבני המזכיר כלי נגינה, משולב בשורות של אבני טורמלין טבעיות בגווני מדרג מרהיבים. עיצוב הרמוני ויוצא דופן.", 
     material: "אבני טורמלין גולמיות, מבנה מלבני וחוט ליפוף מנחושת זהובה", 
     size: "כ-2.3*1.9 ס\"מ" 
+},
+{
+    id: 34,
+    title: "צמיד חישוקי סודליט",
+    price: 96,
+    originalPrice: 120,
+    sku: "034",
+    type: "צמיד",
+    img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/bracelet-sodalite-hoops.png",
+    desc: "צמיד מיוחד המשלב חישוקים אומנותיים זהובים עם חרוזי סודליט כחולים, שזורים בחוט נחושת זהוב. עיצוב עדין ומרשים.",
+    material: "חישוקי פלדת אל חלד זהובים, חרוזי סודליט כחולים, חוט נחושת זהוב",
+    totalLength: "כ-17 ס\"מ"
 }
 ];
         
@@ -910,7 +923,13 @@ function openProductPage(id) {
     const isHishuk = ["018", "019", "020"].includes(sku);
     const isPearl = ["024", "025"].includes(sku);
 
-    if (isHishuk) {
+    if (type === "צמיד") {
+        dimensionsHtml = `
+            <p><strong>חומרים:</strong> ${material}</p>
+            <p><strong>קוטר כל חישוק:</strong> כ-1.7 ס\"מ</p>
+            <p><strong>אורך כולל של הצמיד:</strong> ${p.totalLength}</p>
+        `;
+    } else if (isHishuk) {
         // סדרת החישוקים (קשת הצבעים)
         if (type === "סט תכשיטים") {
             dimensionsHtml = `
@@ -1046,7 +1065,7 @@ let upgradeSectionHtml = '';
     original925 = 80; originalGold = 100;
         } else if (p.type === "סט תכשיטים") {
             original925 = 130; originalGold = 170;
-       } else if (p.sku === "001" || p.sku === "002" || p.sku === "021") {
+       } else if (p.sku === "001" || p.sku === "002" || p.sku === "021" || p.sku === "034") {
     original925 = 130; originalGold = 150;
 }
 
