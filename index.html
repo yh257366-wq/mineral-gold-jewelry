@@ -448,7 +448,7 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
   .about-section {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;      /* שני הצדדים באותו גובה */
     justify-content: space-between;
     gap: 30px;
     margin-bottom: 40px;
@@ -457,14 +457,36 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
   }
   .about-section.reverse { flex-direction: row-reverse; }
 
-  .about-text { flex: 1; }
-  .about-image { flex: 1; text-align: center; }
+  .about-text {
+    flex: 1;
+    display: flex;             /* הטקסט נשאר ממורכז אנכית */
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .about-image {
+    flex: 1;
+    position: relative;
+    min-height: 240px;         /* גובה מינימלי אם הטקסט קצר */
+  }
   .about-image img {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: 450px;
-    height: auto;
+    height: 100%;              /* התמונה ממלאת את גובה הטקסט */
+    max-width: none;
+    object-fit: cover;         /* חיתוך עדין במקום עיוות */
+    object-position: center;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  /* תמונות שיש בהן כיתוב פנימי - מוצגות שלמות */
+  .about-image img[src*="creation-process"],
+  .about-image img[src*="color-variations"] {
+    object-fit: contain;
+    background: #f6efdf;
   }
 
   .about-list { list-style: none; padding: 0; margin: 0; }
@@ -510,12 +532,11 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
 
   @media (max-width: 768px) {
     .about-section, .about-section.reverse { flex-direction: column; }
-    .about-image { width: 100%; }
+    .about-image { width: 100%; min-height: 260px; }
     .about-header h1 { font-size: 1.7rem; }
   }
 </style>
-        </div>
-
+</div>
         <div id="view-contact" class="view-section">
     <div class="max-w-xl mx-auto bg-white p-8 border border-stone-200 rounded-2xl shadow-sm">
         <h1 class="text-2xl font-serif text-stone-900 mb-4 border-b border-stone-100 pb-3">צור קשר</h1>
