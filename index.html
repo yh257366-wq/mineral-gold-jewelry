@@ -31,6 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Bellefair&display=swap" rel="stylesheet">
     <style>
     :root { --ink:#1c1917; --cream:#fcfbfa; --gold:#b8935a; }
 body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream); color:var(--ink); }
@@ -186,28 +187,21 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     <div><span class="block text-[#b8935a] text-lg mb-0.5">✋</span>עבודת יד</div>
     <div><span class="block text-[#b8935a] text-lg mb-0.5">💎</span>אבנים טבעיות</div>
     <div><span class="block text-[#b8935a] text-lg mb-0.5">🚚</span>משלוח לכל הארץ</div>
-    <div><span class="block text-[#b8935a] text-lg mb-0.5">✨</span>ייצור בהתאמה אישית</div>
+    <button type="button" id="custom-chip" onclick="openCustomModal()" class="no-print relative rounded-xl border border-[#b8935a] bg-[#f6efdf] hover:bg-[#efe3c8] px-2 py-1.5 transition-all btn-animate" aria-label="פתיחת מידע על ייצור בהתאמה אישית">
+    <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b8935a] opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#b8935a]"></span>
+    </span>
+    <span class="block text-[#b8935a] text-lg mb-0.5">✨</span>
+    <span class="block font-bold text-stone-900">ייצור בהתאמה אישית</span>
+    <span class="block text-[11px] text-[#8a6a35] underline">קרא עוד ←</span>
+</button>
 </div>
 
-        <!-- באנר מבצע + כפתור התאמה אישית -->
-<div class="flex flex-col md:flex-row gap-3 mb-8 items-stretch">
-
-    <div id="sale-banner" class="relative flex-1 rounded-2xl bg-gradient-to-l from-[#b8935a] to-[#d4b27a] text-[#1c1917] text-center py-4 px-12 shadow-sm">
-        <p class="font-serif text-lg md:text-xl font-bold">✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦</p>
-        <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-1/2 -translate-y-1/2 left-4 text-xl leading-none text-[#1c1917]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
-    </div>
-
-    <button type="button" id="custom-chip" onclick="openCustomModal()" class="no-print shrink-0 flex items-center justify-center gap-3 rounded-2xl px-5 py-3 text-white shadow-sm hover:shadow-md transition-all btn-animate" style="background:linear-gradient(135deg,#6d28d9,#1d4ed8)" aria-label="פתיחת מידע על הזמנה בהתאמה אישית">
-        <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e6cfa3] opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#e6cfa3]"></span>
-        </span>
-        <span class="text-right leading-tight">
-            <span class="block font-serif font-bold text-sm text-[#e6cfa3]">הזמנה בהתאמה אישית</span>
-            <span class="block text-xs text-white/85">קרא עוד ←</span>
-        </span>
-    </button>
-
+        <!-- באנר מבצע -->
+<div id="sale-banner" class="relative mb-8 rounded-2xl bg-gradient-to-l from-[#b8935a] to-[#d4b27a] text-[#1c1917] text-center py-4 px-12 shadow-sm">
+    <p class="font-serif text-lg md:text-xl font-bold">✦ מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים ✦</p>
+    <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-1/2 -translate-y-1/2 left-4 text-xl leading-none text-[#1c1917]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
 </div>
          
          <!-- סינון -->
@@ -717,58 +711,66 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     </div>
 </div>
 
-    <div id="custom-modal" class="fixed inset-0 bg-black/55 backdrop-blur-xs flex items-center justify-center z-[70] hidden no-print" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
-    <div class="relative bg-[#fcfbfa] rounded-3xl max-w-md w-full mx-4 shadow-2xl overflow-hidden max-h-[92vh] overflow-y-auto border border-[#b8935a]/50">
+    <div id="custom-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-[70] hidden no-print" role="dialog" aria-modal="true" aria-labelledby="custom-modal-title">
+    <div class="relative w-full max-w-[640px] mx-4 rounded-3xl overflow-hidden shadow-2xl border border-[#b8935a]/60 bg-[#fffaf7] max-h-[92vh] overflow-y-auto">
 
-        <!-- פס צבעי אבנים -->
-        <div class="h-2" style="background:linear-gradient(to left,#8b5cf6,#3b82f6,#10b981,#f59e0b,#ec4899)"></div>
+        <!-- פס זהב · כסף · ורוד -->
+        <div class="h-1.5" style="background:linear-gradient(to left,#b8935a,#e6cfa3,#d9dce1,#f3c9d5)"></div>
 
-        <!-- כותרת -->
-        <div class="relative text-center px-6 pt-8 pb-7" style="background:linear-gradient(135deg,#2e1065 0%,#1e3a8a 100%)">
-            <button type="button" onclick="closeCustomModal()" aria-label="סגירה" class="absolute top-3 left-3 w-9 h-9 rounded-full bg-white/15 hover:bg-white/30 text-white text-xl leading-none flex items-center justify-center transition-colors">✕</button>
-            <div class="text-[#e6cfa3] text-3xl mb-2">✦</div>
-            <h3 id="custom-modal-title" class="font-serif text-2xl md:text-3xl font-bold text-[#e6cfa3] leading-snug">
-                אפשר להזמין<br>בהתאמה אישית
-            </h3>
-            <p class="text-sm text-white/80 mt-2">התכשיט שחלמתם עליו, בעבודת יד</p>
-        </div>
+        <button type="button" onclick="closeCustomModal()" aria-label="סגירה" class="absolute top-4 left-3 z-10 w-9 h-9 rounded-full bg-[#0b0a09] hover:bg-[#2a2118] border border-[#b8935a]/70 text-[#e6cfa3] text-lg leading-none flex items-center justify-center transition-colors">✕</button>
 
-        <!-- תוכן -->
-        <div class="px-6 pt-6 pb-6 text-center">
-            <p class="font-serif text-lg font-bold text-stone-900 mb-4">אהבתם משהו, ורוצים אותו קצת אחרת?</p>
+        <div class="grid grid-cols-1 md:grid-cols-[2fr_3fr]">
 
-            <div class="space-y-2.5 mb-5 text-right">
-                <div class="flex items-center gap-3 bg-violet-50 border border-violet-100 rounded-xl px-4 py-2.5">
-                    <span class="w-3 h-3 rounded-full bg-violet-500 shrink-0"></span>
-                    <span class="text-sm text-stone-900">המבנה של תכשיט אחד,<br>האבנים של תכשיט אחר</span>
-                </div>
-                <div class="flex items-center gap-3 bg-sky-50 border border-sky-100 rounded-xl px-4 py-2.5">
-                    <span class="w-3 h-3 rounded-full bg-sky-500 shrink-0"></span>
-                    <span class="text-sm text-stone-900">שילוב צבעים שונה</span>
-                </div>
-                <div class="flex items-center gap-3 bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-2.5">
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 shrink-0"></span>
-                    <span class="text-sm text-stone-900">גודל אחר,<br>או כל שינוי שעולה בדעתכם</span>
-                </div>
+            <!-- צד הכותרת -->
+            <div class="flex flex-col items-center justify-center text-center px-6 py-8 md:py-10" style="background:radial-gradient(circle at 30% 20%,#2a2118 0%,#0b0a09 70%)">
+                <div class="text-[#e6cfa3] text-lg mb-3 tracking-[0.5em]">✦ ✦ ✦</div>
+                <h3 id="custom-modal-title" class="leading-tight text-[#e6cfa3] text-3xl md:text-4xl" style="font-family:'Suez One','Frank Ruhl Libre',serif">
+                    אפשר להזמין<br>בהתאמה<br>אישית
+                </h3>
+                <div class="w-16 h-px my-4" style="background:linear-gradient(to left,transparent,#b8935a,transparent)"></div>
+                <p class="text-[#d9dce1] text-lg leading-snug" style="font-family:'Bellefair','Frank Ruhl Libre',serif">
+                    התכשיט שחלמתם עליו,<br>בעבודת יד
+                </p>
             </div>
 
-            <p class="text-sm text-stone-800 leading-loose mb-4">
-                בחרו את התכשיט הקרוב ביותר<br>למה שדמיינתם,<br>
-                והוסיפו את השינויים בשדה ההערות<br>בעת ביצוע ההזמנה.
-            </p>
+            <!-- צד התוכן -->
+            <div class="px-5 md:px-6 pt-8 pb-6 md:pt-10 text-center">
+                <p class="text-lg text-stone-900 mb-3" style="font-family:'Suez One','Frank Ruhl Libre',serif">אהבתם משהו, ורוצים אותו קצת אחרת?</p>
 
-            <div class="bg-[#f6efdf] border border-[#b8935a]/60 rounded-xl px-4 py-3 text-xs text-stone-800 leading-relaxed mb-5">
-                בשינויים בהתאמה אישית ייתכן שהמחיר יהיה שונה.<br>
-                <strong class="text-stone-900">הזמנה בהתאמה אישית אינה ניתנת לביטול.</strong>
-            </div>
+                <div class="space-y-2 mb-4 text-right">
+                    <div class="flex items-center gap-3 rounded-xl px-4 py-2" style="background:#faf3e3;border:1px solid #eadbb8">
+                        <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#b8935a"></span>
+                        <span class="text-sm text-stone-900 leading-snug">המבנה של תכשיט אחד,<br>האבנים של תכשיט אחר</span>
+                    </div>
+                    <div class="flex items-center gap-3 rounded-xl px-4 py-2" style="background:#f1f2f4;border:1px solid #dcdee3">
+                        <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#9ca0a8"></span>
+                        <span class="text-sm text-stone-900 leading-snug">שילוב צבעים שונה</span>
+                    </div>
+                    <div class="flex items-center gap-3 rounded-xl px-4 py-2" style="background:#fdeef2;border:1px solid #f6d3dd">
+                        <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#e58fa8"></span>
+                        <span class="text-sm text-stone-900 leading-snug">גודל אחר, או כל שינוי<br>שעולה בדעתכם</span>
+                    </div>
+                </div>
 
-            <div class="flex flex-wrap gap-3 justify-center">
-                <button type="button" onclick="goToCollectionFromModal()" class="flex-1 min-w-[140px] text-white font-medium px-5 py-3 rounded-full text-sm shadow-md hover:shadow-lg transition-all btn-animate" style="background:linear-gradient(135deg,#6d28d9,#1d4ed8)">
-                    לבחירת תכשיט
-                </button>
-                <button type="button" onclick="closeCustomModal(); showView('contact');" class="flex-1 min-w-[140px] bg-white hover:bg-stone-50 text-stone-900 border border-[#b8935a] font-medium px-5 py-3 rounded-full text-sm transition-colors btn-animate">
-                    שאלה? צרו קשר
-                </button>
+                <p class="text-sm text-stone-800 leading-relaxed mb-3">
+                    בחרו את התכשיט הקרוב ביותר למה שדמיינתם,<br>
+                    והוסיפו את השינויים בשדה ההערות<br>
+                    בעת ביצוע ההזמנה.
+                </p>
+
+                <div class="rounded-xl px-4 py-2.5 text-xs text-stone-800 leading-relaxed mb-4" style="background:#f6efdf;border:1px solid rgba(184,147,90,.6)">
+                    בשינויים בהתאמה אישית ייתכן שהמחיר יהיה שונה.<br>
+                    <strong class="text-stone-900">הזמנה בהתאמה אישית אינה ניתנת לביטול.</strong>
+                </div>
+
+                <div class="flex flex-wrap gap-2.5 justify-center">
+                    <button type="button" onclick="goToCollectionFromModal()" class="flex-1 min-w-[130px] bg-[#0b0a09] hover:bg-[#2a2118] text-[#e6cfa3] font-medium px-4 py-2.5 rounded-full text-sm shadow-md transition-colors btn-animate">
+                        לבחירת תכשיט
+                    </button>
+                    <button type="button" onclick="closeCustomModal(); showView('contact');" class="flex-1 min-w-[130px] bg-white hover:bg-[#fdeef2] text-stone-900 border border-[#b8935a] font-medium px-4 py-2.5 rounded-full text-sm transition-colors btn-animate">
+                        שאלה? צרו קשר
+                    </button>
+                </div>
             </div>
         </div>
     </div>
