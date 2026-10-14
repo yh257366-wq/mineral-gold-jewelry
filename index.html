@@ -187,15 +187,16 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
     <div><span class="block text-[#b8935a] text-lg mb-0.5">✋</span>עבודת יד</div>
     <div><span class="block text-[#b8935a] text-lg mb-0.5">💎</span>אבנים טבעיות</div>
     <div><span class="block text-[#b8935a] text-lg mb-0.5">🚚</span>משלוח לכל הארץ</div>
-    <button type="button" id="custom-chip" onclick="openCustomModal()" class="no-print relative rounded-xl border border-[#b8935a] bg-[#f6efdf] hover:bg-[#efe3c8] px-2 py-1.5 transition-all btn-animate" aria-label="פתיחת מידע על ייצור בהתאמה אישית">
-    <span class="absolute top-1.5 right-1.5 flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b8935a] opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#b8935a]"></span>
-    </span>
-    <span class="block text-[#b8935a] text-lg mb-0.5">✨</span>
-    <span class="block font-bold text-stone-900">ייצור בהתאמה אישית</span>
-    <span class="block text-[11px] text-[#8a6a35] underline">קרא עוד ←</span>
-</button>
+    <button type="button" id="custom-chip" onclick="openCustomModal()" class="no-print rounded-xl cursor-pointer btn-animate hover:text-stone-950" aria-label="פתיחת מידע על ייצור בהתאמה אישית">
+        <span class="relative inline-block text-[#b8935a] text-lg mb-0.5">
+            ✨
+            <span class="absolute top-0 -right-2.5 flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b8935a] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#b8935a]"></span>
+            </span>
+        </span>
+        <span class="block underline decoration-dotted decoration-[#b8935a] decoration-2 underline-offset-4">ייצור בהתאמה אישית ←</span>
+    </button>
 </div>
 
         <!-- באנר מבצע -->
