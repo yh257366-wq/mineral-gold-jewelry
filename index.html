@@ -808,7 +808,7 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
 const products = [
     { id: 4, title: "תליון אמטיסט סגול בוהק", price: 96, originalPrice: 120, sku: "001", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-amethyst.png", desc: "תליון יפהפה ומיוחד עם אבן אמטיסט (אחלמה) סגולה מבריקה מלוטשת קלות. האבן עטופה באמנות בחוט ליפוף זהוב, ויוצרת מראה יוקרתי ומיוחד.", material: "אבן אמטיסט סגולה מלוטשת קלות, חוט נחושת זהוב", size: "כ-2 ס\"מ", totalLength: "כ-4.5 ס\"מ" },
     { id: 5, title: "תליון אמטיסט סגול טבעי", price: 96, originalPrice: 120, sku: "002", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-amethyst-natural.jpg.png", desc: "תליון יפהפה ומיוחד מאבן אמטיסט סגולה טבעית. האבן עטופה בעדינות ובאמנות בחוט ליפוף זהוב, ויוצרת שילוב של יוקרה וטבע.", material: "אבן אמטיסט סגול טבעי, חוט נחושת זהוב", size: "כ-2*3.5 ס\"מ", totalLength: "כ-5.5 ס\"מ" },
-    { id: 6, title: "תליון סיטרין - כסף 925", price: 120, originalPrice: 150, sku: "003", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-sitrin.jpg.png", desc: "תליון ייחודי בעל נוכחות קורנת, מאבן סיטרין (Citrine) טבעית גולמית. האבן עטופה בעדינות בחוט ליפוף כסף 925, ויוצרת מראה בוהק ומרהיב במיוחד.", material: "אבן סיטרין טבעית, חוט ליפוף כסף 925, שרשרת כסף 925", size: "כ-1.8 ס\"מ" },
+    { id: 6, title: "תליון סיטרין", price: 64, originalPrice: 80, sku: "003", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-sitrin.jpg.png", desc: "תליון ייחודי בעל נוכחות קורנת, מאבן סיטרין (Citrine) טבעית גולמית. האבן עטופה בעדינות בחוט ליפוף נחושת כסוף, ויוצרת מראה בוהק ומרהיב במיוחד.", material: "אבן סיטרין טבעית, חוט נחושת כסוף", size: "כ-1.8 ס\"מ" },
     {
         id: 32,
         title: "עגילי סיטרין",
@@ -1277,33 +1277,23 @@ function openProductPage(id) {
     }
     
 let upgradeSectionHtml = '';
-    if (p.sku === "003") {
-        upgradeSectionHtml = `
-            <div class="space-y-4 bg-stone-50 p-4 rounded-xl border border-stone-100">
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 mb-1.5">וריאציות נוספות (מחירי מבצע השקה!):</label>
-                    <select id="detail-upgrade" class="w-full border border-stone-300 p-2.5 rounded-lg bg-white text-sm">
-                        <option value="0">כסף 925 (סטנדרט)</option>
-                        <option value="-56">חוט נחושת זהוב במבצע: \u200E-56 ₪ (מחיר סופי: 64 ₪! במקום 80 ₪)</option>
-                        <option value="16">גולדפילד איכותי במבצע: \u200E+16 ₪ (במקום \u200E+20 ₪)</option>
-                    </select>
-                </div>
-            </div>
-        `;
-    } else {    // מחירי ברירת מחדל לשאר המוצרים באתר
-        let original925 = 70, originalGold = 90;
-        
-        if (p.sku === "020" || p.sku === "036") { 
-            // סט תליון ועגילי חישוק קשת הצבעים (חדש)
-            original925 = 145; originalGold = 180;
-        } else if (p.sku === "019" || p.sku === "018" || p.sku === "023" || p.sku === "026" || p.sku === "027" || p.sku === "028" || p.sku === "029" || p.sku === "033" || p.sku === "035") { 
-    // תליון ועגילי חישוק קשת הצבעים, עגילי נצנוץ הטיפה, ספירלת גווני הוורוד וטיפת ירוק-עד
-    original925 = 80; originalGold = 100;
-        } else if (p.type === "סט תכשיטים") {
-            original925 = 130; originalGold = 170;
-       } else if (p.sku === "001" || p.sku === "002" || p.sku === "021" || p.sku === "034") {
-    original925 = 130; originalGold = 150;
-}
+    {
+        // [שדרוג לכסף, שדרוג לגולדפילד] - לפני הנחה
+        const upgradeGroups = [
+                        [70, 130,  ["032", "005", "007", "008", "012", "030", "015", "022", "024", "031"]],
+            [80, 145,  ["003", "004", "009", "011", "016"]],
+            [95, 170,  ["014"]],
+            [150, 270, ["006", "010", "013", "017"]],
+            [165, 300, ["037"]],
+            [240, 430, ["001", "021", "002"]],
+            [170, 250, ["034"]],
+            [170, 300, ["018", "019", "023", "026", "027", "028", "029", "035", "033"]],
+            [340, 610, ["020", "036"]],
+            [90, 160,  ["025"]]
+        ];
+        const found = upgradeGroups.find(g => g[2].includes(p.sku));
+        const original925 = found ? found[0] : 70;
+        const originalGold = found ? found[1] : 130;
 
         const sale925 = Math.round(original925 * 0.8);
         const saleGold = Math.round(originalGold * 0.8);
