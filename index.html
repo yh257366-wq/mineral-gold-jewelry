@@ -47,6 +47,9 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
         .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.08); }
         .view-section { display: none; }
         .view-section.active { display: block; }
+        input[type=number].qty-input::-webkit-outer-spin-button,
+input[type=number].qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number].qty-input { -moz-appearance: textfield; }
         .hidden-honey { display: none !important; }
         .btn-animate { transition: transform 0.1s ease; }
         .btn-animate:active { transform: scale(0.96); }
@@ -778,6 +781,17 @@ body { font-family:'Heebo', system-ui, sans-serif; background-color:var(--cream)
         </div>
     </div>
 </div>
+
+    <div id="duplicate-modal" class="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center z-[65] hidden no-print" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl max-w-sm w-full mx-4 p-6 shadow-xl border border-stone-200 text-center">
+        <div class="text-4xl mb-2">🛒</div>
+        <p id="duplicate-modal-text" class="text-stone-900 font-medium text-base mb-6 leading-relaxed"></p>
+        <div class="flex gap-3">
+            <button type="button" id="duplicate-ok" class="flex-1 bg-stone-950 hover:bg-black text-white text-sm font-medium px-5 py-3 rounded-xl btn-animate">כן, להוסיף</button>
+            <button type="button" id="duplicate-cancel" class="flex-1 bg-stone-100 hover:bg-stone-200 text-stone-800 text-sm font-medium px-5 py-3 rounded-xl border border-stone-200 btn-animate">לא, ביטול</button>
+        </div>
+    </div>
+</div>
     
     <footer class="bg-stone-900 text-stone-400 py-12 text-center text-xs no-print">
         <div class="max-w-md mx-auto mb-6 text-stone-500 border-b border-stone-800 pb-6 leading-relaxed">
@@ -1113,6 +1127,68 @@ function renderGallery() {
     });
 }
 
+function clampQty(v) {
+    v = parseInt(v);
+    if (isNaN(v) || v < 1) return 1;
+    return Math.min(v, 99);
+}
+
+function stepDetailQty(delta) {
+    const el = document.getElementById('detail-qty');
+    el.value = clampQty((parseInt(el.value) || 1) + delta);
+}
+
+function normalizeDetailQty() {
+    const el = document.getElementById('detail-qty');
+    el.value = clampQty(el.value);
+}
+
+function getCartQtyForProduct(id) {
+    return cart.filter(i => i.id === id).reduce((s, i) => s + i.quantity, 0);
+}
+
+function updateInCartBadge(id) {
+    const box = document.getElementById('in-cart-badge');
+    if (!box) return;
+    const n = getCartQtyForProduct(id);
+    box.innerHTML = n > 0 ? `
+        <div class="flex items-center justify-between gap-3 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-xl px-4 py-3 text-sm">
+            <span>✓ המוצר הזה כבר בעגלה שלך (כמות: ${n})</span>
+            <button type="button" onclick="showView('checkout')" class="underline font-bold">לעגלה</button>
+        </div>` : '';
+}
+
+function confirmDuplicateInCart(title, inCartQty, addQty) {
+    return new Promise(resolve => {
+        const modal = document.getElementById('duplicate-modal');
+        document.getElementById('duplicate-modal-text').innerHTML =
+            `המוצר "${title}" כבר נמצא בעגלת הקניות שלך (כמות: ${inCartQty}).<br>האם להוסיף עוד ${addQty} יחידות?`;
+        modal.classList.remove('hidden');
+        const finish = (r) => {
+            modal.classList.add('hidden');
+            document.getElementById('duplicate-ok').onclick = null;
+            document.getElementById('duplicate-cancel').onclick = null;
+            resolve(r);
+        };
+        document.getElementById('duplicate-ok').onclick = () => finish(true);
+        document.getElementById('duplicate-cancel').onclick = () => finish(false);
+    });
+}
+
+// שינוי כמות בתוך העגלה
+function changeCartQty(rowId, delta) {
+    const item = cart.find(i => i.rowId === rowId);
+    if (!item) return;
+    item.quantity = clampQty(item.quantity + delta);
+    saveCart(); updateNavCount(); updateCheckoutDisplay();
+}
+
+function setCartQty(rowId, value) {
+    const item = cart.find(i => i.rowId === rowId);
+    if (!item) return;
+    item.quantity = clampQty(value);
+    saveCart(); updateNavCount(); updateCheckoutDisplay();
+}
 // פונקציית דף מוצר מעודכנת
 function openProductPage(id) {
     const currentIndex = products.findIndex(prod => prod.id === id);
@@ -1316,7 +1392,17 @@ let upgradeSectionHtml = '';
 `;
     }
     
-const imgClass = "w-full h-full object-contain bg-stone-50";  
+const qtyHtml = `
+    <div>
+        <label class="block text-xs font-bold text-stone-700 mb-1.5">כמות:</label>
+        <div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden" dir="ltr">
+            <button type="button" onclick="stepDetailQty(-1)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הפחתת כמות">−</button>
+            <input type="number" id="detail-qty" class="qty-input w-14 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="1" min="1" max="99" inputmode="numeric" onchange="normalizeDetailQty()">
+            <button type="button" onclick="stepDetailQty(1)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת כמות">+</button>
+        </div>
+    </div>
+`;
+    const imgClass = "w-full h-full object-contain bg-stone-50";  
     
     container.innerHTML = `
         <div class="relative">
@@ -1354,9 +1440,11 @@ const imgClass = "w-full h-full object-contain bg-stone-50";
 </div>
                     <div class="space-y-4 bg-stone-50 p-4 rounded-xl border border-stone-100">
                         ${lengthSelectorHtml}
-                        ${upgradeSectionHtml}
+${upgradeSectionHtml}
+${qtyHtml}
                     </div>
                 </div>
+                <div id="in-cart-badge" class="mt-6 no-print"></div>
                 <div class="mt-8 flex gap-4">
                     <button onclick="addToCartFromPage(event, ${p.id})" class="flex-1 bg-stone-950 text-white font-medium py-4 rounded-xl hover:bg-black transition-colors text-center shadow-sm">
                         הוספה לעגלת הקניות
@@ -1366,44 +1454,46 @@ const imgClass = "w-full h-full object-contain bg-stone-50";
             </div>
         </div>
     `;
+    updateInCartBadge(p.id);
     showView('product');
 }
         
-        function addToCartFromPage(event, id) {
-    if(event) event.preventDefault();
+        async function addToCartFromPage(event, id) {
+    if (event) event.preventDefault();
     const product = products.find(p => p.id === id);
     const lengthEl = document.getElementById('detail-length');
     const length = lengthEl ? lengthEl.value : "לא רלוונטי";
-    
+
     const upgradeSelect = document.getElementById('detail-upgrade');
     const upgradeVal = parseInt(upgradeSelect.value);
     const upgradeText = upgradeSelect.options[upgradeSelect.selectedIndex].text;
-    
-    // בדיקה האם המוצר כבר קיים בעגלה עם אותם מאפיינים exactement
-    const existingIndex = cart.findIndex(item => 
-        item.id === id && 
-        item.length === length && 
-        item.upgradeVal === upgradeVal
+
+    const qtyEl = document.getElementById('detail-qty');
+    const qty = clampQty(qtyEl ? qtyEl.value : 1);
+    if (qtyEl) qtyEl.value = qty;
+
+    // המוצר כבר בעגלה? שואלים לפני הוספה
+    const alreadyQty = getCartQtyForProduct(id);
+    if (alreadyQty > 0) {
+        const ok = await confirmDuplicateInCart(product.title, alreadyQty, qty);
+        if (!ok) return;
+    }
+
+    const existingIndex = cart.findIndex(item =>
+        item.id === id && item.length === length && item.upgradeVal === upgradeVal
     );
 
     if (existingIndex > -1) {
-        // אם קיים - מעלים רק את הכמות
-        cart[existingIndex].quantity += 1;
+        cart[existingIndex].quantity = Math.min(cart[existingIndex].quantity + qty, 99);
     } else {
-        // אם חדש - יוצרים שורה חדשה
         const rowId = Date.now() + Math.floor(Math.random() * 1000);
-        cart.push({ 
-            ...product, 
-            rowId: rowId, 
-            length: length, 
-            upgradeVal: upgradeVal, 
-            upgradeText: upgradeText, 
-            quantity: 1 
-        });
+        cart.push({ ...product, rowId, length, upgradeVal, upgradeText, quantity: qty });
     }
-    
+
     saveCart();
     updateNavCount();
+    updateInCartBadge(id);
+    if (qtyEl) qtyEl.value = 1;
     openCartModal();
 }
         function updateNavCount() {
@@ -1455,30 +1545,34 @@ const imgClass = "w-full h-full object-contain bg-stone-50";
                         <img src="${item.img}" alt="${item.title}" class="w-12 h-12 object-cover rounded-lg border border-stone-200" onerror="this.src='https://via.placeholder.com/50'">
                         
                         <!-- פירוט המוצר (הבלוק המרכזי) -->
-                        <div class="flex-1">
-                            <!-- כותרת ומחיר מוצמדים ימינה עם רווח קטן וקבוע ביניהם -->
-                            <div class="flex items-baseline gap-3 mb-1 justify-start">
-                                <span class="font-bold text-stone-950 text-base">${item.title}</span>
-                                <span class="text-sm font-normal text-stone-600">₪${originalProductPrice}</span>
-                            </div>
-                            
-                            <!-- שדרוגים: קריא וללא המילה "מבצע" -->
-                            <p class="text-xs text-stone-950 mt-1">${lengthLine}${cleanUpgradeText}</p>
-                            
-                            <!-- כמות בלבד -->
-                            <p class="text-xs text-stone-950 mt-0.5">כמות: ${item.quantity}</p>
-                        </div>
-                        
-                        <!-- צד שמאל קיצוני: מחיר סופי ברור לשורה -->
-                        <div class="text-left min-w-[85px]">
-                            <span class="text-xs text-stone-950 block">סה"כ פריט:</span>
-                            <span class="font-bold text-base text-stone-950">₪${totalItemPrice}</span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            updateTotal();
-        }
+<div class="flex-1">
+    <!-- כותרת ומחיר מוצמדים ימינה עם רווח קטן וקבוע ביניהם -->
+    <div class="flex items-baseline gap-3 mb-1 justify-start">
+        <span class="font-bold text-stone-950 text-base">${item.title}</span>
+        <span class="text-sm font-normal text-stone-600">₪${originalProductPrice}</span>
+    </div>
+
+    <!-- שדרוגים: קריא וללא המילה "מבצע" -->
+    <p class="text-xs text-stone-950 mt-1">${lengthLine}${cleanUpgradeText}</p>
+</div>
+
+<!-- בחירת כמות -->
+<div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden shrink-0" dir="ltr">
+    <button type="button" onclick="changeCartQty(${item.rowId}, -1)" class="w-8 h-8 text-base hover:bg-stone-100" aria-label="הפחתת כמות">−</button>
+    <input type="number" class="qty-input w-10 h-8 text-center text-sm border-x border-stone-300 focus:outline-none" value="${item.quantity}" min="1" max="99" inputmode="numeric" onchange="setCartQty(${item.rowId}, this.value)">
+    <button type="button" onclick="changeCartQty(${item.rowId}, 1)" class="w-8 h-8 text-base hover:bg-stone-100" aria-label="הגדלת כמות">+</button>
+</div>
+
+<!-- צד שמאל קיצוני: מחיר סופי ברור לשורה -->
+<div class="text-left min-w-[85px]">
+    <span class="text-xs text-stone-950 block">סה"כ פריט:</span>
+    <span class="font-bold text-base text-stone-950">₪${totalItemPrice}</span>
+</div>
+</div>
+`;
+}).join('');
+updateTotal();
+}
        function removeFromCart(rowId) {
             cart = cart.filter(item => item.rowId !== rowId);
             saveCart();
