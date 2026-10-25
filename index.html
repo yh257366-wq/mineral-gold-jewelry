@@ -1797,11 +1797,29 @@ if (!noticeAccepted) return;
             formData.append("notes", notes);
             
             const itemsText = cart.map(i => {
-                const optionLine = i.length !== "לא רלוונטי" ? `אורך: ${i.length}, ` : '';
-                return `${i.title} (${optionLine}שדרוג: ${i.upgradeText}, כמות: ${i.quantity})`;
-            }).join(" | ");
-            
-            formData.append("items", itemsText);
+    // סוג השדרוג בקצרה
+    const up = i.upgradeText || '';
+    let upgradeLabel = 'ללא שדרוג';
+    if (i.upgradeVal > 0) {
+        if (up.includes('גולדפילד')) upgradeLabel = 'גולדפילד';
+        else if (up.includes('כסף')) upgradeLabel = 'כסף 925';
+        else upgradeLabel = 'שדרוג';
+        // המחיר הסופי ששולם על השדרוג, בלי "במקום"
+        upgradeLabel += ' (\u200E+' + i.upgradeVal + ' ₪)';
+    }
+
+    const parts = [
+        'מק"ט: ' + i.sku,
+        'מחיר בסיס: ' + i.price + ' ₪',
+        i.length !== "לא רלוונטי" ? 'אורך: ' + i.length : null,
+        upgradeLabel,
+        'כמות: ' + i.quantity
+    ].filter(Boolean);
+
+    return i.title + ' (' + parts.join(', ') + ')';
+}).join("\n");
+
+formData.append("items", itemsText);
 
             try {
                 await fetch(CORRECT_GOOGLE_URL, {
