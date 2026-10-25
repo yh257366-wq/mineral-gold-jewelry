@@ -318,7 +318,7 @@ input[type=number].qty-input { -moz-appearance: textfield; }
         <label class="flex items-start gap-3 bg-white border border-stone-300 rounded-xl p-3 cursor-pointer">
             <input type="radio" name="payment-method" value="card" checked class="mt-1 w-4 h-4 accent-stone-900 shrink-0">
             <span class="text-sm text-stone-900"><strong>תשלום באשראי</strong> (מומלץ)<br>
-                <span class="text-xs text-stone-600">לאחר אישור ההזמנה תופיע אפשרות לתשלום מאובטח.</span></span>
+                <span class="text-xs text-stone-600">תועבר לדף תשלום מאובטח. ההזמנה תיקלט רק לאחר השלמת התשלום.</span></span>
         </label>
         <label class="flex items-start gap-3 bg-white border border-stone-300 rounded-xl p-3 cursor-pointer">
             <input type="radio" name="payment-method" value="later" class="mt-1 w-4 h-4 accent-stone-900 shrink-0">
@@ -650,10 +650,7 @@ input[type=number].qty-input { -moz-appearance: textfield; }
                 <div class="text-center mb-8 border-b border-stone-200 pb-6 no-print">
                     <div class="text-emerald-700 text-5xl mb-3">✓</div>
                     <h1 id="summary-title" class="text-3xl font-serif text-stone-900 font-bold mb-2">ההזמנה נשלחה בהצלחה!</h1>
-                    <p class="text-stone-600 text-sm max-w-md mx-auto leading-relaxed">
-                        אנו ניצור איתך קשר בימים הקרובים לתשלום והשלמה סופית של הרכישה.
-                    <p id="summary-message" class="text-stone-600 text-sm max-w-md mx-auto leading-relaxed">
-                    </p>
+                    <p id="summary-message" class="text-stone-600 text-sm max-w-md mx-auto leading-relaxed"></p>
                     <div class="mt-4 inline-block bg-stone-100 px-4 py-1.5 rounded-full text-xs font-mono font-bold text-stone-700">
                         מספר הזמנה: <span id="summary-order-id"></span>
                     </div>
@@ -1811,6 +1808,11 @@ function orderItems(order) {
     }));
 }
 
+function makeSecret() {
+    const a = new Uint8Array(16);
+    crypto.getRandomValues(a);
+    return Array.from(a, b => b.toString(16).padStart(2, '0')).join('');
+}
 // ===== קריאת ההזמנה מהטופס והעגלה =====
 function readOrderFromForm() {
     const shippingSelector = document.getElementById('shipping-selector');
@@ -1831,6 +1833,7 @@ function readOrderFromForm() {
 
     return {
         orderId: "MG-" + Date.now().toString().slice(-6),
+                secret: makeSecret(),
         name: document.getElementById('form-name').value.trim(),
         phone: document.getElementById('form-phone').value.trim(),
         email: document.getElementById('form-email').value.trim(),
@@ -1967,7 +1970,7 @@ async function handleFormSubmit(e) {
                 body: JSON.stringify({
                     action: "start",
                     order,
-                    redirectUrl: ORDER_RETURN_URL + "?oid=" + order.orderId,
+            redirectUrl: ORDER_RETURN_URL + "?oid=" + order.orderId + "&k=" + order.secret,
                     cancelUrl: ORDER_RETURN_URL + "#checkout"
                 })
             });
@@ -2008,6 +2011,7 @@ async function handlePaymentReturn() {
     const oid = getUrlParam('oid') || getUrlParam('externalidentifier');
     if (!oid) return;
     const paymentId = getUrlParam('og-paymentid') || getUrlParam('paymentid');
+        const key = getUrlParam('k');
 
     // מנקים את הפרמטרים מהכתובת, כדי שרענון לא יפעיל את התהליך שוב
     history.replaceState({ view: 'summary' }, "", window.location.pathname + "#summary");
@@ -2019,7 +2023,7 @@ async function handlePaymentReturn() {
     try {
         const res = await fetch(PAYMENT_API_URL, {
             method: "POST",
-            body: JSON.stringify({ action: "confirm", orderId: oid, paymentId })
+                        body: JSON.stringify({ action: "confirm", orderId: oid, paymentId, key })
         });
         const data = await res.json();
 
