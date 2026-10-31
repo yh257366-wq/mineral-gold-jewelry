@@ -68,6 +68,7 @@ body{font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl}
 <body><div id="root"></div>
 <script>
 const LOGO="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/logo.png";
+const SALE_ACTIVE = false;
 const SALE_END_TEXT='י"ט חשון (30/10/2026)';
 const IMG="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/";
 
@@ -130,9 +131,10 @@ const UPGRADE_GROUPS = [
 function getUpgrades(p){
   const g = UPGRADE_GROUPS.find(x => x[2].includes(p.sku));
   const o925 = g ? g[0] : 70, oGold = g ? g[1] : 130;
+  const f = SALE_ACTIVE ? 0.8 : 1;
   return [
-    {t:"כסף 925: \u200E+"+Math.round(o925*0.8)+" ₪", old:"\u200E+"+o925},
-    {t:"גולדפילד איכותי: \u200E+"+Math.round(oGold*0.8)+" ₪", old:"\u200E+"+oGold}];
+    {t:"כסף 925: \u200E+"+Math.round(o925*f)+" ₪", old: SALE_ACTIVE ? "\u200E+"+o925 : ""},
+    {t:"גולדפילד איכותי: \u200E+"+Math.round(oGold*f)+" ₪", old: SALE_ACTIVE ? "\u200E+"+oGold : ""}];
 }
 
 function itemHtml(p,i){
@@ -147,7 +149,9 @@ function itemHtml(p,i){
     <div class="info">
       <div class="meta">מק"ט ${p.sku} · ${p.type}</div>
       <div class="title">${p.title}</div>
-      <div class="price"><span class="now">${p.price} ₪</span><span class="old">${p.originalPrice} ₪</span></div>
+          <div class="price">${SALE_ACTIVE
+        ? `<span class="now">${p.price} ₪</span><span class="old">${p.originalPrice} ₪</span>`
+        : `<span class="now" style="color:var(--ink)">${p.originalPrice} ₪</span>`}</div>
       <div class="desc">${p.desc}</div>
       <div class="specs"><div><b>חומרים:</b> ${p.material}</div><div><b>גודל:</b> ${p.size}</div>${care}</div>
       ${isPendant?'<div class="chain">✦ אורך שרשרת לבחירה: 45-60 ס"מ</div>':''}
@@ -164,8 +168,8 @@ function render(){
     <h1 class="gold-text">קטלוג התכשיטים</h1>
     <div class="sub">אבני חן טבעיות · עבודת יד</div>
     <div class="rule"></div>
-    <div class="badge">מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים</div>
-    <div class="badge-date">המבצע בתוקף עד ${SALE_END_TEXT}</div></section>`;
+        ${SALE_ACTIVE ? `<div class="badge">מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים</div>
+    <div class="badge-date">המבצע בתוקף עד ${SALE_END_TEXT}</div>` : ''}</section>`;
   for(let pg=0;pg<pages;pg++){
     const chunk=products.slice(pg*per,pg*per+per);
     h+=`<section class="page"><div class="head"><b>מינרל גולד</b><span>MINERAL GOLD</span></div>
