@@ -141,7 +141,7 @@ function getUpgrades(p){
 
 function itemHtml(p,i){
   const isPendant=(p.type==="תליון"||p.type==="סט תכשיטים");
-  const contain=(p.sku==="030"||p.id===30||p.sku==="001");
+  const contain=(p.sku==="030"||p.id===30||p.sku==="001"||p.sku==="040");
   const care=(p.sku==="031"||p.id===31)
     ? '<div class="care"><b>טיפול נכון במוצר:</b> לשמירה על גוון האבנים, מומלץ להימנע ממגע עם מים, בשמים, אלכוהול וחומרי ניקוי.</div>'
     : '<div><b>גימור:</b> ציפוי שקוף איכותי לשימור הברק.</div>';
