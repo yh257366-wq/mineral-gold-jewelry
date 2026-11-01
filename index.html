@@ -1084,8 +1084,7 @@ const products = [
     type: "צמיד",
     img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/bracelet-sodalite-hoops.png",
     desc: "צמיד מיוחד המשלב חישוקים אומנותיים זהובים עם חרוזי סודליט כחולים, שזורים בחוט נחושת זהוב. עיצוב עדין ומרשים.",
-    material: "חישוקי פלדת אל חלד זהובים, חרוזי סודליט כחולים, חוט נחושת זהוב",
-    totalLength: "כ-17 ס\"מ"
+    material: "חישוקי פלדת אל חלד זהובים, חרוזי סודליט כחולים, חוט נחושת זהוב"
 },
 {
     id: 40,
@@ -1326,7 +1325,6 @@ if (sku === "040") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
             <p><strong>קוטר כל חישוק:</strong> כ-1.7 ס\"מ</p>
-            <p><strong>אורך כולל של הצמיד:</strong> ${p.totalLength}</p>
         `;
     } else if (isHishuk) {
         // סדרת החישוקים (קשת הצבעים)
@@ -1427,14 +1425,14 @@ if (sku === "040") {
     let lengthSelectorHtml = '';
     if (p.sku === "040") {
     lengthSelectorHtml = `
-        <div>
+                <div>
             <label class="block text-xs font-bold text-stone-700 mb-1.5">אורך השרשרת (ס"מ):</label>
             <div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden" dir="ltr">
-                <button type="button" onclick="stepLen('detail-necklace-len', -0.5, 36, 30, 60)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הקטנת אורך">−</button>
-                <input type="number" id="detail-necklace-len" class="qty-input w-20 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="36" min="30" max="60" step="0.5" inputmode="decimal" onchange="stepLen('detail-necklace-len', 0, 36, 30, 60)">
-                <button type="button" onclick="stepLen('detail-necklace-len', 0.5, 36, 30, 60)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת אורך">+</button>
+                <button type="button" onclick="stepLen('detail-necklace-len', -0.5, 45, 30, 60)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הקטנת אורך">−</button>
+                <input type="number" id="detail-necklace-len" class="qty-input w-20 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="45" min="30" max="60" step="0.5" inputmode="decimal" onchange="stepLen('detail-necklace-len', 0, 45, 30, 60)">
+                <button type="button" onclick="stepLen('detail-necklace-len', 0.5, 45, 30, 60)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת אורך">+</button>
             </div>
-            <p class="text-xs text-stone-500 mt-1">ברירת מחדל 36 ס"מ. אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
+            <p class="text-xs text-stone-500 mt-1">ברירת מחדל 45 ס"מ. אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
         </div>
         <div>
             <label class="block text-xs font-bold text-stone-700 mb-1.5">אורך הצמיד (ס"מ):</label>
@@ -1446,7 +1444,19 @@ if (sku === "040") {
             <p class="text-xs text-stone-500 mt-1">ברירת מחדל 17 ס"מ. אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
         </div>
     `;
-} else if (p.type === "תליון" || p.type === "סט תכשיטים") {
+} else if (p.type === "צמיד") {
+    lengthSelectorHtml = `
+        <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">אורך הצמיד (ס"מ):</label>
+            <div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden" dir="ltr">
+                <button type="button" onclick="stepLen('detail-bracelet-len', -0.5, 17, 14, 24)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הקטנת אורך">−</button>
+                <input type="number" id="detail-bracelet-len" class="qty-input w-20 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="17" min="14" max="24" step="0.5" inputmode="decimal" onchange="stepLen('detail-bracelet-len', 0, 17, 14, 24)">
+                <button type="button" onclick="stepLen('detail-bracelet-len', 0.5, 17, 14, 24)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת אורך">+</button>
+            </div>
+            <p class="text-xs text-stone-500 mt-1">ברירת מחדל 17 ס"מ. אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
+        </div>
+    `;
+    } else if (p.type === "תליון" || p.type === "סט תכשיטים") {
         lengthSelectorHtml = `
             <div>
                 <label class="block text-xs font-bold text-stone-700 mb-1.5">בחירת אורך השרשרת:</label>
@@ -1583,17 +1593,21 @@ ${qtyHtml}
     if (event) event.preventDefault();
     const product = products.find(p => p.id === id);
     const lengthEl = document.getElementById('detail-length');
-let length = lengthEl ? lengthEl.value : "לא רלוונטי";
+    let length = lengthEl ? lengthEl.value : "לא רלוונטי";
 
-const neckEl = document.getElementById('detail-necklace-len');
-const braceEl = document.getElementById('detail-bracelet-len');
-if (neckEl && braceEl) {
-    const n = clampLen(neckEl.value, 36, 30, 60);
-    const b = clampLen(braceEl.value, 17, 14, 24);
-    neckEl.value = n;
-    braceEl.value = b;
-    length = `${n} ס"מ | אורך צמיד: ${b} ס"מ`;
-}
+    const neckEl = document.getElementById('detail-necklace-len');
+    const braceEl = document.getElementById('detail-bracelet-len');
+    if (neckEl && braceEl) {
+        const n = clampLen(neckEl.value, 45, 30, 60);
+        const b = clampLen(braceEl.value, 17, 14, 24);
+        neckEl.value = n;
+        braceEl.value = b;
+        length = `${n} ס"מ | אורך צמיד: ${b} ס"מ`;
+    } else if (braceEl) {
+        const b = clampLen(braceEl.value, 17, 14, 24);
+        braceEl.value = b;
+        length = `${b} ס"מ`;
+    }
 
     const upgradeSelect = document.getElementById('detail-upgrade');
     const upgradeVal = parseInt(upgradeSelect.value);
@@ -1641,7 +1655,7 @@ if (neckEl && braceEl) {
             }
             
             container.innerHTML = cart.map(item => {
-                const lengthLine = item.length !== "לא רלוונטי" ? `אורך שרשרת: ${item.length} | ` : '';
+                const lengthLine = item.length !== "לא רלוונטי" ? `${item.type === "צמיד" ? "אורך צמיד" : "אורך שרשרת"}: ${item.length} | ` : '';
                 const unitPrice = item.price + item.upgradeVal;
                 const totalItemPrice = unitPrice * item.quantity;
                 
@@ -1858,7 +1872,7 @@ window.addEventListener('load', function () {
 function buildItemsHtml(items) {
     let html = `<table style="width: 100%; border-collapse: collapse; text-align: right; direction: rtl; margin-bottom: 20px;">`;
     items.forEach(i => {
-        const optionLine = i.length !== "לא רלוונטי" ? `אורך שרשרת: ${i.length} | ` : '';
+        const optionLine = i.length !== "לא רלוונטי" ? `${i.type === "צמיד" ? "אורך צמיד" : "אורך שרשרת"}: ${i.length} | ` : '';
         const cleanUpgrade = (i.upgradeText || '')
             .replace(/\s*\(במקום\s*[^)]+\)/g, '')
             .replace(/מבצע:\s*/g, '')
