@@ -972,7 +972,30 @@ const products = [
     },
     { id: 3, title: "עגילי חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "018", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/earrings-hishuk.jpg.png", desc: "עגילי חישוק מרהיבים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", stoneSize: "1.6 ס\"מ", totalLength: "כ-4 ס\"מ" },
     { id: 19, title: "תליון חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "019", type: "תליון", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/taliyon-hishuk.png", desc: "תליון חישוק מרהיב המשלב קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", size: "קוטר החישוק: כ-2.2 ס\"מ" },
+    {
+    id: 41,
+    title: "צמיד חישוקי קשת הצבעים",
+    price: 96,
+    originalPrice: 120,
+    sku: "041",
+    type: "צמיד",
+    img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/bracelet-rainbow-hoops.png",
+    desc: "צמיד צבעוני ומרהיב עשוי חישוקים זהובים ומשלב חרוזי צ'יפס בקשת צבעים ייחודית, שזורים בעבודת יד בחוט נחושת זהוב. עיצוב צבעוני, יפהפה ומרשים.",
+    material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוקים וחוט ליפוף עשויים מנחושת זהובה",
+    hoopSize: "כ-1.6 ס\"מ"
+    },
     { id: 20, title: "סט תליון ועגילי חישוק - קשת הצבעים", price: 144, originalPrice: 180, sku: "020", type: "סט תכשיטים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/set-hishuk.png", desc: "סט תליון ועגילי חישוק מרהיבים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", size: "קוטר חישוק תליון: כ-2.2 ס\"מ | קוטר חישוק עגילים: כ-1.6 ס\"מ" },
+    {
+    id: 42,
+    title: "סט מלא חישוקי קשת הצבעים",
+    price: 232,
+    originalPrice: 290,
+    sku: "042",
+    type: "סט תכשיטים",
+    img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/set-rainbow-hoops-full.png",
+    desc: "סט מלא של תליון, עגילים וצמיד מחישוקים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים. עיצוב צבעוני, יפהפה ומרשים.",
+    material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוקים וחוט ליפוף עשויים מנחושת זהובה"
+    },
     { 
         id: 23, 
         title: "עגילי נצנוץ הטיפה", 
@@ -1300,6 +1323,14 @@ if (sku === "040") {
         <p><strong>גודל כל חישוק:</strong> ${p.hoopSize}</p>
         <p><strong>אורך כולל של העגילים:</strong> ${p.totalLength}</p>
     `;
+    } else if (sku === "042") {
+    dimensionsHtml = `
+        <p><strong>חומרים:</strong> ${material}</p>
+        <p><strong>גודל החישוק של התליון (קוטר):</strong> כ-2.2 ס\"מ</p>
+        <p><strong>גודל החישוק של העגילים (קוטר):</strong> כ-1.6 ס\"מ</p>
+        <p><strong>אורך כולל של העגילים:</strong> כ-4 ס\"מ</p>
+        <p><strong>קוטר כל חישוק בצמיד:</strong> כ-1.6 ס\"מ</p>
+    `;
 } else if (sku === "035") {
     dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
@@ -1323,7 +1354,7 @@ if (sku === "040") {
     } else if (type === "צמיד") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
-            <p><strong>קוטר כל חישוק:</strong> כ-1.7 ס\"מ</p>
+            <p><strong>קוטר כל חישוק:</strong> ${p.hoopSize || "כ-1.7 ס\"מ"}</p>
         `;
     } else if (isHishuk) {
         // סדרת החישוקים (קשת הצבעים)
@@ -1443,7 +1474,28 @@ if (sku === "040") {
             <p class="text-xs text-stone-500 mt-1">אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
         </div>
     `;
-} else if (p.type === "צמיד") {
+} else if (p.sku === "042") {
+    lengthSelectorHtml = `
+        <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">בחירת אורך השרשרת:</label>
+            <select id="detail-length" class="w-full border border-stone-300 p-2.5 rounded-lg bg-white text-sm">
+                <option value="45 ס&quot;מ">45 ס"מ (סטנדרט)</option>
+                <option value="50 ס&quot;מ">50 ס"מ</option>
+                <option value="55 ס&quot;מ">55 ס"מ</option>
+                <option value="60 ס&quot;מ">60 ס"מ</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1.5">אורך הצמיד (ס"מ):</label>
+            <div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden" dir="ltr">
+                <button type="button" onclick="stepLen('detail-bracelet-len', -0.5, 17, 14, 24)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הקטנת אורך">−</button>
+                <input type="number" id="detail-bracelet-len" class="qty-input w-20 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="17" min="14" max="24" step="0.5" inputmode="decimal" onchange="stepLen('detail-bracelet-len', 0, 17, 14, 24)">
+                <button type="button" onclick="stepLen('detail-bracelet-len', 0.5, 17, 14, 24)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת אורך">+</button>
+            </div>
+            <p class="text-xs text-stone-500 mt-1">אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
+        </div>
+    `;
+    } else if (p.type === "צמיד") {
     lengthSelectorHtml = `
         <div>
             <label class="block text-xs font-bold text-stone-700 mb-1.5">אורך הצמיד (ס"מ):</label>
@@ -1484,6 +1536,8 @@ let upgradeSectionHtml = '';
             [340, 610, ["020", "036"]],
             [90, 160,  ["025"]],
             [360, 650, ["040"]],
+            [130, 235, ["041"]],
+            [330, 600, ["042"]],
         ];
         const found = upgradeGroups.find(g => g[2].includes(p.sku));
         const original925 = found ? found[0] : 70;
@@ -1602,6 +1656,10 @@ ${qtyHtml}
         neckEl.value = n;
         braceEl.value = b;
         length = `${n} ס"מ | אורך צמיד: ${b} ס"מ`;
+           } else if (lengthEl && braceEl) {
+        const b = clampLen(braceEl.value, 17, 14, 24);
+        braceEl.value = b;
+        length = `${lengthEl.value} | אורך צמיד: ${b} ס"מ`;
     } else if (braceEl) {
         const b = clampLen(braceEl.value, 17, 14, 24);
         braceEl.value = b;
