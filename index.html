@@ -1295,14 +1295,13 @@ function lengthStepperHtml(id, label, def, min, max) {
         <div>
             <label class="block text-xs font-bold text-stone-700 mb-1.5">${label}</label>
             <div class="flex items-center w-full border border-stone-300 rounded-lg bg-white overflow-hidden" dir="ltr">
-                <button type="button" onclick="stepLen('${id}', -0.5, ${def}, ${min}, ${max})" class="w-12 h-11 text-lg hover:bg-stone-100 shrink-0" aria-label="הקטנת אורך">−</button>
+                <button type="button" onclick="stepLen('${id}', -1, ${def}, ${min}, ${max})" class="w-12 h-11 text-lg hover:bg-stone-100 shrink-0" aria-label="הקטנת אורך">−</button>
                 <div class="flex-1 flex items-center justify-center gap-1 h-11 border-x border-stone-300">
+                   <span class="text-sm text-stone-500 select-none pointer-events-none" dir="rtl">ס"מ</span> 
                     <input type="number" id="${id}" class="qty-input w-14 h-full text-center text-sm focus:outline-none" value="${def}" min="${min}" max="${max}" step="0.5" inputmode="decimal" onchange="stepLen('${id}', 0, ${def}, ${min}, ${max})">
-                    <span class="text-sm text-stone-500 select-none pointer-events-none">ס"מ</span>
-                </div>
-                <button type="button" onclick="stepLen('${id}', 0.5, ${def}, ${min}, ${max})" class="w-12 h-11 text-lg hover:bg-stone-100 shrink-0" aria-label="הגדלת אורך">+</button>
+                    </div>
+                <button type="button" onclick="stepLen('${id}', 1, ${def}, ${min}, ${max})" class="w-12 h-11 text-lg hover:bg-stone-100 shrink-0" aria-label="הגדלת אורך">+</button>
             </div>
-            <p class="text-xs text-stone-500 mt-1">אפשר להקליד אורך אחר או לשנות בצעדים של חצי ס"מ.</p>
         </div>`;
 }
        // פונקציית דף מוצר מעודכנת
