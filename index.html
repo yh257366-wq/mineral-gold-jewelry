@@ -1014,19 +1014,18 @@ const products = [
     sku: "047",
     type: "טבעת",
     img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/ring-flowers-cabochon.png",
-    desc: "טבעת זהובה עם קבושון עגול עם ציור פרחים.",
-    material: "טבעת מתכת זהובה, קבושון אקרילי מצויר"
+    desc: "טבעת זהובה משובצת בקבושון עגול עם ציור פרחים. הטבעת ניתנת להרחבה ולהקטנה.",    material: "טבעת מתכת זהובה, קבושון אקרילי מצויר",
     stoneSize: "10 מ\"מ"
 },
 {
     id: 48,
     title: "חפתי קבושון רובי בזואיזיט",
-    price: 50, originalPrice: 50,
+    price: 60, originalPrice: 60,
     sku: "048",
     type: "חפתים",
     img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/cufflinks-ruby-zoisite.png",
     desc: "זוג חפתים אלגנטי עם קבושונים בגוון ירוק וורוד-ארגמן במסגרת מתכת כסופה.",
-    material: "קבושוני רובי בזואיזיט (ייתכן שעשויים מחומר סינתטי), חפתי מתכת כסופים"
+    material: "קבושוני רובי בזואיזיט (ייתכן שעשויים מחומר סינתטי), חפתי מתכת כסופים",
     stoneSize: "12 מ\"מ"
 },
     { id: 3, title: "עגילי חישוק - קשת הצבעים", price: 80, originalPrice: 100, sku: "018", type: "עגילים", img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/earrings-hishuk.jpg.png", desc: "עגילי חישוק מרהיבים המשלבים קשת צבעים ייחודית של חרוזי צ'יפס קטנים המשולבים לאורך החישוק. עיצוב צבעוני, יפהפה ומרשים.", material: "חרוזי צ'יפס צבעוניים בגוון טבעי, חישוק עגול וחוט ליפוף עשויים מנחושת זהובה", stoneSize: "1.6 ס\"מ", totalLength: "כ-4 ס\"מ" },
@@ -1446,15 +1445,18 @@ if (sku === "040") {
             <p><strong>חומרים:</strong> ${material}</p>
             <p><strong>גודל כל קבושון:</strong> ${p.stoneSize}</p>
         `;
-    } else if (sku === "045") {
+        } else if (sku === "045" || sku === "047") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
             <p><strong>גודל הקבושון:</strong> ${p.stoneSize}</p>
             <p><strong>מידה:</strong> הטבעת מתכווננת, ניתנת להרחבה ולהקטנה</p>
         `;
-    } else if (sku === "047" || sku === "048") {
-        dimensionsHtml = `<p><strong>חומרים:</strong> ${material}</p>`;
-    } else if (type === "צמיד") {
+    } else if (sku === "048") {
+        dimensionsHtml = `
+            <p><strong>חומרים:</strong> ${material}</p>
+            <p><strong>גודל הקבושון:</strong> ${p.stoneSize}</p>
+        `;
+} else if (type === "צמיד") {
         dimensionsHtml = `
             <p><strong>חומרים:</strong> ${material}</p>
             <p><strong>קוטר כל חישוק:</strong> ${p.hoopSize || "כ-1.7 ס\"מ"}</p>
