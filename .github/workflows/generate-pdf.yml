@@ -4,11 +4,17 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'pdf-template.html'
+      - 'generate-pdf.js'
+      - 'images/**'
+      - '.github/workflows/generate-pdf.yml'
+  workflow_dispatch:
 
 concurrency:
   group: generate-pdf
   cancel-in-progress: true
-  
+
 permissions:
   contents: write
 
@@ -30,13 +36,20 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install puppeteer
+        run: npm install puppeteer sharp
 
       - name: Generate PDF
         run: node generate-pdf.js
 
-      - name: Commit and Push PDF
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Auto-generated updated PDF [skip ci]"
-          file_pattern: 'catalog.pdf'
+      - name: Show file size
+        run: ls -lh catalog.pdf
+
+      - name: Publish PDF to Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete catalog-latest --yes --cleanup-tag || true
+          gh release create catalog-latest catalog.pdf \
+            --target ${{ github.sha }} \
+            --title "Latest Catalog" \
+            --notes "קטלוג מעודכן אוטומטית"
