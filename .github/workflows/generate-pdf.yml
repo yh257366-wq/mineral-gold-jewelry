@@ -44,12 +44,8 @@ jobs:
       - name: Show file size
         run: ls -lh catalog.pdf
 
-      - name: Publish PDF to Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release delete catalog-latest --yes --cleanup-tag || true
-          gh release create catalog-latest catalog.pdf \
-            --target ${{ github.sha }} \
-            --title "Latest Catalog" \
-            --notes "קטלוג מעודכן אוטומטית"
+      - name: Commit and Push PDF
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-generated updated PDF"
+          file_pattern: 'catalog.pdf'
