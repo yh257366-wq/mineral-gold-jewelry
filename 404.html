@@ -20,7 +20,7 @@ a.btn{display:inline-block;background:#b8935a;color:#000;font-weight:700;text-de
   var path = location.pathname.toLowerCase().replace(/\/+$/, "");
   var box = document.getElementById("box");
   if (path === "/catalog.pdf") {
-    box.innerHTML = '<h1>הקטלוג מתחיל להיות מורד</h1>' +
+    box.innerHTML = '<h1>הורדת הקטלוג מתבצעת...</h1>' +
       '<p>אם ההורדה לא התחילה, אפשר ללחוץ על הכפתור.</p>' +
       '<a class="btn" href="' + CATALOG + '">להורדת הקטלוג (PDF)</a>';
     location.replace(CATALOG);
