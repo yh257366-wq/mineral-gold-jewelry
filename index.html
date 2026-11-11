@@ -179,13 +179,19 @@ input[type=number].qty-input { -moz-appearance: textfield; }
         
      <div id="view-gallery" class="view-section active">
      
-         <!-- כותרת + קטלוג -->
+<!-- כותרת + קטלוג -->
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
     <h2 class="text-3xl md:text-4xl font-serif font-bold text-stone-900">הקולקציה שלנו</h2>
-    <a href="https://github.com/yh257366-wq/mineral-gold-jewelry/releases/download/catalog-latest/catalog.pdf" target="_blank" class="bg-[#14532d] hover:bg-[#0f3d21] text-white font-bold px-7 py-3 rounded-full text-base shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center justify-center gap-2 self-start sm:self-auto shrink-0 no-print btn-animate">
-        <span>📄</span>
-        <span>להורדת הקטלוג המלא (PDF)</span>
-    </a>
+    <div class="flex flex-wrap gap-3 self-start sm:self-auto shrink-0 no-print">
+        <a href="catalog.pdf" target="_blank" class="bg-[#14532d] hover:bg-[#0f3d21] text-white font-bold px-7 py-3 rounded-full text-base shadow-md hover:shadow-lg transition-all duration-200 inline-flex items-center justify-center gap-2 btn-animate">
+            <span>📄</span>
+            <span>לצפייה בקטלוג המלא (PDF)</span>
+        </a>
+        <a href="catalog.pdf" download="mineral-gold-catalog.pdf" class="bg-white hover:bg-stone-100 text-[#14532d] border-2 border-[#14532d] font-bold px-7 py-3 rounded-full text-base transition-all duration-200 inline-flex items-center justify-center gap-2 btn-animate">
+            <span>⬇️</span>
+            <span>להורדה</span>
+        </a>
+    </div>
 </div>
          
 <!-- פס אמון -->
