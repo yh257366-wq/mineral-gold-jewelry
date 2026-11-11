@@ -189,7 +189,7 @@ function render(){
     const chunk=products.slice(pg*per,pg*per+per);
     h+=`<section class="page"><div class="head"><b>מינרל גולד</b><span>MINERAL GOLD</span></div>
       <div class="list">${chunk.map((p,i)=>itemHtml(p,pg*per+i)).join("")}</div>
-      <div class="foot"><span>mineral-gold.co.il</span><span>${pg+2} / ${total}</span></div></section>`;
+      <div class="foot"><span>mineral-gold.co.il</span><span dir="ltr">${pg+2} / ${total}</span></div></section>`;
   }
   h+=`<section class="page contact"><div class="frame"></div>
     <img src="${LOGO}" alt="מינרל גולד">
