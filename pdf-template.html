@@ -170,7 +170,7 @@ function itemHtml(p,i){
         ? `<span class="now">${p.price} ₪</span><span class="old">${p.originalPrice} ₪</span>`
         : `<span class="now" style="color:var(--ink)">${p.originalPrice} ₪</span>`}</div>
       <div class="desc">${p.desc}</div>
-      <div class="specs"><div><b>חומרים:</b> ${p.material}</div><div><b>גודל:</b> ${p.size}</div>${care}</div>
+      <div class="specs"><div><b>חומרים:</b> ${p.material}</div><div><b>מידות:</b> ${p.size}</div>${care}</div>
       ${p.sku==="040"?'<div class="chain">✦ אורך שרשרת לבחירה: 30-60 ס"מ · אורך צמיד לבחירה: 14-24 ס"מ</div>':(p.sku==="042"?'<div class="chain">✦ אורך שרשרת לבחירה: 45-60 ס"מ · אורך צמיד לבחירה: 14-24 ס"מ</div>':(isPendant?'<div class="chain">✦ אורך שרשרת לבחירה: 45-60 ס"מ</div>':''))}
       ${p.type==="צמיד"?'<div class="chain">✦ אורך צמיד לבחירה: 14-24 ס"מ</div>':''}
       ${p.sku==="043"?'<div class="chain">✦ אורך שרשרת לבחירה: 30-60 ס"מ</div>':''}
