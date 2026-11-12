@@ -187,11 +187,7 @@ input[type=number].qty-input { -moz-appearance: textfield; }
             <span>📄</span>
             <span>לצפייה בקטלוג המלא (PDF)</span>
         </a>
-        <a href="catalog.pdf" download="mineral-gold-catalog.pdf" class="bg-white hover:bg-stone-100 text-[#14532d] border-2 border-[#14532d] font-bold px-7 py-3 rounded-full text-base transition-all duration-200 inline-flex items-center justify-center gap-2 btn-animate">
-            <span>⬇️</span>
-            <span>להורדה</span>
-        </a>
-    </div>
+        </div>
 </div>
          
 <!-- פס אמון -->
@@ -1257,31 +1253,47 @@ if (!SALE_ACTIVE) {
     const saved = localStorage.getItem('mineral_silver_cart_v2');
     if (saved) { try { cart = JSON.parse(saved); } catch(e) { cart = []; } }
 }
-        loadCart();
+        loadCart();let galleryScrollY = 0;
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
 function showView(viewName, isPopState = false) {
-            document.querySelectorAll('.view-section').forEach(section => {
-                section.classList.remove('active');
-                section.style.transform = 'none'; 
-            });
-            
-            const targetView = document.getElementById(`view-${viewName}`);
-            if (targetView) {
-                targetView.classList.add('active');
-            }
-            
-            if (viewName === 'summary') {
-                targetView.style.contain = 'content';
-                targetView.querySelectorAll('.btn-animate').forEach(el => el.classList.remove('btn-animate'));
-            }
+    const galleryEl = document.getElementById('view-gallery');
+    const cameFromGallery = galleryEl.classList.contains('active');
 
-            window.scrollTo(0, 0);
-            if (viewName === 'checkout') updateCheckoutDisplay();
+    // כשעוזבים את הקולקציה, זוכרים באיזה מקום הגולש היה
+    if (cameFromGallery && viewName !== 'gallery') {
+        galleryScrollY = window.scrollY;
+    }
 
-            // הוספת הדף להיסטוריית הדפדפן כדי לאפשר ניווט בחיצים
-            if (!isPopState) {
-                history.pushState({ view: viewName }, "", `#${viewName}`);
-            }
-        }
+    document.querySelectorAll('.view-section').forEach(section => {
+        section.classList.remove('active');
+        section.style.transform = 'none';
+    });
+
+    const targetView = document.getElementById(`view-${viewName}`);
+    if (targetView) {
+        targetView.classList.add('active');
+    }
+
+    if (viewName === 'summary') {
+        targetView.style.contain = 'content';
+        targetView.querySelectorAll('.btn-animate').forEach(el => el.classList.remove('btn-animate'));
+    }
+
+    // חזרה לקולקציה ממקום אחר: מחזירים למקום שבו היה. בכל מקרה אחר: לראש הדף
+    if (viewName === 'gallery' && !cameFromGallery) {
+        window.scrollTo(0, galleryScrollY);
+    } else {
+        window.scrollTo(0, 0);
+    }
+
+    if (viewName === 'checkout') updateCheckoutDisplay();
+
+    // הוספת הדף להיסטוריית הדפדפן כדי לאפשר ניווט בחיצים
+    if (!isPopState) {
+        history.pushState({ view: viewName }, "", `#${viewName}`);
+    }
+}
 
         function openCartModal() { document.getElementById('cart-modal').classList.remove('hidden'); }
         function closeCartModal() { document.getElementById('cart-modal').classList.add('hidden'); }
