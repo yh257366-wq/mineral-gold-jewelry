@@ -991,6 +991,33 @@ const products = [
         material: "קבושון מאבן רובי בזואיסיט (Ruby in Zoisite) [הידועה גם בשם אניוליט (Anyolite)], חוט נחושת זהוב", 
         size: "2.5*1.8 ס\"מ" 
     },
+        {
+        id: 50,
+        title: "עגילי יער הצבעים",
+        price: 120,
+        originalPrice: 150,
+        sku: "050",
+        type: "עגילים",
+        img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/forest-colors-earrings.png",
+        desc: "עגילים חגיגיים בעלי שילוב גוונים ייחודי המזכיר יער מלבלב, ממוסגרים בעבודת יד מוקפדת בחוט כסוף.",
+        material: "קבושוני רובי בזואיזיט (ייתכן שעשויים מחומר סינתטי), חוט נחושת כסוף",
+        stoneSize: "1*1.4 ס\"מ",
+        totalLength: "כ-4 ס\"מ"
+    },
+    {
+        id: 51,
+        title: "סט תליון ועגילים יער הצבעים",
+        price: 200,
+        originalPrice: 250,
+        sku: "051",
+        type: "סט תכשיטים",
+        img: "https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/set-forest-colors.png",
+        desc: "סט תליון ועגילים חגיגיים בעלי שילוב גוונים ייחודי המזכיר יער מלבלב, ממוסגרים בעבודת יד מוקפדת בחוט כסוף.",
+        material: "קבושוני רובי בזואיזיט (ייתכן שעשויים מחומר סינתטי), חוט נחושת כסוף",
+        pendantStoneSize: "2.5*1.8 ס\"מ",
+        earringStoneSize: "1*1.4 ס\"מ",
+        totalLength: "כ-4 ס\"מ"
+    },
     {
     id: 44,
     title: "צמיד קבושוני רובי בזואיזיט",
@@ -1628,6 +1655,8 @@ let upgradeSectionHtml = '';
             [360, 650, ["040"]],
             [130, 235, ["041", "034", "049"]],
             [330, 600, ["042"]],
+            [90, 165,  ["050"]],
+            [220, 400, ["051"]],
         ];
         const found = upgradeGroups.find(g => g[2].includes(p.sku));
         const original925 = found ? found[0] : 70;
