@@ -1359,16 +1359,29 @@ function stepLen(id, delta, def, min, max) {
     el.value = clampLen((parseFloat(el.value) || def) + delta, def, min, max);
 }
 
+let currentDetailPrice = 0;
+
+function updateDetailTotal() {
+    const totalEl = document.getElementById('detail-total');
+    if (!totalEl) return;
+    const upEl = document.getElementById('detail-upgrade');
+    const upgrade = upEl ? (parseInt(upEl.value) || 0) : 0;
+    const qtyEl = document.getElementById('detail-qty');
+    const qty = clampQty(qtyEl ? qtyEl.value : 1);
+    totalEl.innerText = ((currentDetailPrice + upgrade) * qty) + " ₪";
+}
+
 function stepDetailQty(delta) {
     const el = document.getElementById('detail-qty');
     el.value = clampQty((parseInt(el.value) || 1) + delta);
+    updateDetailTotal();
 }
 
 function normalizeDetailQty() {
     const el = document.getElementById('detail-qty');
     el.value = clampQty(el.value);
+    updateDetailTotal();
 }
-
 function getCartQtyForProduct(id) {
     return cart.filter(i => i.id === id).reduce((s, i) => s + i.quantity, 0);
 }
@@ -1695,8 +1708,8 @@ let upgradeSectionHtml = '';
                 ${saleNote}
                 <div>
                     <label class="block text-xs font-bold text-stone-700 mb-1.5">שדרוג סוג המתכת</label>
-                    <select id="detail-upgrade" class="w-full border border-stone-300 p-2.5 rounded-lg bg-white text-sm">
-                        <option value="0">ללא שדרוג (בסיס)</option>
+                     <select id="detail-upgrade" onchange="updateDetailTotal()" class="w-full border border-stone-300 p-2.5 rounded-lg bg-white text-sm">
+                       <option value="0">ללא שדרוג (בסיס)</option>
                         <option value="${sale925}">${opt925}</option>
                         <option value="${saleGold}">${optGold}</option>
                     </select>
@@ -1710,8 +1723,8 @@ const qtyHtml = `
         <label class="block text-xs font-bold text-stone-700 mb-1.5">כמות:</label>
         <div class="inline-flex items-center border border-stone-300 rounded-lg bg-white overflow-hidden" dir="ltr">
             <button type="button" onclick="stepDetailQty(-1)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הפחתת כמות">−</button>
-            <input type="number" id="detail-qty" class="qty-input w-14 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="1" min="1" max="99" inputmode="numeric" onchange="normalizeDetailQty()">
-            <button type="button" onclick="stepDetailQty(1)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת כמות">+</button>
+<input type="number" id="detail-qty" class="qty-input w-14 h-10 text-center text-sm border-x border-stone-300 focus:outline-none" value="1" min="1" max="99" inputmode="numeric" oninput="updateDetailTotal()" onchange="normalizeDetailQty()">
+<button type="button" onclick="stepDetailQty(1)" class="w-10 h-10 text-lg hover:bg-stone-100" aria-label="הגדלת כמות">+</button>
         </div>
     </div>
 `;
@@ -1760,6 +1773,10 @@ ${qtyHtml}
                     </div>
                 </div>
                 <div id="in-cart-badge" class="mt-6 no-print"></div>
+                    <div class="mt-6 flex justify-between items-center bg-stone-50 border border-stone-200 rounded-xl px-4 py-3">
+                    <span class="text-sm font-bold text-stone-700">סה"כ למוצר זה:</span>
+                    <span id="detail-total" class="text-xl font-bold text-stone-900">${p.price} ₪</span>
+                </div>
                 <div class="mt-8 flex gap-4">
                     <button onclick="addToCartFromPage(event, ${p.id})" class="flex-1 bg-stone-950 text-white font-medium py-4 rounded-xl hover:bg-black transition-colors text-center shadow-sm">
                         הוספה לעגלת הקניות
@@ -1769,6 +1786,8 @@ ${qtyHtml}
             </div>
         </div>
     `;
+    currentDetailPrice = p.price;
+    updateDetailTotal();
     updateInCartBadge(p.id);
     showView('product');
 }
@@ -1831,6 +1850,7 @@ ${qtyHtml}
     updateNavCount();
     updateInCartBadge(id);
     if (qtyEl) qtyEl.value = 1;
+    updateDetailTotal();
     openCartModal();
 }
         function updateNavCount() {
