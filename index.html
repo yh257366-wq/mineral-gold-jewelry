@@ -192,15 +192,72 @@ input[type=number].qty-input { -moz-appearance: textfield; }
 </div>
 
         <!-- באנר מבצע חנוכה -->
-<div id="sale-banner" class="relative mb-8 rounded-2xl overflow-hidden shadow-md border border-[#b8935a]/60" style="background:radial-gradient(circle at 20% 0%,#2a2118 0%,#0b0a09 75%)">
-    <div class="h-1" style="background:linear-gradient(to left,#b8935a,#e6cfa3,#d9dce1,#b8935a)"></div>
-    <div class="text-center py-5 px-12">
-        <p class="text-[#e6cfa3] tracking-[0.4em] text-sm mb-1">✦ 🕎 ✦</p>
-        <p class="font-serif text-xl md:text-2xl font-bold text-[#e6cfa3]">מבצע חנוכה · 8% הנחה על כל התכשיטים</p>
-        <p class="text-xs md:text-sm text-[#d9dce1] mt-1.5">המחירים באתר כבר מעודכנים · ההנחה על מחיר התכשיט, ללא שדרוגי מתכת</p>
-        <p class="text-xs text-[#b8935a] mt-1">בתוקף עד 11/12/2026 (כולל)</p>
+<style>
+    .hk-silver { background: linear-gradient(180deg,#ffffff 0%,#dfe2e8 45%,#a3a9b4 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; filter: drop-shadow(0 1px 1px rgba(70,45,0,.75)); }
+    .hk-flame { transform-origin: 50% 100%; animation: hkFlicker 1.6s ease-in-out infinite alternate; }
+    .hk-flame:nth-of-type(2n) { animation-delay: .4s; }
+    @keyframes hkFlicker { from { transform: scale(1) rotate(-2deg); opacity: .95; } to { transform: scale(1.12,1.18) rotate(2deg); opacity: 1; } }
+    .hk-box { background: linear-gradient(180deg,#fff,#e3e6eb); border: 1px solid #9a7418; border-radius: 12px; min-width: 56px; padding: 6px 4px 4px; box-shadow: 0 2px 6px rgba(70,45,0,.35); }
+</style>
+<div id="sale-banner" class="relative mb-8 rounded-3xl overflow-hidden shadow-lg border-2 border-[#8a6414]" style="background:linear-gradient(135deg,#8a6414 0%,#d4a62a 30%,#f6dc7a 52%,#d4a62a 72%,#9a7418 100%)">
+    <div class="h-1.5" style="background:linear-gradient(to left,#e8eaee,#9aa0aa,#ffffff,#9aa0aa,#e8eaee)"></div>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 py-6 px-10">
+
+        <!-- חנוכיה -->
+        <svg viewBox="0 0 220 150" class="w-44 md:w-56 shrink-0" aria-hidden="true">
+            <defs>
+                <linearGradient id="hkMetal" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#c9ced6"/><stop offset="1" stop-color="#8b919c"/>
+                </linearGradient>
+                <radialGradient id="hkFlameG" cx=".5" cy=".75" r=".6">
+                    <stop offset="0" stop-color="#fff7c2"/><stop offset=".55" stop-color="#ffb21e"/><stop offset="1" stop-color="#e8591a"/>
+                </radialGradient>
+            </defs>
+            <g fill="none" stroke="url(#hkMetal)" stroke-width="5" stroke-linecap="round">
+                <path d="M14 86 C14 112 110 104 110 118"/><path d="M38 86 C38 110 110 102 110 118"/>
+                <path d="M62 86 C62 106 110 100 110 118"/><path d="M86 86 C86 102 110 98 110 118"/>
+                <path d="M206 86 C206 112 110 104 110 118"/><path d="M182 86 C182 110 110 102 110 118"/>
+                <path d="M158 86 C158 106 110 100 110 118"/><path d="M134 86 C134 102 110 98 110 118"/>
+                <path d="M110 118 L110 136"/>
+            </g>
+            <path d="M70 146 Q110 124 150 146 Z" fill="url(#hkMetal)" stroke="#7a5a10" stroke-width="1"/>
+            <g fill="#fffdf4" stroke="#9a7418" stroke-width="1">
+                <rect x="10.5" y="58" width="7" height="28" rx="1.5"/><rect x="34.5" y="58" width="7" height="28" rx="1.5"/>
+                <rect x="58.5" y="58" width="7" height="28" rx="1.5"/><rect x="82.5" y="58" width="7" height="28" rx="1.5"/>
+                <rect x="106.5" y="40" width="7" height="46" rx="1.5"/>
+                <rect x="130.5" y="58" width="7" height="28" rx="1.5"/><rect x="154.5" y="58" width="7" height="28" rx="1.5"/>
+                <rect x="178.5" y="58" width="7" height="28" rx="1.5"/><rect x="202.5" y="58" width="7" height="28" rx="1.5"/>
+            </g>
+            <g fill="url(#hkFlameG)">
+                <path class="hk-flame" d="M14 40 C8 50 9 57 14 57 C19 57 20 50 14 40Z"/>
+                <path class="hk-flame" d="M38 40 C32 50 33 57 38 57 C43 57 44 50 38 40Z"/>
+                <path class="hk-flame" d="M62 40 C56 50 57 57 62 57 C67 57 68 50 62 40Z"/>
+                <path class="hk-flame" d="M86 40 C80 50 81 57 86 57 C91 57 92 50 86 40Z"/>
+                <path class="hk-flame" d="M110 20 C103 32 104 39 110 39 C116 39 117 32 110 20Z"/>
+                <path class="hk-flame" d="M134 40 C128 50 129 57 134 57 C139 57 140 50 134 40Z"/>
+                <path class="hk-flame" d="M158 40 C152 50 153 57 158 57 C163 57 164 50 158 40Z"/>
+                <path class="hk-flame" d="M182 40 C176 50 177 57 182 57 C187 57 188 50 182 40Z"/>
+                <path class="hk-flame" d="M206 40 C200 50 201 57 206 57 C211 57 212 50 206 40Z"/>
+            </g>
+        </svg>
+
+        <!-- טקסט וספירה -->
+        <div class="text-center">
+            <p class="hk-silver font-serif text-3xl md:text-5xl font-bold leading-tight">מבצע חנוכה</p>
+            <p class="hk-silver font-serif text-xl md:text-2xl font-bold mt-1">8% הנחה על כל התכשיטים</p>
+            <p class="text-sm md:text-base font-bold text-[#3d2a05] mt-2">8 נרות · 8 ימים · 8% · אחוז הנחה על כל נר ✦</p>
+            <p class="text-xs md:text-sm text-[#3d2a05] mt-1">ההנחה על מחיר התכשיט, ללא שדרוגי מתכת</p>
+
+            <div class="flex items-center justify-center gap-2 mt-3" dir="rtl" aria-label="הזמן שנותר למבצע">
+                <div class="hk-box"><div id="cd-days" class="text-xl font-bold text-[#3d2a05]">--</div><div class="text-[10px] text-[#5a4210]">ימים</div></div>
+                <div class="hk-box"><div id="cd-hours" class="text-xl font-bold text-[#3d2a05]">--</div><div class="text-[10px] text-[#5a4210]">שעות</div></div>
+                <div class="hk-box"><div id="cd-mins" class="text-xl font-bold text-[#3d2a05]">--</div><div class="text-[10px] text-[#5a4210]">דקות</div></div>
+                <div class="hk-box"><div id="cd-secs" class="text-xl font-bold text-[#3d2a05]">--</div><div class="text-[10px] text-[#5a4210]">שניות</div></div>
+            </div>
+            <p class="text-xs font-bold text-[#3d2a05] mt-2">בתוקף עד זאת חנוכה 12/12/2026 (כולל)</p>
+        </div>
     </div>
-    <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-3 left-4 text-xl leading-none text-[#e6cfa3]/70 hover:text-[#e6cfa3]" aria-label="סגירת הבאנר">✕</button>
+    <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-3 left-4 text-xl leading-none text-[#3d2a05]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
 </div>
          
          <!-- סינון -->
@@ -1223,8 +1280,10 @@ const products = [
         
        // ===== מבצע חנוכה =====
 const SALE_PERCENT = 8;
-const SALE_END = new Date('2026-12-12T00:00:00+02:00');  // חצות ליל 11→12/12, שעון ישראל
-const SALE_MANUAL_OFF = false;                            // true = כיבוי ידני מיידי של המבצע
+const SALE_END = new Date('2026-12-13T00:00:00+02:00');  // חצות ליל 12→13/12, כלומר 12/12 כולל
+       const SALE_MANUAL_OFF = false; 
+       
+       // true = כיבוי ידני מיידי של המבצע
 const SALE_ACTIVE = !SALE_MANUAL_OFF && Date.now() < SALE_END.getTime();
 
 if (SALE_ACTIVE) {
@@ -1234,7 +1293,23 @@ if (SALE_ACTIVE) {
     products.forEach(p => { p.price = p.originalPrice; });
     const saleBanner = document.getElementById('sale-banner');
     if (saleBanner) saleBanner.remove();
-} 
+}
+       // ספירה לאחור בבאנר
+(function () {
+    if (!SALE_ACTIVE) return;
+    const pad = n => String(n).padStart(2, '0');
+    function tick() {
+        const left = SALE_END.getTime() - Date.now();
+        if (left <= 0) { location.reload(); return; }
+        const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+        set('cd-days', pad(Math.floor(left / 86400000)));
+        set('cd-hours', pad(Math.floor(left / 3600000) % 24));
+        set('cd-mins', pad(Math.floor(left / 60000) % 60));
+        set('cd-secs', pad(Math.floor(left / 1000) % 60));
+    }
+    document.addEventListener('DOMContentLoaded', () => { tick(); setInterval(tick, 1000); });
+})();
+       
        let cart = [];
         const CORRECT_GOOGLE_URL = "https://script.google.com/macros/s/AKfycbxlEVCMWR0VA0P9L3khC9XNHNcmoaYdQswZKjEOBtVTr9U3xB2QdeWt6lnhcxxZWcPC/exec"; 
        const PAYMENT_API_URL = "https://script.google.com/macros/s/AKfycbz1lv6u1PfMHCKrL0-Hy-WBW4FaTQ9g6UfWM9Q3CSL6ZrttLZIipRvOG2j0wBJ1VA0s/exec"; 
