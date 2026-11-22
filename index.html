@@ -204,6 +204,8 @@ input[type=number].qty-input { -moz-appearance: textfield; }
     .hk-cup { cursor: pointer; }
     .hk-cup.off .hk-flame { opacity: 0; animation: none; }
     .hk-menorah svg { width: 100%; height: auto; overflow: visible; display: block; }
+    .hk-hint { color: #fffaf0; font-size: 11px; line-height: 1.3; text-align: center; margin-top: 6px; text-shadow: 0 1px 2px rgba(50,30,0,.9), 0 0 6px rgba(50,30,0,.55); }
+    @media (min-width: 768px) { .hk-hint { font-size: 13px; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -228,24 +230,56 @@ input[type=number].qty-input { -moz-appearance: textfield; }
     <div class="h-1.5" style="background:linear-gradient(to left,#14171c,#5d6470,#2b2f38,#5d6470,#14171c)"></div>
     <div class="flex items-center justify-center gap-2 sm:gap-6 md:gap-8 py-6 px-3 md:px-8">
 
-        <div class="hk-menorah w-28 sm:w-44 md:w-64 shrink-0"></div>
+        <!-- חנוכיה ימנית + הוראה -->
+        <div class="w-28 sm:w-44 md:w-64 shrink-0 flex flex-col items-center">
+            <div class="hk-menorah w-full"></div>
+            <p class="hk-hint">לחצו על כל בזיך שמן כדי להדליק או לכבות אותו</p>
+        </div>
 
         <div class="text-center">
             <p class="hk-steel font-serif text-3xl md:text-5xl font-bold leading-tight">מבצע חנוכה</p>
             <p class="hk-steel font-serif text-xl md:text-3xl font-bold leading-tight mt-1">8% הנחה על כל התכשיטים</p>
 
-            <p class="hk-steel text-base md:text-xl mt-2 leading-tight flex items-center justify-center gap-1.5" style="font-family:'Suez One','Frank Ruhl Libre',serif">
+            <p class="hk-steel text-base md:text-xl mt-2 leading-tight flex items-center justify-center gap-2" style="font-family:'Suez One','Frank Ruhl Libre',serif">
                 <span>8 ימים</span>
-                <svg viewBox="0 0 14 40" class="h-7 md:h-9 w-auto" aria-hidden="true" style="-webkit-text-fill-color:initial;filter:drop-shadow(0 1px 0 rgba(255,255,255,.5))"><rect x="5.5" y="1" width="3" height="6" rx="1" fill="#14171c"/><rect x="2" y="7" width="10" height="32" rx="2" fill="url(#hkSilverH)" stroke="#14171c" stroke-width="1"/></svg>
+                <svg viewBox="-18 -46 36 56" class="h-9 md:h-12 w-auto" aria-hidden="true" style="-webkit-text-fill-color:initial;filter:drop-shadow(0 1px 0 rgba(255,255,255,.4))">
+                    <path d="M-12 1 Q0 10 12 1 Z" fill="url(#hkSilverH)"/>
+                    <path d="M-8 -12 L8 -12 L6 -1 Q0 1 -6 -1 Z" fill="url(#hkOil)"/>
+                    <rect x="-3" y="-13" width="6" height="2" fill="#cbd5e1"/>
+                    <line x1="0" y1="-12" x2="0" y2="-19" stroke="#1e293b" stroke-width="1.5"/>
+                    <path d="M-10 -20 L10 -20 L7 0 Q0 2 -7 0 Z" fill="rgba(255,255,255,.35)" stroke="#3d2a05" stroke-opacity=".55" stroke-width="1.1"/>
+                    <line x1="-6" y1="-18" x2="-4.5" y2="-4" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round"/>
+                    <g class="hk-flame" style="animation-duration:1.5s">
+                        <circle cx="0" cy="-28" r="18" fill="url(#hkGlow)"/>
+                        <path d="M0 -41 Q7.5 -26 0 -19 Q-7.5 -26 0 -41" fill="#f59e0b"/>
+                        <path d="M0 -35 Q3.5 -26 0 -21 Q-3.5 -26 0 -35" fill="#fef08a"/>
+                    </g>
+                </svg>
                 <span>8 נרות</span>
-                <svg viewBox="0 0 14 40" class="h-7 md:h-9 w-auto" aria-hidden="true" style="-webkit-text-fill-color:initial;filter:drop-shadow(0 1px 0 rgba(255,255,255,.5))"><rect x="5.5" y="1" width="3" height="6" rx="1" fill="#14171c"/><rect x="2" y="7" width="10" height="32" rx="2" fill="url(#hkSilverH)" stroke="#14171c" stroke-width="1"/></svg>
+                <svg viewBox="-18 -46 36 56" class="h-9 md:h-12 w-auto" aria-hidden="true" style="-webkit-text-fill-color:initial;filter:drop-shadow(0 1px 0 rgba(255,255,255,.4))">
+                    <path d="M-12 1 Q0 10 12 1 Z" fill="url(#hkSilverH)"/>
+                    <path d="M-8 -12 L8 -12 L6 -1 Q0 1 -6 -1 Z" fill="url(#hkOil)"/>
+                    <rect x="-3" y="-13" width="6" height="2" fill="#cbd5e1"/>
+                    <line x1="0" y1="-12" x2="0" y2="-19" stroke="#1e293b" stroke-width="1.5"/>
+                    <path d="M-10 -20 L10 -20 L7 0 Q0 2 -7 0 Z" fill="rgba(255,255,255,.35)" stroke="#3d2a05" stroke-opacity=".55" stroke-width="1.1"/>
+                    <line x1="-6" y1="-18" x2="-4.5" y2="-4" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round"/>
+                    <g class="hk-flame" style="animation-duration:1.85s;animation-delay:.5s">
+                        <circle cx="0" cy="-28" r="18" fill="url(#hkGlow)"/>
+                        <path d="M0 -41 Q7.5 -26 0 -19 Q-7.5 -26 0 -41" fill="#f59e0b"/>
+                        <path d="M0 -35 Q3.5 -26 0 -21 Q-3.5 -26 0 -35" fill="#fef08a"/>
+                    </g>
+                </svg>
                 <span>8% הנחה</span>
             </p>
             <p class="text-xs md:text-sm text-[#2b1d03] mt-2">ההנחה על מחיר הבסיס, ללא השדרוגים</p>
             <p class="text-xs md:text-sm font-bold text-[#2b1d03] mt-1">בתוקף עד זאת חנוכה 12/12/2026 (כולל)</p>
         </div>
 
-        <div class="hk-menorah w-28 sm:w-44 md:w-64 shrink-0"></div>
+        <!-- חנוכיה שמאלית + הוראה -->
+        <div class="w-28 sm:w-44 md:w-64 shrink-0 flex flex-col items-center">
+            <div class="hk-menorah w-full"></div>
+            <p class="hk-hint">לחצו על כל בזיך שמן כדי להדליק או לכבות אותו</p>
+        </div>
     </div>
     <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-3 left-4 text-xl leading-none text-[#2b1d03]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
 </div>
@@ -270,7 +304,7 @@ input[type=number].qty-input { -moz-appearance: textfield; }
             '</g>';
     }).join('');
 
-    var svg = '<svg viewBox="10 36 380 234" xmlns="http://www.w3.org/2000/svg" aria-label="חנוכיה, לחצו על נר כדי להדליק או לכבות">' +
+    var svg = '<svg viewBox="10 36 380 234" xmlns="http://www.w3.org/2000/svg" aria-label="חנוכיה, לחצו על בזיך כדי להדליק או לכבות">' +
         '<path d="M130 264 L270 264 L260 250 L140 250 Z" fill="url(#hkSilverH)"/>' +
         '<rect x="165" y="238" width="70" height="12" rx="4" fill="url(#hkSilverH)"/>' +
         '<rect x="193" y="95" width="14" height="145" fill="url(#hkSilverH)"/>' +
