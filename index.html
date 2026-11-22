@@ -194,13 +194,18 @@ input[type=number].qty-input { -moz-appearance: textfield; }
         <!-- באנר מבצע חנוכה -->
 <style>
     .hk-steel { background: linear-gradient(180deg,#5d6470 0%,#2b2f38 55%,#14171c 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; filter: drop-shadow(0 1px 0 rgba(255,255,255,.55)); }
-    .hk-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: hkFlicker 2.4s ease-in-out infinite alternate; }
-    .hk-flame.b { animation-duration: 3s; animation-delay: .9s; }
-    @keyframes hkFlicker { from { transform: scale(1,1); opacity: .94; } to { transform: scale(.95,1.06); opacity: 1; } }
-    .hk-box { background: linear-gradient(180deg,#fff,#e6e8ec); border: 1px solid #5a4210; border-radius: 12px; min-width: 56px; padding: 6px 4px 4px; box-shadow: 0 2px 6px rgba(70,45,0,.35); }
+    @keyframes hkFlicker {
+        0%, 100% { transform: scale(1) rotate(-1deg); opacity: .95; }
+        25% { transform: scale(1.06,.96) rotate(2deg); opacity: 1; }
+        50% { transform: scale(.95,1.05) rotate(-2deg); opacity: .88; }
+        75% { transform: scale(1.03,.98) rotate(1deg); opacity: .98; }
+    }
+    .hk-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: hkFlicker 1.6s infinite ease-in-out; transition: opacity .3s ease; }
+    .hk-cup { cursor: pointer; }
+    .hk-cup.off .hk-flame { opacity: 0; animation: none; }
+    .hk-menorah svg { width: 100%; height: auto; overflow: visible; display: block; }
 </style>
 
-<!-- הגדרת החנוכיה (פעם אחת, משמשת פעמיים) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
         <linearGradient id="hkSilverH" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -214,99 +219,81 @@ input[type=number].qty-input { -moz-appearance: textfield; }
             <stop offset="0%" stop-color="#fcd34d" stop-opacity=".95"/><stop offset="100%" stop-color="#b45309" stop-opacity=".95"/>
         </linearGradient>
         <radialGradient id="hkGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#fff3b0" stop-opacity=".6"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#fff3b0" stop-opacity=".7"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
-
-        <!-- בזיך אחד (נקודת הייחוס: מרכז הבסיס). שני גרסאות, לריצוד לא סינכרוני -->
-        <g id="hkCupA">
-            <path d="M-8 -12 L8 -12 L6 -1 Q0 1 -6 -1 Z" fill="url(#hkOil)"/>
-            <rect x="-3" y="-13" width="6" height="2" fill="#cbd5e1"/>
-            <line x1="0" y1="-12" x2="0" y2="-19" stroke="#1e293b" stroke-width="1.5"/>
-            <path d="M-10 -20 L10 -20 L7 0 Q0 2 -7 0 Z" fill="rgba(255,255,255,.35)" stroke="#3d2a05" stroke-opacity=".55" stroke-width="1.1"/>
-            <line x1="-6" y1="-18" x2="-4.5" y2="-4" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="0" cy="-28" r="17" fill="url(#hkGlow)"/>
-            <g class="hk-flame">
-                <path d="M0 -41 Q7.5 -26 0 -19 Q-7.5 -26 0 -41" fill="#f59e0b"/>
-                <path d="M0 -35 Q3.5 -26 0 -21 Q-3.5 -26 0 -35" fill="#fef08a"/>
-            </g>
-        </g>
-        <g id="hkCupB">
-            <path d="M-8 -12 L8 -12 L6 -1 Q0 1 -6 -1 Z" fill="url(#hkOil)"/>
-            <rect x="-3" y="-13" width="6" height="2" fill="#cbd5e1"/>
-            <line x1="0" y1="-12" x2="0" y2="-19" stroke="#1e293b" stroke-width="1.5"/>
-            <path d="M-10 -20 L10 -20 L7 0 Q0 2 -7 0 Z" fill="rgba(255,255,255,.35)" stroke="#3d2a05" stroke-opacity=".55" stroke-width="1.1"/>
-            <line x1="-6" y1="-18" x2="-4.5" y2="-4" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="0" cy="-28" r="17" fill="url(#hkGlow)"/>
-            <g class="hk-flame b">
-                <path d="M0 -41 Q7.5 -26 0 -19 Q-7.5 -26 0 -41" fill="#f59e0b"/>
-                <path d="M0 -35 Q3.5 -26 0 -21 Q-3.5 -26 0 -35" fill="#fef08a"/>
-            </g>
-        </g>
-
-        <symbol id="hkMenorah" viewBox="10 44 380 224">
-            <path d="M130 264 L270 264 L260 250 L140 250 Z" fill="url(#hkSilverH)"/>
-            <rect x="165" y="238" width="70" height="12" rx="4" fill="url(#hkSilverH)"/>
-            <rect x="193" y="95" width="14" height="145" fill="url(#hkSilverH)"/>
-            <ellipse cx="200" cy="215" rx="14" ry="7" fill="url(#hkSilverH)"/>
-            <ellipse cx="200" cy="145" rx="11" ry="5" fill="url(#hkSilverH)"/>
-            <g fill="none" stroke="url(#hkSilverV)" stroke-width="7" stroke-linecap="round">
-                <path d="M36 135 C36 218 364 218 364 135"/>
-                <path d="M77 135 C77 198 323 198 323 135"/>
-                <path d="M118 135 C118 178 282 178 282 135"/>
-                <path d="M159 135 C159 158 241 158 241 135"/>
-            </g>
-            <g fill="url(#hkSilverH)">
-                <path d="M26 133 Q36 142 46 133 Z"/><path d="M67 133 Q77 142 87 133 Z"/>
-                <path d="M108 133 Q118 142 128 133 Z"/><path d="M149 133 Q159 142 169 133 Z"/>
-                <path d="M190 93 Q200 102 210 93 Z"/>
-                <path d="M231 133 Q241 142 251 133 Z"/><path d="M272 133 Q282 142 292 133 Z"/>
-                <path d="M313 133 Q323 142 333 133 Z"/><path d="M354 133 Q364 142 374 133 Z"/>
-            </g>
-            <use href="#hkCupA" x="36" y="133"/><use href="#hkCupB" x="77" y="133"/>
-            <use href="#hkCupA" x="118" y="133"/><use href="#hkCupB" x="159" y="133"/>
-            <use href="#hkCupA" x="200" y="93"/>
-            <use href="#hkCupB" x="241" y="133"/><use href="#hkCupA" x="282" y="133"/>
-            <use href="#hkCupB" x="323" y="133"/><use href="#hkCupA" x="364" y="133"/>
-        </symbol>
     </defs>
 </svg>
 
 <div id="sale-banner" class="relative mb-8 rounded-3xl overflow-hidden shadow-lg border-2 border-[#8a6414]" style="background:linear-gradient(135deg,#8a6414 0%,#d4a62a 30%,#f6dc7a 52%,#d4a62a 72%,#9a7418 100%)">
     <div class="h-1.5" style="background:linear-gradient(to left,#14171c,#5d6470,#2b2f38,#5d6470,#14171c)"></div>
-    <div class="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 py-6 px-4 md:px-10">
+    <div class="flex items-center justify-center gap-2 sm:gap-6 md:gap-8 py-6 px-3 md:px-8">
 
-        <!-- חנוכיה ימנית -->
-        <svg viewBox="10 44 380 224" class="w-20 sm:w-32 md:w-44 shrink-0" aria-hidden="true"><use href="#hkMenorah"/></svg>
+        <div class="hk-menorah w-28 sm:w-44 md:w-64 shrink-0"></div>
 
-        <!-- טקסט וספירה (מרכז) -->
         <div class="text-center">
             <p class="hk-steel font-serif text-3xl md:text-5xl font-bold leading-tight">מבצע חנוכה</p>
             <p class="hk-steel font-serif text-xl md:text-3xl font-bold leading-tight mt-1">8% הנחה על כל התכשיטים</p>
 
-            <p class="hk-steel text-base md:text-xl mt-2 leading-tight" style="font-family:'Suez One','Frank Ruhl Libre',serif">
-                8 ימים <span class="mx-1">❖</span> 8 נרות <span class="mx-1">❖</span> 8% הנחה
+            <p class="hk-steel text-base md:text-xl mt-2 leading-tight flex items-center justify-center gap-1.5" style="font-family:'Suez One','Frank Ruhl Libre',serif">
+                <span>8 ימים</span>
+                <svg viewBox="0 0 14 40" class="h-7 md:h-9 w-auto" aria-hidden="true" style="-webkit-text-fill-color:initial;filter:drop-shadow(0 1px 0 rgba(255,255,255,.5))"><rect x="5.5" y="1" width="3" height="6" rx="1" fill="#14171c"/><rect x="2" y="7" width="10" height="32" rx="2" fill="url(#hkSilverH)" stroke="#14171c" stroke-width="1"/></svg>
+                <span>8 נרות</span>
+                <svg viewBox="0 0 14 40" class="h-7 md:h-9 w-auto" aria-hidden="true" style="-webkit-text-fill-color:initial;filter:drop-shadow(0 1px 0 rgba(255,255,255,.5))"><rect x="5.5" y="1" width="3" height="6" rx="1" fill="#14171c"/><rect x="2" y="7" width="10" height="32" rx="2" fill="url(#hkSilverH)" stroke="#14171c" stroke-width="1"/></svg>
+                <span>8% הנחה</span>
             </p>
-            <p class="text-xs md:text-sm text-[#2b1d03] mt-1">ההנחה על מחיר התכשיט, ללא שדרוגי מתכת</p>
-
-            <p class="text-xs md:text-sm font-bold text-[#2b1d03] mt-3">בתוקף עד זאת חנוכה 12/12/2026 (כולל)</p>
-
-            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-1.5">
-                <span class="text-sm md:text-base font-bold text-[#2b1d03]">המבצע יסתיים בעוד:</span>
-                <div class="flex items-center gap-1.5" dir="rtl" aria-label="הזמן שנותר למבצע">
-                    <div class="hk-box"><div id="cd-days" class="text-xl font-bold text-[#2b1d03]">--</div><div class="text-[10px] text-[#5a4210]">ימים</div></div>
-                    <span class="text-2xl font-bold text-[#2b1d03] pb-3">:</span>
-                    <div class="hk-box"><div id="cd-hours" class="text-xl font-bold text-[#2b1d03]">--</div><div class="text-[10px] text-[#5a4210]">שעות</div></div>
-                    <span class="text-2xl font-bold text-[#2b1d03] pb-3">:</span>
-                    <div class="hk-box"><div id="cd-mins" class="text-xl font-bold text-[#2b1d03]">--</div><div class="text-[10px] text-[#5a4210]">דקות</div></div>
-                </div>
-            </div>
+            <p class="text-xs md:text-sm text-[#2b1d03] mt-2">ההנחה על מחיר הבסיס, ללא השדרוגים</p>
+            <p class="text-xs md:text-sm font-bold text-[#2b1d03] mt-1">בתוקף עד זאת חנוכה 12/12/2026 (כולל)</p>
         </div>
 
-        <!-- חנוכיה שמאלית -->
-        <svg viewBox="10 44 380 224" class="w-20 sm:w-32 md:w-44 shrink-0" aria-hidden="true"><use href="#hkMenorah"/></svg>
+        <div class="hk-menorah w-28 sm:w-44 md:w-64 shrink-0"></div>
     </div>
     <button onclick="document.getElementById('sale-banner').remove()" class="absolute top-3 left-4 text-xl leading-none text-[#2b1d03]/70 hover:text-black" aria-label="סגירת הבאנר">✕</button>
 </div>
+
+<script>
+(function () {
+    var pos = [[36,133],[77,133],[118,133],[159,133],[200,93],[241,133],[282,133],[323,133],[364,133]];
+    var cups = pos.map(function (p, i) {
+        var dur = (1.4 + (i % 3) * 0.25).toFixed(2), delay = ((i * 0.37) % 1.2).toFixed(2);
+        return '<g class="hk-cup" transform="translate(' + p[0] + ' ' + p[1] + ')">' +
+            '<path d="M-8 -12 L8 -12 L6 -1 Q0 1 -6 -1 Z" fill="url(#hkOil)"/>' +
+            '<rect x="-3" y="-13" width="6" height="2" fill="#cbd5e1"/>' +
+            '<line x1="0" y1="-12" x2="0" y2="-19" stroke="#1e293b" stroke-width="1.5"/>' +
+            '<path d="M-10 -20 L10 -20 L7 0 Q0 2 -7 0 Z" fill="rgba(255,255,255,.35)" stroke="#3d2a05" stroke-opacity=".55" stroke-width="1.1"/>' +
+            '<line x1="-6" y1="-18" x2="-4.5" y2="-4" stroke="rgba(255,255,255,.8)" stroke-width="1.5" stroke-linecap="round"/>' +
+            '<g class="hk-flame" style="animation-duration:' + dur + 's;animation-delay:' + delay + 's">' +
+                '<circle cx="0" cy="-28" r="18" fill="url(#hkGlow)"/>' +
+                '<path d="M0 -41 Q7.5 -26 0 -19 Q-7.5 -26 0 -41" fill="#f59e0b"/>' +
+                '<path d="M0 -35 Q3.5 -26 0 -21 Q-3.5 -26 0 -35" fill="#fef08a"/>' +
+            '</g>' +
+            '<rect x="-14" y="-46" width="28" height="50" fill="transparent"/>' +
+            '</g>';
+    }).join('');
+
+    var svg = '<svg viewBox="10 36 380 234" xmlns="http://www.w3.org/2000/svg" aria-label="חנוכיה, לחצו על נר כדי להדליק או לכבות">' +
+        '<path d="M130 264 L270 264 L260 250 L140 250 Z" fill="url(#hkSilverH)"/>' +
+        '<rect x="165" y="238" width="70" height="12" rx="4" fill="url(#hkSilverH)"/>' +
+        '<rect x="193" y="95" width="14" height="145" fill="url(#hkSilverH)"/>' +
+        '<ellipse cx="200" cy="215" rx="14" ry="7" fill="url(#hkSilverH)"/>' +
+        '<ellipse cx="200" cy="145" rx="11" ry="5" fill="url(#hkSilverH)"/>' +
+        '<g fill="none" stroke="url(#hkSilverV)" stroke-width="7" stroke-linecap="round">' +
+            '<path d="M36 135 C36 218 364 218 364 135"/><path d="M77 135 C77 198 323 198 323 135"/>' +
+            '<path d="M118 135 C118 178 282 178 282 135"/><path d="M159 135 C159 158 241 158 241 135"/>' +
+        '</g>' +
+        '<g fill="url(#hkSilverH)">' +
+            '<path d="M26 133 Q36 142 46 133 Z"/><path d="M67 133 Q77 142 87 133 Z"/><path d="M108 133 Q118 142 128 133 Z"/>' +
+            '<path d="M149 133 Q159 142 169 133 Z"/><path d="M190 93 Q200 102 210 93 Z"/><path d="M231 133 Q241 142 251 133 Z"/>' +
+            '<path d="M272 133 Q282 142 292 133 Z"/><path d="M313 133 Q323 142 333 133 Z"/><path d="M354 133 Q364 142 374 133 Z"/>' +
+        '</g>' + cups + '</svg>';
+
+    document.querySelectorAll('.hk-menorah').forEach(function (box) {
+        box.innerHTML = svg;
+        box.querySelectorAll('.hk-cup').forEach(function (c) {
+            c.addEventListener('click', function () { c.classList.toggle('off'); });
+        });
+    });
+})();
+</script>
          
          <!-- סינון -->
 <div class="flex flex-wrap gap-2 mb-8 no-print" id="filter-bar">
