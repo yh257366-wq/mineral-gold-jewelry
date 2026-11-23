@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl"><head><meta charset="UTF-8">
 <title>מינרל גולד - קטלוג התכשיטים</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Heebo:wght@300;400;500;700&family=Suez+One&display=swap');
 @page{size:A4;margin:0}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#16120f;--ivory:#faf6ee;--gold:#b08a2e;--gold2:#d9bb62;--wine:#8a2b2b;--mute:#6f675d}
@@ -25,7 +25,15 @@ body{font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl}
 .cover .rule{width:70mm;margin:0 auto 12mm}
 .cover .badge{display:inline-block;border:1px solid var(--gold2);color:var(--gold2);padding:3mm 9mm;font-size:14px;letter-spacing:.06em}
 .cover .badge-date{margin-top:5mm;font-size:12px;font-weight:300;letter-spacing:.12em;color:#d8cdb6}
-
+.hk-banner{display:flex;align-items:center;justify-content:center;gap:6mm;border:1px solid var(--gold2);padding:6mm 7mm;background:linear-gradient(135deg,rgba(217,187,98,.18),rgba(217,187,98,.04));outline:1px solid rgba(217,187,98,.25);outline-offset:2mm}
+.hk-menorah{width:36mm;flex:0 0 36mm;height:auto;overflow:visible}
+.hk-text{text-align:center}
+.hk-title{font-family:'Frank Ruhl Libre',serif;font-weight:900;font-size:36px;line-height:1.1}
+.hk-sub{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:19px;margin-top:1.5mm}
+.hk-line{font-family:'Suez One','Frank Ruhl Libre',serif;font-size:14px;color:var(--gold2);margin-top:3mm;letter-spacing:.04em}
+.hk-note{font-size:10.5px;color:#d8cdb6;font-weight:300;margin-top:2.5mm}
+.hk-date{font-size:11.5px;color:#f3ead7;font-weight:500;margin-top:1mm;letter-spacing:.04em}
+  
 /* product pages */
 .head{position:absolute;top:11mm;right:16mm;left:16mm;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.3em;color:var(--mute)}
 .head b{font-family:'Frank Ruhl Libre',serif;letter-spacing:.12em;font-size:13px;font-weight:700}
@@ -68,8 +76,10 @@ body{font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl}
 <body><div id="root"></div>
 <script>
 const LOGO="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/logo.png";
-const SALE_ACTIVE = false;
-const SALE_END_TEXT='י"ט חשון (30/10/2026)';
+// ===== מבצע חנוכה: true = מבצע פעיל, false = מחירים רגילים =====
+const SALE_ACTIVE = true;
+const SALE_PERCENT = 8;
+const SALE_END_TEXT = 'זאת חנוכה 12/12/2026 (כולל)';
 const IMG="https://raw.githubusercontent.com/yh257366-wq/mineral-gold-jewelry/main/images/";
 
 const products = [
@@ -126,7 +136,10 @@ const products = [
   { id: 40, title: "סט חישוקי סודליט", price: 280, originalPrice: 350, sku: "040", type: "סט תכשיטים", img: IMG+"set-sodalite-hoops.png", desc: "סט שרשרת, עגילים וצמיד מחישוקים זהובים עדינים, ובתוכם חרוזי סודליט כחולים-לבנים, שזורים בעבודת יד בחוט ליפוף זהוב. שילוב מלכותי ומרשים.", material: "חישוקי מתכת זהובים, חרוזי סודליט כחולים, חוט נחושת זהוב", size: "גודל כל חישוק: כ-1.7 ס\"מ | אורך כולל של העגילים: כ-4 ס\"מ" }
 ];
 
-// מחירי שדרוג לפני הנחה: [כסף 925, גולדפילד, מק"טים] - זהה לטבלה באתר
+// מחיר מבצע = 8% פחות ממחיר הבסיס (זהה לחישוב באתר)
+products.forEach(p => { p.price = SALE_ACTIVE ? Math.round(p.originalPrice * (100 - SALE_PERCENT) / 100) : p.originalPrice; });
+  
+  // מחירי שדרוג לפני הנחה: [כסף 925, גולדפילד, מק"טים] - זהה לטבלה באתר
 const UPGRADE_GROUPS = [
   [70, 130,  ["032","005","007","008","012","030","015","022","024","031"]],
   [80, 145,  ["003","004","009","011","016","038","039"]],
@@ -147,10 +160,9 @@ const UPGRADE_GROUPS = [
 function getUpgrades(p){
   const g = UPGRADE_GROUPS.find(x => x[2].includes(p.sku));
   const o925 = g ? g[0] : 70, oGold = g ? g[1] : 130;
-  const f = SALE_ACTIVE ? 0.8 : 1;
   return [
-    {t:"כסף 925: \u200E+"+Math.round(o925*f)+" ₪", old: SALE_ACTIVE ? "\u200E+"+o925 : ""},
-    {t:"גולדפילד איכותי: \u200E+"+Math.round(oGold*f)+" ₪", old: SALE_ACTIVE ? "\u200E+"+oGold : ""}];
+    {t:"כסף 925: \u200E+"+o925+" ₪", old:""},
+    {t:"גולדפילד איכותי: \u200E+"+oGold+" ₪", old:""}];
 }
 
 function itemHtml(p,i){
@@ -178,6 +190,60 @@ function itemHtml(p,i){
     </div></div>`;
 }
 
+  function hanukkahBanner(){
+  const pos=[[36,133],[77,133],[118,133],[159,133],[200,93],[241,133],[282,133],[323,133],[364,133]];
+  const cups=pos.map(p=>`<g transform="translate(${p[0]} ${p[1]})">
+    <path d="M-8 -12 L8 -12 L6 -1 Q0 1 -6 -1 Z" fill="url(#hkOil)"/>
+    <rect x="-3" y="-13" width="6" height="2" fill="#cbd5e1"/>
+    <line x1="0" y1="-12" x2="0" y2="-19" stroke="#1e293b" stroke-width="1.5"/>
+    <path d="M-10 -20 L10 -20 L7 0 Q0 2 -7 0 Z" fill="rgba(255,255,255,.2)" stroke="#bae6fd" stroke-opacity=".8" stroke-width="1.1"/>
+    <line x1="-6" y1="-18" x2="-4.5" y2="-4" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="0" cy="-28" r="18" fill="url(#hkGlow)"/>
+    <path d="M0 -41 Q7.5 -26 0 -19 Q-7.5 -26 0 -41" fill="#f59e0b"/>
+    <path d="M0 -35 Q3.5 -26 0 -21 Q-3.5 -26 0 -35" fill="#fef08a"/>
+  </g>`).join('');
+  const menorah=`<svg class="hk-menorah" viewBox="10 36 380 234" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M130 264 L270 264 L260 250 L140 250 Z" fill="url(#hkSilverH)"/>
+    <rect x="165" y="238" width="70" height="12" rx="4" fill="url(#hkSilverH)"/>
+    <rect x="193" y="95" width="14" height="145" fill="url(#hkSilverH)"/>
+    <ellipse cx="200" cy="215" rx="14" ry="7" fill="url(#hkSilverH)"/>
+    <ellipse cx="200" cy="145" rx="11" ry="5" fill="url(#hkSilverH)"/>
+    <g fill="none" stroke="url(#hkSilverV)" stroke-width="7" stroke-linecap="round">
+      <path d="M36 135 C36 218 364 218 364 135"/><path d="M77 135 C77 198 323 198 323 135"/>
+      <path d="M118 135 C118 178 282 178 282 135"/><path d="M159 135 C159 158 241 158 241 135"/>
+    </g>
+    <g fill="url(#hkSilverH)">
+      <path d="M26 133 Q36 142 46 133 Z"/><path d="M67 133 Q77 142 87 133 Z"/><path d="M108 133 Q118 142 128 133 Z"/>
+      <path d="M149 133 Q159 142 169 133 Z"/><path d="M190 93 Q200 102 210 93 Z"/><path d="M231 133 Q241 142 251 133 Z"/>
+      <path d="M272 133 Q282 142 292 133 Z"/><path d="M313 133 Q323 142 333 133 Z"/><path d="M354 133 Q364 142 374 133 Z"/>
+    </g>${cups}</svg>`;
+  return `<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <linearGradient id="hkSilverH" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#7a8393"/><stop offset="30%" stop-color="#cfd5df"/><stop offset="50%" stop-color="#ffffff"/><stop offset="70%" stop-color="#bcc4d0"/><stop offset="100%" stop-color="#6b7383"/>
+      </linearGradient>
+      <linearGradient id="hkSilverV" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#f1f5f9"/><stop offset="50%" stop-color="#aab2c0"/><stop offset="100%" stop-color="#6b7383"/>
+      </linearGradient>
+      <linearGradient id="hkOil" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#fde047" stop-opacity=".9"/><stop offset="100%" stop-color="#ca8a04" stop-opacity=".95"/>
+      </linearGradient>
+      <radialGradient id="hkGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fef08a" stop-opacity=".6"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+      </radialGradient>
+    </defs></svg>
+    <div class="hk-banner">
+      ${menorah}
+      <div class="hk-text">
+        <div class="hk-title gold-text">מבצע חנוכה</div>
+        <div class="hk-sub gold-text">8% הנחה על כל התכשיטים</div>
+        <div class="hk-line">8 ימים ❖ 8 נרות ❖ 8% הנחה</div>
+        <div class="hk-note">ההנחה על מחיר הבסיס, ללא השדרוגים</div>
+        <div class="hk-date">בתוקף עד ${SALE_END_TEXT}</div>
+      </div>
+      ${menorah}
+    </div>`;
+}
+
 function render(){
   const root=document.getElementById("root");
   const per=3, pages=Math.ceil(products.length/per), total=pages+2;
@@ -187,8 +253,7 @@ function render(){
     <h1 class="gold-text">קטלוג התכשיטים</h1>
     <div class="sub">אבני חן טבעיות · עבודת יד</div>
     <div class="rule"></div>
-        ${SALE_ACTIVE ? `<div class="badge">מבצע השקה · 20% הנחה על כל התכשיטים והשדרוגים</div>
-    <div class="badge-date">המבצע בתוקף עד ${SALE_END_TEXT}</div>` : ''}</section>`;
+    ${SALE_ACTIVE ? hanukkahBanner() : ''}</section>`;
   for(let pg=0;pg<pages;pg++){
     const chunk=products.slice(pg*per,pg*per+per);
     h+=`<section class="page"><div class="head"><b>מינרל גולד</b><span>MINERAL GOLD</span></div>
